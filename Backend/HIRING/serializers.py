@@ -30,6 +30,7 @@ class CandidateStageSerializer(serializers.ModelSerializer):
         model = Candidate_Stage
         fields = (
             "candidate",
+            "stage",
             "start_date",
             "end_date",
             "status",

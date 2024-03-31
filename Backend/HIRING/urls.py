@@ -14,5 +14,4 @@ router.register(r"candidate_stage", views.CandidateStageView, "candidate_stages"
 
 urlpatterns = [
     path("api/v1/", include(router.urls)),
-    path("docs/", include_docs_urls(title="API de Contrataciones")),
 ]
