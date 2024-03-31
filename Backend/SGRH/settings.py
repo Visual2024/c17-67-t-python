@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-    "GRH",
-    "API",
     "rest_framework",
+    "coreapi",
+    "GRH",
+    "HIRING",
+    "API",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS Origins Authorization
 CORS_ALLOW_ALL_ORIGINS: False  # Set to True to allow all origins
 CORS_ALLOWED_ORIGINS = []
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
