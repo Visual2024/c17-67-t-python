@@ -5,7 +5,7 @@ export function MenuLateral () {
 
   return (
     <div>
-      <ul className="bg-gray-500">
+      <ul className="bg-gray-500 h-dvh">
         <li>
           <a href="/perfildeusuario">Perfil</a>
         </li>

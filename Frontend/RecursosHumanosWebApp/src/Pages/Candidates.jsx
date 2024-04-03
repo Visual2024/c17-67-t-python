@@ -1,4 +1,4 @@
-import { CandidatesDashboard } from "../Components/CandidatesDashboard"
+import { CandidatesDashboard } from "@/Components/CandidatesDashboard"
 
 export function Candidates() {
   return (
