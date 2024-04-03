@@ -1,5 +1,4 @@
-import React from "react";
-// import menuLateral from "../Styles/MenuLateral.module.css";
+
 
 const MenuLateral = () => {
 
