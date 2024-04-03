@@ -1,5 +1,5 @@
 
-const FormularioLogin = () => {
+export function FormularioLogin() {
 
 
   return (
@@ -12,4 +12,4 @@ const FormularioLogin = () => {
   )
 }
 
-export default FormularioLogin
+

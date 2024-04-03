@@ -1,6 +1,6 @@
 import { CandidatesDashboard } from "../Components/CandidatesDashboard"
 
-export const Candidates = () => {
+export function Candidates() {
   return (
     <div>
       <CandidatesDashboard />
