@@ -6,6 +6,7 @@
     justify-content: center;
     box-sizing: border-box;
 }
+
 .Formularios{
     display: flex;
     flex-direction: row;
@@ -13,9 +14,11 @@
     justify-content: center;
     box-sizing: border-box;
 }
-.Form-container{
+
+.FormContainer{
     border: 1px solid black;
 }
-.Form-Login{
+
+.FormLoginDiv{
     border: 1px solid black;
 }
