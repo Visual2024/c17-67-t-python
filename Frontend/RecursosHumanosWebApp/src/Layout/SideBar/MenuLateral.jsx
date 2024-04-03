@@ -1,6 +1,6 @@
 
 
-const MenuLateral = () => {
+export function MenuLateral () {
 
 
   return (
@@ -15,6 +15,6 @@ const MenuLateral = () => {
       </ul>
     </div>
   );
-};
+}
 
-export default MenuLateral;
+

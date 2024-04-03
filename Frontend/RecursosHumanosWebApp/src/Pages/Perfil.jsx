@@ -1,13 +1,7 @@
-import React from 'react'
-
-const Perfil = () => {
 
 
+export function Perfil() {
   return (
-    <div>
-        <h2>Perfil de usuario</h2>
-    </div>
+    <div>Perfil</div>
   )
 }
-
-export default Perfil

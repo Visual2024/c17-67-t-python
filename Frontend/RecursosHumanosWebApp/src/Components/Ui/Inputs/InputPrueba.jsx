@@ -1,6 +1,6 @@
 
 
-export default function InputPrueba() {
+export function InputPrueba() {
   return (
     <div>InputPrueba</div>
   )
