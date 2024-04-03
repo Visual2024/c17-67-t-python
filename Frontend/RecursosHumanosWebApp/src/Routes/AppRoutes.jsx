@@ -5,6 +5,7 @@ import { Perfil } from "@/Pages/Perfil";
 import { Login } from "@/Pages/Login";
 import { Home } from "@/Pages/Home";
 import { Candidates } from "@/Pages/Candidates";
+import { Error404 } from "@/Pages/Error404";
 
 export function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/candidates" element={<Candidates />} />
       </Route>
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 }
