@@ -8,8 +8,8 @@ import Home from "./Pages/Home";
 import { Candidates } from "./Pages/Candidates";
 
 
-function App() {
 
+function App() {
 
   return (
     <>
@@ -24,6 +24,7 @@ function App() {
 
     </>
   );
+
 }
 
 export default App;
