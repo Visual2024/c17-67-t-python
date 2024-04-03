@@ -1,5 +1,5 @@
-import loginstyles from "../Styles/Login.module.css";
-import {FormularioLogin} from "../Components/Form/FormularioLogin";
+import loginstyles from "@/Styles/Login.module.css";
+import {FormularioLogin} from "@/Components/Form/FormularioLogin";
 import { useState } from "react";
 
 export function Login() {
