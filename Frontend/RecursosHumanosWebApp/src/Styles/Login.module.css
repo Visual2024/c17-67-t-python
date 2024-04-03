@@ -1,0 +1,24 @@
+.Container{
+    margin: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.Formularios{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.FormContainer{
+    border: 1px solid black;
+}
+
+.FormLoginDiv{
+    border: 1px solid black;
+}

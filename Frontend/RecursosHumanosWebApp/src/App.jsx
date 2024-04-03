@@ -21,6 +21,14 @@ function App() {
       <MenuLateral />
     </>
   );
-}
+import { AppRoutes } from "./Routes/AppRoutes";
+import './Styles/App.css'
 
-export default App;
+
+export function App() {
+  return (
+    <>
+      <AppRoutes />
+    </>
+  )
+}
