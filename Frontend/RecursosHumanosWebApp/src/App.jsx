@@ -1,12 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./Components/Header";
-import MenuLateral from "./Components/MenuLateral";
-import "./Styles/App.css";
+
+import Header from "./Components/layout/Header";
+import {MenuLateral} from "./Components/Menu/MenuLateral";
+
 import Perfil from "./Pages/Perfil";
 import Login from "./Pages/Login";
 import Home from "./Pages/Home";
+
 import { Candidates } from "./Pages/Candidates";
 
+import "./Styles/App.css";
 
 
 function App() {
