@@ -1,6 +1,6 @@
-import { CandidatesDashboard } from "@/Components/CandidatesDashboard"
+import { CandidatesDashboard } from "../Components/Candidatos/CandidatesDashboard"
 
-export function Candidates() {
+export const Candidates = () => {
   return (
     <div>
       <CandidatesDashboard />
