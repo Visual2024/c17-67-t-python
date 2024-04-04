@@ -1,37 +1,40 @@
-import loginstyles from "@/Styles/Login.module.css";
-import {FormularioLogin} from "@/Components/Form/FormularioLogin";
-import { useState } from "react";
+import loginstyles from '../Styles/Login.module.css'
+import { FormularioLogin } from '../Components/Form/FormularioLogin';
+import { useState } from 'react'
 
-export function Login() {
+export const Login = () => {
 
-  const [puestoDeTrabajo, setPuestoDeTrabajo] = useState("");
-  const [candidatoForm, setCandidatoForm] = useState(false);
+  const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
+  const [candidatoForm, setCandidatoForm] = useState(false)
 
   const switchCandidatoForm = () => {
-    setCandidatoForm(!candidatoForm);
-  };
+    setCandidatoForm(!candidatoForm)
+  }
 
   const selectOnChange = (event) => {
-    setPuestoDeTrabajo(event.target.value);
-  };
+    setPuestoDeTrabajo(event.target.value)
+  }
 
   const registrateClick = (event) => {
-    event.preventDefault();
-    if (puestoDeTrabajo === "") {
-      return alert("completar campo obligatorio");
+    event.preventDefault()
+    if (puestoDeTrabajo === '') {
+      return alert('completar campo obligatorio')
     }
 
-    switchCandidatoForm();
-  };
+    switchCandidatoForm()
+    alert('Activar el formulario para el postulante')
+  }
 
-  console.log(candidatoForm);
+  console.log(candidatoForm)
+
 
   return (
     <div className={loginstyles.Container}>
-      <h1 style={{ color: "red" }}>HR Nexo Recursos Humanos</h1>
+      <h1 style={{ color: 'red' }}>HR Nexo Recursos Humanos</h1>
 
       <div className={loginstyles.Formularios}>
         <div className={loginstyles.FormContainer}>
+
           <form className={loginstyles.registroCandidatoForm}>
             <h2>Trabaja con nosotros!</h2>
             <select value={puestoDeTrabajo} onChange={selectOnChange}>
@@ -49,6 +52,7 @@ export function Login() {
           <FormularioLogin />
         </div>
       </div>
+
     </div>
-  );
+  )
 }
