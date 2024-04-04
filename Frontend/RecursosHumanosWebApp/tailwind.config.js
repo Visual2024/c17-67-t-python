@@ -4,12 +4,12 @@ export default {
     theme: {
         extend: {
             colors: {
-                "dark-purple" : "#081A51",
-                "light-white" : "rgba(255,255,255,0.17)",
-                "gris" : "#919191"
-            }
+                primary: "#0B0060",
+                "dark-purple": "#081A51",
+                "light-white": "rgba(255,255,255,0.17)",
+                gris: "#919191",
+            },
         },
     },
     plugins: [],
 };
-
