@@ -18,15 +18,3 @@
 .FormContainer{
     border: 1px solid black;
 }
-
-.registroCandidatoForm{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-.FormLoginDiv{
-    border: 1px solid black;
-}
