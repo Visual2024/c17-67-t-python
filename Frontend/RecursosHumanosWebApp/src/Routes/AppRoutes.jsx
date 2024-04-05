@@ -10,10 +10,10 @@ import { Error404 } from "@/Pages/Error404";
 export function AppRoutes() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />      
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/perfildeusuario" element={<Perfil />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/candidates" element={<Candidates />} />
       </Route>
       <Route path="*" element={<Error404 />} />
