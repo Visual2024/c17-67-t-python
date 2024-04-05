@@ -1,6 +1,6 @@
 
 
-const Header = () => {
+export function Header() {
 
   return (
     <div>
@@ -9,4 +9,3 @@ const Header = () => {
   )
 }
 
-export default Header
