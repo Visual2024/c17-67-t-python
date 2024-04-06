@@ -26,7 +26,7 @@ export const MenuLateral = () => {
 
   const gerente = [
     // Gerente
-    { title: "Emplados", src: "User", gap: true },
+    { title: "Empleado", src: "User", gap: true },
     { title: "Finanzas", src: "Calendar" },
     { title: "Comunicación", src: "Search" },
     { title: "Gestion de Tiempo", src: "Search" },
@@ -56,17 +56,16 @@ export const MenuLateral = () => {
           >
             <button onClick={() => setOpen(!open)} className="relative ">
               <i
-                className={` fa-solid fa-arrow-left pt-[-10%] px-[60%]  ${
-                  !open && "pt-[-10%] mx-[-20%] "
+                className={`fa-solid fa-arrow-left pt-[-10%] px-[60%]  ${
+                  !open && "pt-[-10%] mx-[-20%]"
                 }`}
               ></i>
             </button>
           </div>
           <div className={`flex flex-row items-center ml-4 `}>
             <div
-              className={`cursor-pointer duration-500 mt-1  ${
-                open && "rotate-[360deg] "
-              } ${!open && "mt-2"}`}
+              className={`cursor-pointer duration-500 mt-1  
+              ${open && "rotate-[360deg] "} ${!open && "mt-2 hidden"}`}
             >
               <LogoGira />
             </div>
@@ -75,7 +74,7 @@ export const MenuLateral = () => {
                 !open && "opacity-0"
               }`}
             >
-              <Link to={'/'}>
+              <Link to={"/"}>
                 <Logo />
               </Link>
             </div>
@@ -110,10 +109,10 @@ export const MenuLateral = () => {
             `}
                 >
                   <div>
-                    <Link to={""}>
+                    <Link to={"./rol"}>
                       {index == 0 && <Rol width={16} height={16} />}
                     </Link>
-                    <Link to={""}>
+                    <Link to={"./base"}>
                       {index == 1 && <Base width={16} height={16} />}
                     </Link>
                   </div>
@@ -122,7 +121,9 @@ export const MenuLateral = () => {
                       !open && "hidden"
                     } origin-left duration-200 text-gris`}
                   >
-                    {adm.title}
+                    <Link to={"./rol"}>{index == 0 && `${adm.title}`}</Link>
+                    <Link to={"./base"}>{index == 1 && `${adm.title}`}</Link>
+                    
                   </span>
                 </li>
               </div>
@@ -162,9 +163,15 @@ export const MenuLateral = () => {
                       !open && "hidden"
                     } origin-left duration-200 text-gris`}
                   >
-                    <Link to={"/Candidates "}>{index == 0 && `${ger.title}`}</Link>
-                    <Link to={"/Finanzas "}>{index == 1 && `${ger.title}`}</Link>
-                    <Link to={"/Comunicacion "}>{index == 2 && `${ger.title}`}</Link>
+                    <Link to={"/Candidates "}>
+                      {index == 0 && `${ger.title}`}
+                    </Link>
+                    <Link to={"/Finanzas "}>
+                      {index == 1 && `${ger.title}`}
+                    </Link>
+                    <Link to={"/Comunicacion "}>
+                      {index == 2 && `${ger.title}`}
+                    </Link>
                     <Link to={"/Tiempo "}>{index == 3 && `${ger.title}`}</Link>
                   </span>
                 </li>
@@ -186,16 +193,16 @@ export const MenuLateral = () => {
                    `}
                 >
                   <div>
-                    <Link>
+                    <Link to={"./entrada"}>
                       {index == 0 && <Entrada width={16} height={16} />}
                     </Link>
-                    <Link>
+                    <Link to={"./libre"}>
                       {index == 1 && <Libre width={16} height={16} />}
                     </Link>
-                    <Link>
+                    <Link to={"./finanzas"}>
                       {index == 2 && <Finanzas width={16} height={16} />}
                     </Link>
-                    <Link>
+                    <Link to={"./horarios"}>
                       {index == 3 && <Horarios width={16} height={16} />}
                     </Link>
                     <Link to={"./perfil"}>
@@ -208,11 +215,23 @@ export const MenuLateral = () => {
                       !open && "hidden"
                     } origin-left duration-200 text-gris`}
                   >
-                    <Link to={""}> {index == 0 && ` ${emp.title}`} </Link>
-                    <Link to={""}> {index == 1 && ` ${emp.title}`} </Link>
-                    <Link to={""}> {index == 2 && ` ${emp.title}`} </Link>
-                    <Link to={""}> {index == 3 && ` ${emp.title}`} </Link>
-                    <Link to={""}> {index == 4 && ` ${emp.title}`} </Link>
+                    <Link to={"./entrada"}>
+                      {" "}
+                      {index == 0 && ` ${emp.title}`}{" "}
+                    </Link>
+                    <Link to={"./time"}> {index == 1 && ` ${emp.title}`} </Link>
+                    <Link to={"./horarios"}>
+                      {" "}
+                      {index == 2 && ` ${emp.title}`}{" "}
+                    </Link>
+                    <Link to={"./perfil"}>
+                      {" "}
+                      {index == 3 && ` ${emp.title}`}{" "}
+                    </Link>
+                    <Link to={"./perfil"}>
+                      {" "}
+                      {index == 4 && ` ${emp.title}`}{" "}
+                    </Link>
                   </span>
                 </li>
               </div>
