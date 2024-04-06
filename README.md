@@ -8,4 +8,17 @@
 
 ## Descripción
 
-Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus recursos humanos de manera eficiente. Se basa en las tecnologías React y Django, lo que la hace moderna, escalable y fácil de usar.
+Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus recursos humanos de manera simple y eficiente. Se basa en las tecnologías React y Django, lo que la hace moderna, escalable y fácil de usar.
+
+## Colaboradores
+
+- QA
+
+  - []
+
+- Frontend:
+
+  - [Alejandro Luna]()
+
+- Backend:
+  - [Felix Pacheco Lobos](https://www.linkedin.com/in/felix-pacheco-lobos/)
