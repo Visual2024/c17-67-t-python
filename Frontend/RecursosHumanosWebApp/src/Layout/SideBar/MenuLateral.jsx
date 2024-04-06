@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Logo, LogoGira } from "../../assets/img/Logo";
 import {
   Rol,
@@ -53,7 +54,7 @@ export const MenuLateral = () => {
               !open && "rotate-180 absolute -right-1 top-[15px]"
             }`}
           >
-            <button onClick={() => setOpen(!open)} className="relative " >
+            <button onClick={() => setOpen(!open)} className="relative ">
               <i
                 className={` fa-solid fa-arrow-left pt-[-10%] px-[60%]  ${
                   !open && "pt-[-10%] mx-[-20%] "
@@ -74,14 +75,19 @@ export const MenuLateral = () => {
                 !open && "opacity-0"
               }`}
             >
-              <Logo />
+              <Link to={'/'}>
+                <Logo />
+              </Link>
             </div>
           </div>
           <div className="flex flex-row items-center content-center pr-1 ml-5 mt-10  relative left-2 ">
-            <Panel width={18} height={18} className={` `}/>
-            {!open == "" && <h1 className="ml-1 font-normal  text-[1rem] pb-[.01rem] text-[#0B0060]">Panel</h1>}
+            <Panel width={18} height={18} className={` `} />
+            {!open == "" && (
+              <h1 className="ml-1 font-normal  text-[1rem] pb-[.01rem] text-[#0B0060]">
+                Panel
+              </h1>
+            )}
           </div>
-
 
           <hr />
           <h1
@@ -91,7 +97,9 @@ export const MenuLateral = () => {
           ></h1>
 
           <ul className={`pt-6 ml-5 ${!open == ""}`}>
-            {!open == "" && <h1 className="font-bold text-[#919191]">ADMINISTRADOR</h1>}
+            {!open == "" && (
+              <h1 className="font-bold text-[#919191]">ADMINISTRADOR</h1>
+            )}
             {administrador.map((adm, index) => (
               <div>
                 <li
@@ -101,8 +109,14 @@ export const MenuLateral = () => {
                     
             `}
                 >
-                  {index == 0 && <Rol width={16} height={16} />}
-                  {index == 1 && <Base width={16} height={16} />}
+                  <div>
+                    <Link to={""}>
+                      {index == 0 && <Rol width={16} height={16} />}
+                    </Link>
+                    <Link to={""}>
+                      {index == 1 && <Base width={16} height={16} />}
+                    </Link>
+                  </div>
                   <span
                     className={`${
                       !open && "hidden"
@@ -116,7 +130,9 @@ export const MenuLateral = () => {
           </ul>
 
           <ul className={`pt-6 ml-5 ${!open == ""}`}>
-            {!open == "" && <h1 className="font-bold text-[#919191]">GERENTE</h1>}
+            {!open == "" && (
+              <h1 className="font-bold text-[#919191]">GERENTE</h1>
+            )}
             {gerente.map((ger, index) => (
               <div>
                 <li
@@ -126,17 +142,30 @@ export const MenuLateral = () => {
                     
             `}
                 >
-                  {index == 0 && <Empleado width={16} height={16} />}
-                  {index == 1 && <Finanzas width={16} height={16} />}
-                  {index == 2 && <Comunicación width={16} height={16} />}
-                  {index == 3 && <Tiempo width={16} height={16} />}
+                  <div>
+                    <Link to={"/Candidates"}>
+                      {index == 0 && <Empleado width={16} height={16} />}
+                    </Link>
+                    <Link to={"Finanzas"}>
+                      {index == 1 && <Finanzas width={16} height={16} />}
+                    </Link>
+                    <Link to={"Comunicacion"}>
+                      {index == 2 && <Comunicación width={16} height={16} />}
+                    </Link>
 
+                    <Link to={"Tiempo"}>
+                      {index == 3 && <Tiempo width={16} height={16} />}
+                    </Link>
+                  </div>
                   <span
                     className={`${
                       !open && "hidden"
                     } origin-left duration-200 text-gris`}
                   >
-                    {ger.title}
+                    <Link to={"/Candidates "}>{index == 0 && `${ger.title}`}</Link>
+                    <Link to={"/Finanzas "}>{index == 1 && `${ger.title}`}</Link>
+                    <Link to={"/Comunicacion "}>{index == 2 && `${ger.title}`}</Link>
+                    <Link to={"/Tiempo "}>{index == 3 && `${ger.title}`}</Link>
                   </span>
                 </li>
               </div>
@@ -144,7 +173,9 @@ export const MenuLateral = () => {
           </ul>
 
           <ul className={`pt-6 ml-5 ${!open == ""}`}>
-            {!open == "" && <h1 className="font-bold text-[#919191]">EMPLEADO</h1>}
+            {!open == "" && (
+              <h1 className="font-bold text-[#919191]">EMPLEADO</h1>
+            )}
             {empleado.map((emp, index) => (
               <div>
                 <li
@@ -154,18 +185,34 @@ export const MenuLateral = () => {
                    
                    `}
                 >
-                  {index == 0 && <Entrada width={16} height={16} />}
-                  {index == 1 && <Libre width={16} height={16} />}
-                  {index == 2 && <Finanzas width={16} height={16} />}
-                  {index == 3 && <Horarios width={16} height={16} />}
-                  {index == 4 && <Perfil width={16} height={16} />}
+                  <div>
+                    <Link>
+                      {index == 0 && <Entrada width={16} height={16} />}
+                    </Link>
+                    <Link>
+                      {index == 1 && <Libre width={16} height={16} />}
+                    </Link>
+                    <Link>
+                      {index == 2 && <Finanzas width={16} height={16} />}
+                    </Link>
+                    <Link>
+                      {index == 3 && <Horarios width={16} height={16} />}
+                    </Link>
+                    <Link to={"./perfil"}>
+                      {index == 4 && <Perfil width={16} height={16} />}
+                    </Link>
+                  </div>
 
                   <span
                     className={`${
                       !open && "hidden"
                     } origin-left duration-200 text-gris`}
                   >
-                    {emp.title}
+                    <Link to={""}> {index == 0 && ` ${emp.title}`} </Link>
+                    <Link to={""}> {index == 1 && ` ${emp.title}`} </Link>
+                    <Link to={""}> {index == 2 && ` ${emp.title}`} </Link>
+                    <Link to={""}> {index == 3 && ` ${emp.title}`} </Link>
+                    <Link to={""}> {index == 4 && ` ${emp.title}`} </Link>
                   </span>
                 </li>
               </div>
