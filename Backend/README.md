@@ -36,13 +36,13 @@ Crear el entorno virtual y activarlo usando el siguiente comando:
 
 ```
 # Windows
-py -m venv env
+py -3.9 -m venv env
 .\env\Scripts\activate
 ```
 
 ```
 # Linux o MacOS
-python -m venv env
+python -3.9 -m venv env
 source env/bin/activate
 ```
 
@@ -84,4 +84,5 @@ python manage.py runserver
 #### 8 - Despliegue
 
 #### 9 - Conclusión
+
 Hasta aqui llegue Dario Romero
