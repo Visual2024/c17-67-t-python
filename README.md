@@ -19,6 +19,7 @@ Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus 
 - Frontend:
 
   - [Alejandro Luna]()
+  - [Facundo Pettersson]()
 
 - Backend:
   - [Felix Pacheco Lobos](https://www.linkedin.com/in/felix-pacheco-lobos/)
