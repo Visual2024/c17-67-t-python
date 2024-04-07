@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY") or "MySecretKey"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") or True
 
-ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -86,10 +86,10 @@ WSGI_APPLICATION = "SGRH.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DB_ENGINE"),
         # "ENGINE": "django.db.backends.sqlite3"
-        "NAME": os.environ.get("DB_NAME"),
         # "NAME": BASE_DIR / "db.sqlite3"
+        "ENGINE": os.environ.get("DB_ENGINE"),
+        "NAME": os.environ.get("DB_NAME"),
         "HOST": os.environ.get("DB_HOST"),
         "USER": os.environ.get("DB_USER"),
         "PASSWORD": os.environ.get("DB_PASSWORD"),
@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS Origins Authorization
 CORS_ALLOW_ALL_ORIGINS: False  # Set to True to allow all origins
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+CORS_ALLOWED_ORIGINS = ["*"]
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
