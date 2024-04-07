@@ -1,0 +1,12 @@
+# Django environment variables
+DJANGO_SECRET_KEY=django-secure-6*@8j9e_nu9f$shc*jwt!#o!4(c80r24t#p(y$6c85jliwqk#$
+DEBUG=1
+
+# Django Database environment variables
+DB_ENGINE=django.db.backends.postgresql
+DB_HOST=pg-c17-67-t-python-c17-67-t-python-db.a.aivencloud.com
+DB_NAME=MyDatabaseName
+DB_USER=MyDatabaseUserName
+DB_PASSWORD=MyDatabasePassword
+DB_PORT=12345
+DB_SSL=require
