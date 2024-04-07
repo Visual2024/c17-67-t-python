@@ -1,4 +1,4 @@
-import { CandidatesDashboard } from "../Components/CandidatesDashboard"
+import { CandidatesDashboard } from "../Components/Candidatos/CandidatesDashboard"
 
 export const Candidates = () => {
   return (
