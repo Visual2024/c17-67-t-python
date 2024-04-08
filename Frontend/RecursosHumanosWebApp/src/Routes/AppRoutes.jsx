@@ -16,7 +16,7 @@ export function AppRoutes() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<FormularioRegistro />} />
             <Route path="/register-2" element={<FormularioRegistro2 />} />
-              
+
             <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/perfildeusuario" element={<Perfil />} />
