@@ -6,12 +6,7 @@ import { useNavigate } from 'react-router-dom'
 export const Login = () => {
 
   const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
-  const [candidatoForm, setCandidatoForm] = useState(false)
   const navigate = useNavigate()
-
-  const switchCandidatoForm = () => {
-    setCandidatoForm(!candidatoForm)
-  }
 
   const selectOnChange = (event) => {
     setPuestoDeTrabajo(event.target.value)
@@ -23,11 +18,8 @@ export const Login = () => {
       return alert('completar campo obligatorio')
     }
 
-    switchCandidatoForm()
-    navigate('/register')
+    return navigate('/register')
   }
-
-  console.log(candidatoForm)
 
 
   return (
