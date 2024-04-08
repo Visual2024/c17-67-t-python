@@ -140,8 +140,8 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS Origins Authorization
-CORS_ALLOW_ALL_ORIGINS: False  # Set to True to allow all origins
-CORS_ALLOWED_ORIGINS = ["*"]
+CORS_ALLOW_ALL_ORIGINS: True  # Set to True to allow all origins
+CORS_ALLOWED_ORIGINS = []
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
