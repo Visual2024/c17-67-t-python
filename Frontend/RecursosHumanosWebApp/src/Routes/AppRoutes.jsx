@@ -10,12 +10,13 @@ import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
 
 export function AppRoutes() {
+
     return (
         <Routes>
+            <Route path="/login" element={<Login />} />      
             <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/perfildeusuario" element={<Perfil />} />
-                <Route path="/login" element={<Login />} />
                 <Route path="/candidates" element={<Candidates />} />
                 <Route path="/register" element={<FormularioRegistro />} />
                 <Route path="/register-2" element={<FormularioRegistro2 />} />
