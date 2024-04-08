@@ -1,15 +1,12 @@
 import loginstyles from '../Styles/Login.module.css'
 import { FormularioLogin } from '../Components/Form/FormularioLogin';
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
 
   const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
-  const [candidatoForm, setCandidatoForm] = useState(false)
-
-  const switchCandidatoForm = () => {
-    setCandidatoForm(!candidatoForm)
-  }
+  const navigate = useNavigate()
 
   const selectOnChange = (event) => {
     setPuestoDeTrabajo(event.target.value)
@@ -21,11 +18,8 @@ export const Login = () => {
       return alert('completar campo obligatorio')
     }
 
-    switchCandidatoForm()
-    alert('Activar el formulario para el postulante')
+    return navigate('/register')
   }
-
-  console.log(candidatoForm)
 
 
   return (
