@@ -13,13 +13,14 @@ export function AppRoutes() {
 
     return (
         <Routes>
-            <Route path="/login" element={<Login />} />      
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<FormularioRegistro />} />
+            <Route path="/register-2" element={<FormularioRegistro2 />} />
+
             <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/perfildeusuario" element={<Perfil />} />
                 <Route path="/candidates" element={<Candidates />} />
-                <Route path="/register" element={<FormularioRegistro />} />
-                <Route path="/register-2" element={<FormularioRegistro2 />} />
             </Route>
             <Route path="*" element={<Error404 />} />
         </Routes>
