@@ -1,11 +1,13 @@
 import loginstyles from '../Styles/Login.module.css'
 import { FormularioLogin } from '../Components/Form/FormularioLogin';
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
 
   const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
   const [candidatoForm, setCandidatoForm] = useState(false)
+  const navigate = useNavigate()
 
   const switchCandidatoForm = () => {
     setCandidatoForm(!candidatoForm)
@@ -22,7 +24,7 @@ export const Login = () => {
     }
 
     switchCandidatoForm()
-    alert('Activar el formulario para el postulante')
+    navigate('/register')
   }
 
   console.log(candidatoForm)
