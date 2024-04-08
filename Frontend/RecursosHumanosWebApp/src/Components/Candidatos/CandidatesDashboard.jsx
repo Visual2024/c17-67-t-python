@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react"
 import { useState } from "react"
 import DataTable, { createTheme } from "react-data-table-component"
 import { useNavigate } from "react-router-dom"
 
-export const CandidatesDashboard = () => {
+export function CandidatesDashboard() {
   const [candidates, setCandidates] = useState(null)
   const [data, setData] = useState(null)
   const navigate = useNavigate()
