@@ -12,14 +12,22 @@ Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus 
 
 ## Colaboradores
 
+- Product Manager
+     - [Dario Romero]
+
 - QA
 
-  - []
+  - [Facundo Alorz]
 
 - Frontend:
 
   - [Alejandro Luna]()
   - [Facundo Pettersson]()
+  - [Lucas Gotz]()
+  - [Martin Roldan]()
+  - [Piero Ramirez]()
 
 - Backend:
   - [Felix Pacheco Lobos](https://www.linkedin.com/in/felix-pacheco-lobos/)
+  - [Mariana ]()
+  - [Juan Cruz ]()
