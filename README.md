@@ -13,11 +13,11 @@ Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus 
 ## Colaboradores
 
 - Product Manager
-     - [Dario Romero]
+     - [Dario Romero]()
 
 - QA
 
-  - [Facundo Alorz]
+  - [Facundo Alorz]()
 
 - Frontend:
 
