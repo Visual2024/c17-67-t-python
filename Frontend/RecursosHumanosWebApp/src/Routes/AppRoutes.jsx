@@ -8,6 +8,7 @@ import { Candidates } from "@/Pages/Candidates";
 import { Error404 } from "@/Pages/Error404";
 import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
+import { useEffect, useState } from "react";
 
 export function AppRoutes() {
 
@@ -16,8 +17,7 @@ export function AppRoutes() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<FormularioRegistro />} />
             <Route path="/register-2" element={<FormularioRegistro2 />} />
-
-            <Route element={<Layout />}>
+            <Route element={<Layout/>}>
                 <Route path="/" element={<Home />} />
                 <Route path="/perfildeusuario" element={<Perfil />} />
                 <Route path="/candidates" element={<Candidates />} />
@@ -28,11 +28,26 @@ export function AppRoutes() {
 }
 
 export function Layout() {
+
+    const [usuario, setUsuario] = useState(null);
+    const [rol, setRol] = useState(null);
+
+    useEffect(() => {
+        const usuarioLocalStorage = JSON.parse(localStorage.getItem('nombreUsuario'));
+        const rolLocalStorage = JSON.parse(localStorage.getItem('rol'));
+
+        if (usuarioLocalStorage && rolLocalStorage) {
+            setUsuario(usuarioLocalStorage);
+            setRol(rolLocalStorage);
+        }
+    }, []);
+
+
     return (
         <div className="flex">
-            <MenuLateral />
+            <MenuLateral rol={rol}/>
             <div className="flex flex-col w-full">
-                <Header />
+                <Header nombreUsuario={usuario}/>
                 <div className="p-4">
                     <Outlet />
                 </div>
