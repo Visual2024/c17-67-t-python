@@ -43,21 +43,21 @@ export const MenuLateral = () => {
 
   return (
     <aside className="mr-5">
-      <nav className="">
+      <nav className="flex flex-col flex-wrap">
         <div
-          className={`flex flex-col flex-wrap items-start ml-1 ${
-            open ? "w-72" : "w-24 h-max "
+          className={`flex flex-col flex-wrap items-start ml-0 pl-4 ${
+            open ? "w-72 duration-500" : "w-24 h-max duration-500 "
           } duration-500  h-full relative bg-white`}
         >
           <div
-            className={`absolute right-10 cursor-pointer rounded-full  top-[.9rem] w-7 border-2 border-dark-purple bg-white ${
-              !open && "rotate-180 absolute -right-[-45px] top-[15px]"
+            className={`absolute right-[2.3rem] cursor-pointer rounded-full  top-[.9rem] w-7 border-2 border-dark-purple bg-white ${
+              !open && "rotate-180 absolute -right-[-45px] top-[15px]  pt-[-7%] px-[3%]"
             }`}
           >
             <button onClick={() => setOpen(!open)} className="relative ">
               <i
-                className={`fa-solid fa-arrow-left pt-[-10%] px-[60%]  ${
-                  !open && "pt-[-10%] mx-[-20%]"
+                className={`fa-solid fa-arrow-left pt-[-7%] px-[37%]  ${
+                  !open && "pt-[-8%] mx-[-20%]"
                 }`}
               ></i>
             </button>
@@ -72,7 +72,7 @@ export const MenuLateral = () => {
               </Link>
             </div>
           </div>
-          <div className="flex flex-row items-center content-center pr-1 ml-5 mt-10  relative left-2 ">
+          <div className="flex flex-row items-center content-center pr-1 ml-3 mt-10  relative left-2 ">
             <Link to={"./dashboard"}>
               <Panel width={18} height={18} />
             </Link>
@@ -100,7 +100,7 @@ export const MenuLateral = () => {
                     key={index}
                     className={`flex rounded-md  cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 `}
                   >
-                    <div className="">
+                    <div className="ml-2">
                       <Link to={"./rol"}>
                         {index == 0 && <Rol width={16} height={16} />}
                       </Link>
@@ -122,7 +122,7 @@ export const MenuLateral = () => {
             </div>
             {/* Gerente */}
             <ul
-              className={`pt-6 ml-5 border-t-[.888px] border-gris border-solid mb-5 mt-5 ${
+              className={`pt-6 ml-3 border-t-[.888px] border-gris border-solid mb-5 mt-5 ${
                 !open == ""
               }`}
             >
@@ -173,9 +173,9 @@ export const MenuLateral = () => {
                 </div>
               ))}
             </ul>
-            {/* Empleado */}
+            {/*  Empleado */}
             <ul
-              className={`pt-6 ml-5 border-t-[1px] border-gris border-solid ${
+              className={`pt-6 ml-3 border-t-[1px] border-gris border-solid ${
                 !open == ""
               }`}
             >
