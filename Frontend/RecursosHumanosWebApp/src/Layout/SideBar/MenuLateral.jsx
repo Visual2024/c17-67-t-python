@@ -1,45 +1,71 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import { Logo, LogoGira } from "../../assets/img/Logo";
 import {
   Rol,
-  Base,
   Empleado,
   Finanzas,
   Comunicación,
   Tiempo,
   Entrada,
-  Libre,
-  Horarios,
   Perfil,
+  Salir,
 } from "../../../public/img/Categorias";
 import { Panel } from "../../../public/img/Panel";
+import Swal from "sweetalert2"
 
-export const MenuLateral = () => {
+
+export const MenuLateral = ({rol}) => {
   const [open, setOpen] = useState(true);
+
+  console.log(rol)
 
   const administrador = [
     // Administrador
-    { title: "Rol", src: "Rol" },
-    { title: "Base de Datos", src: "Chat" },
+    { title: "Gestión de Usuarios", src: "Rol" },
   ];
 
   const gerente = [
     // Gerente
-    { title: "Empleado", src: "User", gap: true },
-    { title: "Finanzas", src: "Calendar" },
+    { title: "Gestión de empleados", src: "User", gap: true },
+    { title: "Gestión Financiera", src: "Calendar" },
     { title: "Comunicación", src: "Search" },
-    { title: "Gestion de Tiempo", src: "Search" },
+    { title: "Registro de Horarios", src: "Search" },
   ];
 
   const empleado = [
     // Empleado
-    { title: "Entrada / Salida", src: "Chart" },
-    { title: "Tiempo Libre", src: "Folder", gap: true },
-    { title: "Finanzas", src: "Setting" },
-    { title: "Horarios", src: "Setting" },
-    { title: "Perfil", src: "Setting" },
+    { title: "Datos Personales", src: "Setting" },    
+    { title: "Registro de Horarios", src: "Chart" },
+    { title: "Gestión Financiera"},
   ];
+
+  const apartado = [
+    {
+      title: "Salir"
+    }
+  ]
+
+
+  const navigate = useNavigate()
+
+  const cerrarSesionClick = () => {
+    Swal.fire({
+      title: "Desea Cerrar Sesión?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si!",
+      cancelButtonText: "No!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear()
+        navigate('/login')
+      }
+    });
+  }
+
 
   return (
     <aside className="mr-5">
@@ -84,16 +110,18 @@ export const MenuLateral = () => {
               </Link>
             )}
           </div>
+
           <div>
+          {
+            rol === 'ADMIN' && 
             <div className=" ">
-              {/* Administrador */}
               <ul
                 className={`pt-6 ml-3 border-t-[1px] border-gris border-solid mt-5 ${
                   !open == ""
                 }`}
               >
                 {!open == "" && (
-                  <h1 className="text-[#919191] mb-5">ADMINISTRADOR</h1>
+                  <h1 className="text-[#474747] mb-5">ADMINISTRADOR</h1>
                 )}
                 {administrador.map((adm, index) => (
                   <li
@@ -101,86 +129,86 @@ export const MenuLateral = () => {
                     className={`flex rounded-md  cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 `}
                   >
                     <div className="ml-2">
-                      <Link to={"./rol"}>
+                      <Link to={"/gestiondeusuarios"}>
                         {index == 0 && <Rol width={16} height={16} />}
-                      </Link>
-                      <Link to={"./base"}>
-                        {index == 1 && <Base width={16} height={16} />}
                       </Link>
                     </div>
                     <span
                       className={`${
                         !open && "hidden"
-                      } origin-left duration-200 text-gris`}
+                      } origin-left duration-200 text-[#474747]`}
                     >
-                      <Link to={"./rol"}>{index == 0 && `${adm.title}`}</Link>
-                      <Link to={"./base"}>{index == 1 && `${adm.title}`}</Link>
+                      <Link to={"/gestiondeusuarios"}>{index == 0 && `${adm.title}`}</Link>
                     </span>
                   </li>
                 ))}
               </ul>
             </div>
-            {/* Gerente */}
+          }
+          {
+            (rol === 'ADMIN' || rol === 'GERENTE') &&
             <ul
               className={`pt-6 ml-3 border-t-[.888px] border-gris border-solid mb-5 mt-5 ${
                 !open == ""
               }`}
             >
-              {!open == "" && <h1 className=" text-[#919191] mb-5">GERENTE</h1>}
+              {!open == "" && <h1 className=" text-[#474747] mb-5">GERENTE</h1>}
               {gerente.map((ger, index) => (
                 <div className="">
                   <li
                     key={index}
                     className={`flex rounded-md p-2 pt-[0px]  cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
                    ${ger.gap ? "mt-[.1px]" : "mt-[.1px]"} 
-                    
-            `}
+              `}
                   >
                     <div>
-                      <Link to={"/Candidates"}>
+                      <Link to={"/gestiondeempleados"}>
                         {index == 0 && <Empleado width={16} height={16} />}
                       </Link>
-                      <Link to={"Finanzas"}>
+                      <Link to={"/gestionfinancieragerente"}>
                         {index == 1 && <Finanzas width={16} height={16} />}
                       </Link>
-                      <Link to={"Comunicacion"}>
+                      <Link to={""}>
                         {index == 2 && <Comunicación width={16} height={16} />}
                       </Link>
 
-                      <Link to={"Tiempo"}>
+                      <Link to={""}>
                         {index == 3 && <Tiempo width={16} height={16} />}
                       </Link>
                     </div>
                     <span
                       className={`${
                         !open && "hidden"
-                      } origin-left duration-200 text-gris`}
+                      } origin-left duration-200 text-[#474747]`}
                     >
-                      <Link to={"/Candidates "}>
+                      <Link to={"/gestiondeempleados"}>
                         {index == 0 && `${ger.title}`}
                       </Link>
-                      <Link to={"/Finanzas "}>
+                      <Link to={"/gestionfinancieragerente"}>
                         {index == 1 && `${ger.title}`}
                       </Link>
-                      <Link to={"/Comunicacion "}>
+                      <Link to={""}>
                         {index == 2 && `${ger.title}`}
                       </Link>
-                      <Link to={"/Tiempo "}>
+                      <Link to={""}>
                         {index == 3 && `${ger.title}`}
                       </Link>
                     </span>
                   </li>
                 </div>
               ))}
-            </ul>
-            {/*  Empleado */}
+            </ul>            
+          }
+
+          {
+            (rol === 'ADMIN' || rol === 'EMPLEADO') &&
             <ul
               className={`pt-6 ml-3 border-t-[1px] border-gris border-solid ${
                 !open == ""
               }`}
             >
               {!open == "" && (
-                <h1 className=" text-[#919191] mb-5">EMPLEADO</h1>
+                <h1 className=" text-[#474747] mb-5">EMPLEADO</h1>
               )}
               {empleado.map((emp, index) => (
                 <div>
@@ -192,53 +220,52 @@ export const MenuLateral = () => {
                    `}
                   >
                     <div>
-                      <Link to={"./entrada"}>
-                        {index == 0 && <Entrada width={16} height={16} />}
+                      <Link to={""}>
+                        {index == 1 && <Entrada width={16} height={16} />}
                       </Link>
-                      <Link to={"./libre"}>
-                        {index == 1 && <Libre width={16} height={16} />}
-                      </Link>
-                      <Link to={"./finanzas"}>
+                      <Link to={"/gestionfinancieraempleados"}>
                         {index == 2 && <Finanzas width={16} height={16} />}
                       </Link>
-                      <Link to={"./horarios"}>
-                        {index == 3 && <Horarios width={16} height={16} />}
-                      </Link>
-                      <Link to={"./perfil"}>
-                        {index == 4 && <Perfil width={16} height={16} />}
+                      <Link to={"/datospersonales"}>
+                        {index == 0 && <Perfil width={16} height={16} />}
                       </Link>
                     </div>
 
                     <span
                       className={`${
                         !open && "hidden"
-                      } origin-left duration-200 text-gris`}
+                      } origin-left duration-200 text-[#474747]`}
                     >
-                      <Link to={"./entrada"}>
-                        {" "}
-                        {index == 0 && ` ${emp.title}`}{" "}
-                      </Link>
-                      <Link to={"./time"}>
+                      <Link to={""}>
                         {" "}
                         {index == 1 && ` ${emp.title}`}{" "}
                       </Link>
-                      <Link to={"./horarios"}>
+                      <Link to={"/gestionfinancieraempleados"}>
                         {" "}
                         {index == 2 && ` ${emp.title}`}{" "}
                       </Link>
-                      <Link to={"./perfil"}>
+                      <Link to={"/datospersonales"}>
                         {" "}
-                        {index == 3 && ` ${emp.title}`}{" "}
-                      </Link>
-                      <Link to={"./perfil"}>
-                        {" "}
-                        {index == 4 && ` ${emp.title}`}{" "}
+                        {index == 0 && ` ${emp.title}`}{" "}
                       </Link>
                     </span>
                   </li>
                 </div>
               ))}
             </ul>
+          }
+
+          <ul >
+            <li className="flex cursor-pointer" onClick={cerrarSesionClick}>
+              <span>
+                <Salir width={16} height={16}/>
+              </span>              
+              <div>
+                Salir
+              </div>
+            </li>
+          </ul>
+
           </div>
         </div>
       </nav>

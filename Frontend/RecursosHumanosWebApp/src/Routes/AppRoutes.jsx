@@ -9,6 +9,11 @@ import { Error404 } from "@/Pages/Error404";
 import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
 import { useEffect, useState } from "react";
+import { GestionDeEmpleados } from "../Pages/GestionDeEmpleados";
+import { GestionDeUsuarios } from "../Pages/GestionDeUsuarios";
+import { GerenteGestionFinanzas } from "../Pages/GerenteGestionFinanzas";
+import { EmpleadoGestionFinanzas } from "../Pages/EmpleadoGestionFinanzas";
+import { DatosPersonales } from "../Pages/DatosPersonales";
 
 export function AppRoutes() {
 
@@ -21,6 +26,11 @@ export function AppRoutes() {
                 <Route path="/" element={<Home />} />
                 <Route path="/perfildeusuario" element={<Perfil />} />
                 <Route path="/candidates" element={<Candidates />} />
+                <Route path="/gestiondeusuarios" element={<GestionDeUsuarios />} />
+                <Route path="/gestiondeempleados" element={<GestionDeEmpleados />} />
+                <Route path="/gestionfinancieragerente" element={<GerenteGestionFinanzas />} />
+                <Route path="/gestionfinancieraempleados" element={<EmpleadoGestionFinanzas />} />
+                <Route path="/datospersonales" element={<DatosPersonales />} />
             </Route>
             <Route path="*" element={<Error404 />} />
         </Routes>
