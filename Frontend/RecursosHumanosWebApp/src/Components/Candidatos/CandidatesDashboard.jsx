@@ -65,6 +65,8 @@ export function CandidatesDashboard() {
     setCandidates(filteredCandidates)
   }
 
+  
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/hiring/api/v1/candidate/", {
       "method": "GET",

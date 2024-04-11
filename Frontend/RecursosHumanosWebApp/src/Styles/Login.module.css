@@ -1,20 +1,109 @@
 .Container{
-    margin: 32px;
+    padding: 0 48px 36px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     box-sizing: border-box;
+    width: 100%;
+    user-select: none;
+    gap: 36px;
 }
 
-.Formularios{
+.imgLogo{
+    width: 200px;
+    height: 200px;
+    margin-left: 32px;
+}
+
+.formulariosDiv{
+    align-self: center;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1280px;
+    gap: 24px;
+}
+
+.formRegistro{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 60%;
+    border-radius: 8px;
+    box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.3);
+    min-width: 580px;
+    max-width: 800px;
+    height: 350px;
+}
+
+.formRegistro form{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 24px;
+    gap: 8px;
+}
+
+.formRegistro form select{
+    width: 100%;
+}
+
+.formRegistro form button{
+    width: 100%;
+}
+
+.formImg{
+    width: 40%;
+    height: 100%;
+}
+
+.formImg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.formLoginDiv{
+    width: 40%;
+    display: flex;
+    align-items: flex-start;
     justify-content: center;
     box-sizing: border-box;
 }
 
-.FormContainer{
-    border: 1px solid black;
+.formLoginDiv h5{
+    font-size: 14px;
+    color: red;
+    margin: 0;
+    margin-bottom: .5rem;
+    text-align: end;
+}
+
+
+@media (max-width:1024px) {
+
+    .Container{
+        gap: 0;
+    }
+    
+    .formulariosDiv{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .formRegistro{
+        width: 100%;
+    }
+
+    .formLoginDiv{
+        width: 100%;
+    }
 }

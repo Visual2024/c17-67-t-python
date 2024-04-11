@@ -1,176 +1,272 @@
 import { useState } from "react";
+import { Link , useNavigate } from "react-router-dom";
 import { Logo, LogoGira } from "../../assets/img/Logo";
 import {
   Rol,
-  Base,
   Empleado,
   Finanzas,
   Comunicación,
   Tiempo,
   Entrada,
-  Libre,
-  Horarios,
   Perfil,
+  Salir,
 } from "../../../public/img/Categorias";
 import { Panel } from "../../../public/img/Panel";
+import Swal from "sweetalert2"
 
-export const MenuLateral = () => {
+
+export const MenuLateral = ({rol}) => {
   const [open, setOpen] = useState(true);
+
+  console.log(rol)
 
   const administrador = [
     // Administrador
-    { title: "Rol", src: "Rol" },
-    { title: "Base de Datos", src: "Chat" },
+    { title: "Gestión de Usuarios", src: "Rol" },
   ];
 
   const gerente = [
     // Gerente
-    { title: "Emplados", src: "User", gap: true },
-    { title: "Finanzas", src: "Calendar" },
+    { title: "Gestión de empleados", src: "User", gap: true },
+    { title: "Gestión Financiera", src: "Calendar" },
     { title: "Comunicación", src: "Search" },
-    { title: "Gestion de Tiempo", src: "Search" },
+    { title: "Registro de Horarios", src: "Search" },
   ];
 
   const empleado = [
     // Empleado
-    { title: "Entrada / Salida", src: "Chart" },
-    { title: "Tiempo Libre", src: "Folder", gap: true },
-    { title: "Finanzas", src: "Setting" },
-    { title: "Horarios", src: "Setting" },
-    { title: "Perfil", src: "Setting" },
+    { title: "Datos Personales", src: "Setting" },    
+    { title: "Registro de Horarios", src: "Chart" },
+    { title: "Gestión Financiera"},
   ];
+
+  const apartado = [
+    {
+      title: "Salir"
+    }
+  ]
+
+
+  const navigate = useNavigate()
+
+  const cerrarSesionClick = () => {
+    Swal.fire({
+      title: "Desea Cerrar Sesión?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si!",
+      cancelButtonText: "No!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear()
+        navigate('/login')
+      }
+    });
+  }
+
 
   return (
     <aside className="mr-5">
-      <nav className="">
+      <nav className="flex flex-col flex-wrap">
         <div
-          className={` ${
-            open ? "w-72" : "w-24 h-max "
+          className={`flex flex-col flex-wrap items-start ml-0 pl-4 ${
+            open ? "w-72 duration-500" : "w-24 h-max duration-500 "
           } duration-500  h-full relative bg-white`}
         >
           <div
-            className={`absolute right-10 cursor-pointer rounded-full  top-[.9rem] w-7 border-2 border-dark-purple bg-white ${
-              !open && "rotate-180 absolute -right-1 top-[15px]"
+            className={`absolute right-[2.3rem] cursor-pointer rounded-full  top-[.9rem] w-7 border-2 border-dark-purple bg-white ${
+              !open && "rotate-180 absolute -right-[-45px] top-[15px]  pt-[-7%] px-[3%]"
             }`}
           >
-            <button onClick={() => setOpen(!open)} className="relative " >
+            <button onClick={() => setOpen(!open)} className="relative ">
               <i
-                className={` fa-solid fa-arrow-left pt-[-10%] px-[60%]  ${
-                  !open && "pt-[-10%] mx-[-20%] "
+                className={`fa-solid fa-arrow-left pt-[-7%] px-[37%]  ${
+                  !open && "pt-[-8%] mx-[-20%]"
                 }`}
               ></i>
             </button>
           </div>
           <div className={`flex flex-row items-center ml-4 `}>
-            <div
-              className={`cursor-pointer duration-500 mt-1  ${
-                open && "rotate-[360deg] "
-              } ${!open && "mt-2"}`}
-            >
+            <div className={`mt-1 ${open && " "} ${!open && "mt-2 hidden"}`}>
               <LogoGira />
             </div>
-            <div
-              className={`ml-5 cursor-pointer duration-500 ${
-                !open && "opacity-0"
-              }`}
-            >
-              <Logo />
+            <div className={`ml-5  ${!open && "opacity-0"}`}>
+              <Link to={"/"}>
+                <Logo />
+              </Link>
             </div>
           </div>
-          <div className="flex flex-row items-center content-center pr-1 ml-5 mt-10  relative left-2 ">
-            <Panel width={18} height={18} className={` `}/>
-            {!open == "" && <h1 className="ml-1 font-normal  text-[1rem] pb-[.01rem] text-[#0B0060]">Panel</h1>}
+          <div className="flex flex-row items-center content-center pr-1 ml-3 mt-10  relative left-2 ">
+            <Link to={"./dashboard"}>
+              <Panel width={18} height={18} />
+            </Link>
+            {!open == "" && (
+              <Link to={"/dashboard"}>
+                <h1 className="ml-1 font-normal text-[1rem] pb-[.01rem] text-[#0B0060]">
+                  Panel
+                </h1>
+              </Link>
+            )}
           </div>
 
-
-          <hr />
-          <h1
-            className={`text-white origin-left font-medium text-xl duration-200 ml-1 mt-1 ${
-              !open && "scale-0"
-            }`}
-          ></h1>
-
-          <ul className={`pt-6 ml-5 ${!open == ""}`}>
-            {!open == "" && <h1 className="font-bold text-[#919191]">ADMINISTRADOR</h1>}
-            {administrador.map((adm, index) => (
-              <div>
-                <li
-                  key={index}
-                  className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-4 
-                   ${adm.gap ? "mt-2" : "mt-2"} 
-                    
-            `}
-                >
-                  {index == 0 && <Rol width={16} height={16} />}
-                  {index == 1 && <Base width={16} height={16} />}
-                  <span
-                    className={`${
-                      !open && "hidden"
-                    } origin-left duration-200 text-gris`}
+          <div>
+          {
+            rol === 'ADMIN' && 
+            <div className=" ">
+              <ul
+                className={`pt-6 ml-3 border-t-[1px] border-gris border-solid mt-5 ${
+                  !open == ""
+                }`}
+              >
+                {!open == "" && (
+                  <h1 className="text-[#474747] mb-5">ADMINISTRADOR</h1>
+                )}
+                {administrador.map((adm, index) => (
+                  <li
+                    key={index}
+                    className={`flex rounded-md  cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 `}
                   >
-                    {adm.title}
-                  </span>
-                </li>
-              </div>
-            ))}
-          </ul>
-
-          <ul className={`pt-6 ml-5 ${!open == ""}`}>
-            {!open == "" && <h1 className="font-bold text-[#919191]">GERENTE</h1>}
-            {gerente.map((ger, index) => (
-              <div>
-                <li
-                  key={index}
-                  className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-4 
-                   ${ger.gap ? "mt-2" : "mt-2"} 
-                    
-            `}
-                >
-                  {index == 0 && <Empleado width={16} height={16} />}
-                  {index == 1 && <Finanzas width={16} height={16} />}
-                  {index == 2 && <Comunicación width={16} height={16} />}
-                  {index == 3 && <Tiempo width={16} height={16} />}
-
-                  <span
-                    className={`${
-                      !open && "hidden"
-                    } origin-left duration-200 text-gris`}
+                    <div className="ml-2">
+                      <Link to={"/gestiondeusuarios"}>
+                        {index == 0 && <Rol width={16} height={16} />}
+                      </Link>
+                    </div>
+                    <span
+                      className={`${
+                        !open && "hidden"
+                      } origin-left duration-200 text-[#474747]`}
+                    >
+                      <Link to={"/gestiondeusuarios"}>{index == 0 && `${adm.title}`}</Link>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          }
+          {
+            (rol === 'ADMIN' || rol === 'GERENTE') &&
+            <ul
+              className={`pt-6 ml-3 border-t-[.888px] border-gris border-solid mb-5 mt-5 ${
+                !open == ""
+              }`}
+            >
+              {!open == "" && <h1 className=" text-[#474747] mb-5">GERENTE</h1>}
+              {gerente.map((ger, index) => (
+                <div className="">
+                  <li
+                    key={index}
+                    className={`flex rounded-md p-2 pt-[0px]  cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
+                   ${ger.gap ? "mt-[.1px]" : "mt-[.1px]"} 
+              `}
                   >
-                    {ger.title}
-                  </span>
-                </li>
-              </div>
-            ))}
-          </ul>
+                    <div>
+                      <Link to={"/gestiondeempleados"}>
+                        {index == 0 && <Empleado width={16} height={16} />}
+                      </Link>
+                      <Link to={"/gestionfinancieragerente"}>
+                        {index == 1 && <Finanzas width={16} height={16} />}
+                      </Link>
+                      <Link to={""}>
+                        {index == 2 && <Comunicación width={16} height={16} />}
+                      </Link>
 
-          <ul className={`pt-6 ml-5 ${!open == ""}`}>
-            {!open == "" && <h1 className="font-bold text-[#919191]">EMPLEADO</h1>}
-            {empleado.map((emp, index) => (
-              <div>
-                <li
-                  key={index}
-                  className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-4 
-                   ${emp.gap ? "mt-1" : "mt-2"} 
+                      <Link to={""}>
+                        {index == 3 && <Tiempo width={16} height={16} />}
+                      </Link>
+                    </div>
+                    <span
+                      className={`${
+                        !open && "hidden"
+                      } origin-left duration-200 text-[#474747]`}
+                    >
+                      <Link to={"/gestiondeempleados"}>
+                        {index == 0 && `${ger.title}`}
+                      </Link>
+                      <Link to={"/gestionfinancieragerente"}>
+                        {index == 1 && `${ger.title}`}
+                      </Link>
+                      <Link to={""}>
+                        {index == 2 && `${ger.title}`}
+                      </Link>
+                      <Link to={""}>
+                        {index == 3 && `${ger.title}`}
+                      </Link>
+                    </span>
+                  </li>
+                </div>
+              ))}
+            </ul>            
+          }
+
+          {
+            (rol === 'ADMIN' || rol === 'EMPLEADO') &&
+            <ul
+              className={`pt-6 ml-3 border-t-[1px] border-gris border-solid ${
+                !open == ""
+              }`}
+            >
+              {!open == "" && (
+                <h1 className=" text-[#474747] mb-5">EMPLEADO</h1>
+              )}
+              {empleado.map((emp, index) => (
+                <div>
+                  <li
+                    key={index}
+                    className={`flex rounded-md p-2 pt-[0] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
+                   ${emp.gap ? "mt-[.1px]" : "mt-[.1px]"} 
                    
                    `}
-                >
-                  {index == 0 && <Entrada width={16} height={16} />}
-                  {index == 1 && <Libre width={16} height={16} />}
-                  {index == 2 && <Finanzas width={16} height={16} />}
-                  {index == 3 && <Horarios width={16} height={16} />}
-                  {index == 4 && <Perfil width={16} height={16} />}
-
-                  <span
-                    className={`${
-                      !open && "hidden"
-                    } origin-left duration-200 text-gris`}
                   >
-                    {emp.title}
-                  </span>
-                </li>
+                    <div>
+                      <Link to={""}>
+                        {index == 1 && <Entrada width={16} height={16} />}
+                      </Link>
+                      <Link to={"/gestionfinancieraempleados"}>
+                        {index == 2 && <Finanzas width={16} height={16} />}
+                      </Link>
+                      <Link to={"/datospersonales"}>
+                        {index == 0 && <Perfil width={16} height={16} />}
+                      </Link>
+                    </div>
+
+                    <span
+                      className={`${
+                        !open && "hidden"
+                      } origin-left duration-200 text-[#474747]`}
+                    >
+                      <Link to={""}>
+                        {" "}
+                        {index == 1 && ` ${emp.title}`}{" "}
+                      </Link>
+                      <Link to={"/gestionfinancieraempleados"}>
+                        {" "}
+                        {index == 2 && ` ${emp.title}`}{" "}
+                      </Link>
+                      <Link to={"/datospersonales"}>
+                        {" "}
+                        {index == 0 && ` ${emp.title}`}{" "}
+                      </Link>
+                    </span>
+                  </li>
+                </div>
+              ))}
+            </ul>
+          }
+
+          <ul >
+            <li className="flex cursor-pointer" onClick={cerrarSesionClick}>
+              <span>
+                <Salir width={16} height={16}/>
+              </span>              
+              <div>
+                Salir
               </div>
-            ))}
+            </li>
           </ul>
+
+          </div>
         </div>
       </nav>
     </aside>

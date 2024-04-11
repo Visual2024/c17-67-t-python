@@ -1,11 +1,11 @@
-
-
-export function Header() {
+export function Header({nombreUsuario}) {
 
   return (
-    <div>
-        <h1 className="text-3xl font-bold underline">Proyecto no Country</h1>
+    <div className="flex items-center justify-between py-2 px-8">
+      <h2 className="text-2xl font-bold">Título de la sección</h2>
+      <div className="flex items-center justify-between gap-4">
+        <h3>{nombreUsuario}</h3>
+      </div>
     </div>
   )
 }
-
