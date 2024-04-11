@@ -1,6 +1,7 @@
 import { useState } from "react"
 import useInput from "../../Hook/useInput"
 import { useNavigate } from 'react-router-dom'
+import Swal from "sweetalert2"
 
 export function FormularioLogin() {
 
@@ -63,7 +64,7 @@ export function FormularioLogin() {
       localStorage.setItem('nombreUsuario', JSON.stringify(nombreUsuario.value.toUpperCase()))
       localStorage.setItem('rol', JSON.stringify(password.value.toUpperCase()))
 
-      alert(`login valido ${nombreUsuario.value}, ${password.value}`)
+      Swal.fire(`Se inició sesión correctamente \n Usuario: ${nombreUsuario.value} \n Rol: ${password.value.toUpperCase()}`)
       navigate('/')
     }
   }
