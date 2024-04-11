@@ -49,6 +49,8 @@ export function Layout() {
         if (usuarioLocalStorage && rolLocalStorage) {
             setUsuario(usuarioLocalStorage);
             setRol(rolLocalStorage);
+        }else{
+            window.location.replace('/login')
         }
     }, []);
 

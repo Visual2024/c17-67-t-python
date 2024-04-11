@@ -96,7 +96,7 @@ export function FormularioLogin() {
               error.password &&
               <h5>Contraseña incorrecta</h5>
             }
-            <button type="submit" className='text-gray-700 text-lg rounded-full mt-8 border border-gray-400 w-full p-2 hover:text-white font-semibold hover:bg-gray-500'>Ingresar</button>
+            <button type="submit" className='text-gray-700 text-lg font-semibold rounded-full mt-8 border border-gray-400 w-full p-2 hover:bg-gray-300'>Ingresar</button>
           </form>
       </div>        
     </>
