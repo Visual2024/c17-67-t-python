@@ -2,6 +2,7 @@ import loginstyles from '../Styles/Login.module.css'
 import { FormularioLogin } from '../Components/Form/FormularioLogin';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Swal from "sweetalert2"
 
 export const Login = () => {
 
@@ -15,7 +16,7 @@ export const Login = () => {
   const registrateClick = (event) => {
     event.preventDefault()
     if (puestoDeTrabajo === '') {
-      return alert('completar campo obligatorio')
+      return Swal.fire('Selecciona un Puesto de trabajo')
     }
 
     return navigate('/register')
