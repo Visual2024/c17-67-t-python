@@ -24,25 +24,28 @@ export const Login = () => {
 
   return (
     <div className={loginstyles.Container}>
-      <h1 className='m-10'>HR Nexo Recursos Humanos</h1>
+      <img className={loginstyles.imgLogo} src="/images/HR-Nexo-2.png" alt="logo-Nexo-RecursosHumanos" />
 
-      <div className='flex flex-row items-center'>
-          <div className='rounded border-2 border-gray-400 p-10'>
-            <form action="" className='flex flex-col'>
-              <h2 className='text-gray-600 text-xl'>Trabaja con nosotros!</h2>
-              <p className='text-sm text-gray-600'>Tu proximo desafío laboral comienza aquí</p>
-              <select value={puestoDeTrabajo} onChange={selectOnChange} className='text-gray-600 rounded-full border border-gray-400 mt-4 mb-4'>
+      <div className={loginstyles.formulariosDiv}>
+        <div className={loginstyles.formRegistro}>
+
+          <form action="" className='flex flex-col'>
+            <h2 className='text-gray-600 text-3xl font-semibold'>Trabaja con nosotros!</h2>
+            <p className='text-sm text-gray-600'>Tu proximo desafío laboral comienza aquí</p>
+            <select value={puestoDeTrabajo} onChange={selectOnChange} className='text-gray-600 rounded-full border border-gray-400 mt-8 mb-8 p-2 box-border'>
               <option value="">Selecciona un puesto de trabajo</option>
               <option value="Frontend">Frontend</option>
               <option value="Backend">Backend</option>
             </select>
-            <button onClick={registrateClick} className='text-white p-2 rounded-full bg-indigo-950' >Regístrate</button>
+            <button onClick={registrateClick} className='text-white text-lg  p-2 rounded-full bg-indigo-950 hover:bg-blue-900' >Regístrate</button>
           </form>
 
-          <img src="" alt="" />
+          <div className={loginstyles.formImg}>
+            <img src="/images/img-login-1.png" alt="" />            
+          </div>
         </div>
 
-        <div className={loginstyles.FormLoginDiv}>
+        <div className={loginstyles.formLoginDiv}>
           <FormularioLogin />
         </div>
       </div>
