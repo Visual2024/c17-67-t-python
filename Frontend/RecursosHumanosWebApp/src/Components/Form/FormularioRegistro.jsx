@@ -68,7 +68,7 @@ export const FormularioRegistro = () => {
         )
             return;
 
-        fetch("http://127.0.0.1:8000/api/v1/candidate", {
+        fetch("http://127.0.0.1:8000/hiring/api/v1/candidate/", {
             method: "POST",
             body: JSON.stringify(candidate),
             headers: {
