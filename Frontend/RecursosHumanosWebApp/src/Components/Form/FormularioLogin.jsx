@@ -10,7 +10,6 @@ export function FormularioLogin() {
   const [error, setError] = useState({})
   const navigate = useNavigate()
 
-
   const validarNombreUsuario = (usuario) => {
 
     if (usuario.length > 1) {
