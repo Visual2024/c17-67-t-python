@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { twMerge } from "tailwind-merge";
+
 import { validateName, validateDNI, validateEmail, validatePhoneNumber } from "../../utils/regexValidation";
 
 export const FormularioRegistro = () => {
