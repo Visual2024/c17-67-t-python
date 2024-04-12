@@ -13,7 +13,7 @@ Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus 
 ## Colaboradores
 
 - Product Manager
-     - [Dario Romero]()
+     - [Dario Romero](https://www.linkedin.com/in/dario-ricardo-romero/)
 
 - QA
 
