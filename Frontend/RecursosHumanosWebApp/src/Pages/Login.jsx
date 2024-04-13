@@ -2,27 +2,12 @@ import loginstyles from '../Styles/Login.module.css'
 import { FormularioLogin } from '../Components/Form/FormularioLogin';
 import { LoginFormRegis } from '../Components/Form/LoginFormRegis';
 import { useEffect, useState } from 'react';
-import { ModalCandidatos } from '../Components/ModalCandidatos';
-import { Box, Modal, Typography } from '@mui/material';
-
 
 export const Login = () => {
 
-  const [verFormRegistro, setVerFormRegistro] = useState(false)
   const [divEmergenteSize, setDivEmergenteSIze] = useState('0')
   const [formOpacity, setFormOpacity] = useState('0')
   const [indexZ, setIndexZ] = useState('-1')
-
-  const formSwitch = () => {
-    setVerFormRegistro(!verFormRegistro)
-  }
-
-  const style = {
-    position: 'absolute',
-    top: '20%',
-    bgcolor: 'background.paper',
-    boxShadow: 15,
-  };
 
   // useEffect(()=>{
   //   if (verFormRegistro) {
@@ -57,7 +42,7 @@ export const Login = () => {
       <div className={loginstyles.formulariosDiv}>
         <div className={loginstyles.formRegistro}>
 
-          <LoginFormRegis formSwitch={formSwitch}/>
+          <LoginFormRegis />
 
           <div className={loginstyles.formImg}>
             <img src="/images/img-login-1.png" alt="" />            
@@ -80,17 +65,6 @@ export const Login = () => {
             }
         </div>
       </div> */}
-
-      <Modal
-        open={verFormRegistro}
-        onClose={formSwitch}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} className='w-full sm:w-[600px] h-[420px] sm:right-[5%] p-10 rounded-md select-none'>
-          <ModalCandidatos formSwitch={formSwitch}/>
-        </Box>
-      </Modal>
 
     </div>
   )
