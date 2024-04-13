@@ -81,8 +81,11 @@ export function FormularioLogin() {
         width: '350px',
         gap: '8px',
       }}>
-        <h2 className='text-gray-600 text-3xl font-semibold'>Ingresar</h2>
-        <p className='text-sm  text-gray-600'>Inicia sesión para unirte a tu equipo</p>
+        <header>
+          <h2 className='text-gray-600 text-3xl font-semibold'>Ingresar</h2>
+          <p className='text-sm  text-gray-600'>Inicia sesión para unirte a tu equipo</p>          
+        </header>
+
           <form onSubmit={IniciarSesionClick} className='flex-col w-full pt-2 pb-4'>
             <label className="text-gray-700 text-lg mb-2 mt-2">Nombre de usuario</label>
             <input {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
