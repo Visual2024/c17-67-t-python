@@ -42,7 +42,7 @@ export const LoginFormRegis = () => {
                 <option value="Frontend">Frontend</option>
                 <option value="Backend">Backend</option>
             </select>
-            <button className='text-white text-lg  p-2 rounded-full bg-indigo-950 hover:bg-blue-900' >Regístrate</button>
+            <button className='text-white text-lg  p-2 rounded-full bg-primary hover:bg-blue-900' >Regístrate</button>
         </form>
 
         <Modal
