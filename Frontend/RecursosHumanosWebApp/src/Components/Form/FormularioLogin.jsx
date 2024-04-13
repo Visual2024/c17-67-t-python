@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useInput from "../../Hook/useInput"
 import { useNavigate } from 'react-router-dom'
 import Swal from "sweetalert2"
@@ -8,6 +8,8 @@ export function FormularioLogin() {
   const nombreUsuario = useInput('text')
   const password = useInput('password')
   const [error, setError] = useState({})
+  const [errorNameFeed, setErrorNameFeed] = useState(false)
+  const [errorPassFeed, setErrorPassFeed] = useState(false)
   const navigate = useNavigate()
 
   const validarNombreUsuario = (usuario) => {
@@ -51,9 +53,11 @@ export function FormularioLogin() {
     return errores
   }
 
-
   const IniciarSesionClick = (e) => {
     e.preventDefault()
+
+    setErrorNameFeed(true)
+    setErrorPassFeed(true)
 
     const erroresValidacion = verificarValidaciones()
     setError(erroresValidacion)
@@ -67,6 +71,14 @@ export function FormularioLogin() {
       navigate('/')
     }
   }
+
+  useEffect(()=>{
+    setErrorNameFeed(false)
+  }, [nombreUsuario.value])
+
+  useEffect(()=>{
+    setErrorPassFeed(false)
+  }, [password.value])
 
   return (
     <>
@@ -91,19 +103,19 @@ export function FormularioLogin() {
             <label className="text-gray-700 text-lg mb-2 mt-2">Nombre de usuario</label>
             <input {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
             {
-              (error.usuario && nombreUsuario.value.length === 0) &&
+              (error.usuario && nombreUsuario.value.length === 0 && errorNameFeed) &&
               <h5>*Campo Obligatorio</h5>
             }
             {
-              (error.usuario && nombreUsuario.value.length === 1) &&
-              <h5>Nombre de usuario incorrecto</h5>
+              (error.usuario && nombreUsuario.value.length === 1 && errorNameFeed) &&
+              <h5>+2 Caracteres</h5>
             }
             <label className="text-gray-700 text-lg mb-2 mt-2">Contraseña</label>
             <input {...password} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
             {
-              (error.password && password.value.length === 0) ?
+              (error.password && password.value.length === 0 && errorPassFeed) ?
               <h5>*Campo Obligatorio</h5> :
-              (error.password && password.value.length > 0) &&
+              (error.password && password.value.length > 0 && errorPassFeed) &&
               <h5>Contraseña incorrecta</h5>
             }
             <button type="submit" className='text-gray-700 text-lg font-semibold rounded-full mt-8 border border-gray-400 w-full p-2 hover:bg-gray-300'>Ingresar</button>
