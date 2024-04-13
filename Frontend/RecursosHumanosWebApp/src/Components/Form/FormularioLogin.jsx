@@ -80,9 +80,10 @@ export function FormularioLogin() {
         padding: '24px',
         width: '350px',
         gap: '8px',
+        borderRadius:'8px'
       }}>
         <header>
-          <h2 className='text-gray-600 text-3xl font-semibold'>Ingresar</h2>
+          <h2 className='text-gray-600 text-3xl font-semibold mb-1'>Ingresar</h2>
           <p className='text-sm  text-gray-600'>Inicia sesión para unirte a tu equipo</p>          
         </header>
 

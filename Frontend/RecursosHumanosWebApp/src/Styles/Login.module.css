@@ -53,7 +53,7 @@
     box-sizing: border-box;
     height: 100%;
     padding: 24px;
-    gap: 8px;
+    gap: 4px;
 }
 
 .formRegistro form select{
@@ -96,7 +96,7 @@
 
 /*************************** Formulario Emergente *************************/
 
-.formEmergenteExterior{
+/* .formEmergenteExterior{
     position: fixed;
     top: 0;
     left: 0;
@@ -124,7 +124,7 @@
     top: 8px;
     left: 10px;
     cursor: pointer;
-}
+} */
 
 
 @media (max-width:899px){
