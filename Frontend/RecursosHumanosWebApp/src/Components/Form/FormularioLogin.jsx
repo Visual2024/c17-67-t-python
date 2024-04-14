@@ -67,7 +67,10 @@ export function FormularioLogin() {
       localStorage.setItem('nombreUsuario', JSON.stringify(nombreUsuario.value.toUpperCase()))
       localStorage.setItem('rol', JSON.stringify(password.value.toUpperCase()))
 
-      Swal.fire(`Se inició sesión correctamente \n Usuario: ${nombreUsuario.value} \n Rol: ${password.value.toUpperCase()}`)
+      Swal.fire({
+        title: `Se inició sesión correctamente \n Usuario: ${nombreUsuario.value} \n Rol: ${password.value.toUpperCase()}`,
+        confirmButtonColor: '#0B0060'
+      })
       navigate('/')
     }
   }
@@ -88,7 +91,7 @@ export function FormularioLogin() {
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
         boxSizing: 'border-box',
-        boxShadow: '0 3px 4px 1px rgba(0, 0, 0, 0.3)',
+        boxShadow: '0 5px 8px -1px rgba(0, 0, 0, 0.3)',
         padding: '24px',
         width: '350px',
         gap: '8px',
