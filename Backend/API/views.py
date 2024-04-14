@@ -11,3 +11,10 @@ class RegisterPostulantViewSet(viewsets.ModelViewSet):
 class RegisterEmployeeViewSet(viewsets.ModelViewSet):
     serializer_class = CreateUserSerializer
     queryset = CreateUserSerializer.Meta.model.objects.all()
+
+
+class RetrievePostulantViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+
+    serializer_class = CreatePostulantSerializer
+    queryset = CreatePostulantSerializer.Meta.model.objects.all()
