@@ -1,45 +1,48 @@
 import loginstyles from '../Styles/Login.module.css'
 import { FormularioLogin } from '../Components/Form/FormularioLogin';
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Swal from "sweetalert2"
+import { LoginFormRegis } from '../Components/Form/LoginFormRegis';
+import { useEffect, useState } from 'react';
 
 export const Login = () => {
 
-  const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
-  const navigate = useNavigate()
+  const [divEmergenteSize, setDivEmergenteSIze] = useState('0')
+  const [formOpacity, setFormOpacity] = useState('0')
+  const [indexZ, setIndexZ] = useState('-1')
 
-  const selectOnChange = (event) => {
-    setPuestoDeTrabajo(event.target.value)
-  }
+  // useEffect(()=>{
+  //   if (verFormRegistro) {
+  //     setDivEmergenteSIze('700px')
+  //     setIndexZ('2')
+  //     const timer = setTimeout(() => {
+  //       setFormOpacity('1')
+  //     }, 400)
 
-  const registrateClick = (event) => {
-    event.preventDefault()
-    if (puestoDeTrabajo === '') {
-      return Swal.fire('Selecciona un Puesto de trabajo')
-    }
+  //     return () => clearTimeout(timer)      
+  //   }
+  //   else{
+  //     setDivEmergenteSIze('0')
+  //     setFormOpacity('0')
 
-    return navigate('/register')
-  }
+  //     const timer2 = setTimeout(() => {
+  //       setIndexZ('-1')
+  //     }, 400)
+
+  //     return () => clearTimeout(timer2) 
+  //   }
+  // }, [verFormRegistro])
+
 
 
   return (
     <div className={loginstyles.Container}>
-      <img className={loginstyles.imgLogo} src="/images/HR-Nexo-2.png" alt="logo-Nexo-RecursosHumanos" />
+      <figure>
+        <img className={loginstyles.imgLogo} src="/images/HR-Nexo-2.png" alt="logo-Nexo-RecursosHumanos" />
+      </figure>
 
       <div className={loginstyles.formulariosDiv}>
         <div className={loginstyles.formRegistro}>
 
-          <form action="" className='flex flex-col'>
-            <h2 className='text-gray-600 text-3xl font-semibold'>Trabaja con nosotros!</h2>
-            <p className='text-sm text-gray-600'>Tu proximo desafío laboral comienza aquí</p>
-            <select value={puestoDeTrabajo} onChange={selectOnChange} className='text-gray-600 rounded-full border border-gray-400 mt-8 mb-8 p-2 box-border'>
-              <option value="">Selecciona un puesto de trabajo</option>
-              <option value="Frontend">Frontend</option>
-              <option value="Backend">Backend</option>
-            </select>
-            <button onClick={registrateClick} className='text-white text-lg  p-2 rounded-full bg-indigo-950 hover:bg-blue-900' >Regístrate</button>
-          </form>
+          <LoginFormRegis />
 
           <div className={loginstyles.formImg}>
             <img src="/images/img-login-1.png" alt="" />            
@@ -50,6 +53,18 @@ export const Login = () => {
           <FormularioLogin />
         </div>
       </div>
+
+      {/* <div className={loginstyles.formEmergenteExterior} style={{backgroundColor: verFormRegistro ? 'rgb(0, 0, 0,.2)' : 'transparent', zIndex: indexZ}}>
+        <div className={loginstyles.formEmergenteContainer} style={{width: divEmergenteSize}}>
+          <span onClick={formSwitch} style={{display: verFormRegistro? 'block' : 'none'}}><i className="fas fa-x fa-2x text-gray-900"></i></span>
+            {
+              verFormRegistro &&
+              <div className={loginstyles.formEmergenteDiv} style={{opacity: formOpacity, transition: 'opacity .2s ease'}}>
+                <ModalCandidatos />
+              </div>
+            }
+        </div>
+      </div> */}
 
     </div>
   )
