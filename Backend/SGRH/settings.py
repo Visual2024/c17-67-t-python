@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third party packages
+    "corsheaders",
     "rest_framework",
     "drf_spectacular",
     "rest_framework_simplejwt",
-    "corsheaders",
+    # Local apps
     "GRH",
     "HIRING",
     "API",
@@ -162,7 +164,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = "GRH.CustomUser"
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Your Project API",
+    "TITLE": "API para HRNexo",
     "DESCRIPTION": "Your project description",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,

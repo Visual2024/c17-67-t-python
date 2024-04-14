@@ -34,15 +34,15 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, unique=True)
     dni = models.IntegerField(unique=True, null=True, blank=True)
     phone_number = models.CharField(max_length=20, unique=True)
     secondary_phone_number = models.CharField(max_length=20, null=True, blank=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
+    state = models.CharField(max_length=255, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -63,9 +63,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Vacancy(models.Model):
     tittle = models.CharField(max_length=255)
-    description = models.CharField(max_length=400)
+    description = models.CharField(max_length=400, null=True, blank=True)
     process_start_date = models.DateField(auto_now_add=True)
-    process_ending_date = models.DateField(blank=True, null=True)
+    process_ending_date = models.DateField(null=True, blank=True)
 
     class Meta:
         verbose_name = "vacante"
@@ -73,7 +73,7 @@ class Vacancy(models.Model):
         ordering = ["process_start_date"]
 
     def __str__(self) -> str:
-        return self.name_vacancy
+        return self.tittle
 
 
 class Role(models.Model):
@@ -91,7 +91,7 @@ class Role(models.Model):
         ordering = ["tittle"]
 
     def __str__(self):
-        return self.name
+        return self.tittle
 
 
 class Team(models.Model):
@@ -106,7 +106,7 @@ class Team(models.Model):
         ordering = ["role"]
 
     def __str__(self):
-        return self.name
+        return f"{self.role} - {self.user}"
 
 
 class Postulant(models.Model):
@@ -117,7 +117,7 @@ class Postulant(models.Model):
     secondary_phone_number = models.CharField(max_length=20, null=True, blank=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
+    state = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255)
     postulation = models.ManyToManyField(
         Vacancy, blank=True, related_name="postulation"
