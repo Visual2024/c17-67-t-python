@@ -1,19 +1,48 @@
-from rest_framework import viewsets
-from .models import Candidate, Candidate_Stage, Stage
-from .serializers import CandidateSerializer, CandidateStageSerializer, StageSerializer
+from rest_framework import APIViews, permissions, status
+from rest_framework.response import Response
+from django.contrib.auth import get_user_model
+from GRH.serializers import CreatePostulantSerializer
+
+# Instantiate the CustomUser
+User = get_user_model()
 
 
 # Create your views here.
-class CandidateView(viewsets.ModelViewSet):
-    queryset = Candidate.objects.all().order_by("id")
-    serializer_class = CandidateSerializer
+class RegisterPostulantView(APIViews):
+    permission_classes = permissions.AllowAny
+
+    def post(self, request):
+        data = request.data
+        first_name = data["first_name"]
+        last_name = data["last_name"]
+        email = data["email"]
+        phone_number = data["phone_number"]
+        secondary_phone_number = data["secondary_phone_number"]
+        address = data["address"]
+        city = data["city"]
+        state = data["state"]
+        country = data["country"]
+        postulation = data["postulation"]
+
+        user = User.objects.create_user(
+            first_name,
+            last_name,
+            email,
+            phone_number,
+            secondary_phone_number,
+            address,
+            city,
+            state,
+            country,
+            postulation,
+        )
+        user = CreatePostulantSerializer(user)
+
+        return Response(user.data, status=status.HTTP_201_CREATED)
 
 
-class StageView(viewsets.ModelViewSet):
-    queryset = Stage.objects.all().order_by("id")
-    serializer_class = StageSerializer
+class RegisterEmployeeView(APIViews):
+    permission_classes = permissions.IsAuthenticated
 
-
-class CandidateStageView(viewsets.ModelViewSet):
-    queryset = Candidate_Stage.objects.all().order_by("id")
-    serializer_class = CandidateStageSerializer
+    def post(self, request):
+        return Response(status=status.HTTP_201_CREATED)

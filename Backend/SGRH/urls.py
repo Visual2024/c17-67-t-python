@@ -22,16 +22,23 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularRedocView,
 )
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("hiring/", include("HIRING.urls")),
-    path("schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("docs/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
-        "doc/",
+        "docs/",
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
-    path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("docs/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
 ]
