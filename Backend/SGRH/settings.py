@@ -94,7 +94,7 @@ DATABASES = {
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": BASE_DIR / "db.sqlite3",
         # Deployment purposes
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": os.environ.get("DB_ENGINE"),
         "NAME": os.environ.get("DB_NAME"),
         "HOST": os.environ.get("DB_HOST"),
         "USER": os.environ.get("DB_USER"),
