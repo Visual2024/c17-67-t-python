@@ -67,10 +67,6 @@ export function FormularioLogin() {
       localStorage.setItem('nombreUsuario', JSON.stringify(nombreUsuario.value.toUpperCase()))
       localStorage.setItem('rol', JSON.stringify(password.value.toUpperCase()))
 
-      Swal.fire({
-        title: `Se inició sesión correctamente \n Usuario: ${nombreUsuario.value} \n Rol: ${password.value.toUpperCase()}`,
-        confirmButtonColor: '#0B0060'
-      })
       navigate('/')
     }
   }
@@ -93,7 +89,7 @@ export function FormularioLogin() {
         boxSizing: 'border-box',
         boxShadow: '0 5px 8px -1px rgba(0, 0, 0, 0.3)',
         padding: '24px',
-        width: '350px',
+        minWidth: '350px',
         gap: '8px',
         borderRadius:'8px'
       }}>
@@ -103,7 +99,7 @@ export function FormularioLogin() {
         </header>
 
           <form onSubmit={IniciarSesionClick} className='flex-col w-full pt-2 pb-4'>
-            <label className="text-gray-700 text-lg mb-2 mt-2">Nombre de usuario</label>
+            <label className="text-gray-700 text-lg mb-2 mt-2">Correo electrónico</label>
             <input {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
             {
               (error.usuario && nombreUsuario.value.length === 0 && errorNameFeed) &&
@@ -121,7 +117,9 @@ export function FormularioLogin() {
               (error.password && password.value.length > 0 && errorPassFeed) &&
               <h5>Contraseña incorrecta</h5>
             }
-            <button type="submit" className='text-gray-700 text-lg font-semibold rounded-full mt-8 border border-gray-400 w-full p-2 hover:bg-gray-300'>Ingresar</button>
+            <button type="submit" className='text-white text-lg font-semibold rounded-full mt-8 border border-gray-400 w-full p-2 bg-primary hover:bg-blue-900'>Ingresar</button>
+          
+            <a href=""><h4 className="pt-6 underline text-center">Olvidé mi contraseña</h4></a>
           </form>
       </div>        
     </>

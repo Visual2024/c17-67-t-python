@@ -1,1 +1,1 @@
-export const API_KEY= 'http://127.0.0.1:8000'
+export const API_KEY= 'https://c17-67-t-python-production.up.railway.app/'

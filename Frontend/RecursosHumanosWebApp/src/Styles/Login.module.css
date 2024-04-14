@@ -13,7 +13,11 @@
 .Container figure{
     width: 100%;
     max-width: 1280px;
-    margin-left: 32px;
+    margin: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .imgLogo{
@@ -24,8 +28,8 @@
 .formulariosDiv{
     align-self: center;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
     width: 100%;
     max-width: 1280px;
@@ -78,7 +82,8 @@
 }
 
 .formLoginDiv{
-    width: 40%;
+    width: 50%;
+    max-width: 500px;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -96,7 +101,7 @@
 
 /*************************** Formulario Emergente *************************/
 
-/* .formEmergenteExterior{
+.formEmergenteExterior{
     position: fixed;
     top: 0;
     left: 0;
@@ -124,7 +129,7 @@
     top: 8px;
     left: 10px;
     cursor: pointer;
-} */
+}
 
 
 @media (max-width:899px){
@@ -140,15 +145,8 @@
 
     .Container figure{
         margin: 0;
-        display: flex;
-        justify-content: center;
-    }
-
-    .formulariosDiv{
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 48px;
-        place-items: center;
+        justify-content: space-around;
+        text-align: end;
     }
 
     .formLoginDiv{
