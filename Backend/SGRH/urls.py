@@ -33,9 +33,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("docs/v1/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
-        "",
-        SpectacularSwaggerView.as_view(url_name="schema"),
-        name="swagger-ui",
+        "docs/v1/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
     ),
     path(
         "docs/v1/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"

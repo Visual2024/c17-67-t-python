@@ -21,6 +21,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
         try:
             validate_password(password, user)
+
         except exceptions.ValidationError as e:
             serializer_errors = serializers.as_serializer_error(e)
             raise exceptions.ValidationError(
@@ -35,16 +36,3 @@ class CreatePostulantSerializer(serializers.ModelSerializer):
         model = Postulant
         fields = "__all__"
         extra_kwargs = {"password": {"write_only": True}}
-
-    def validate(self, data):
-        user = Postulant(**data)
-
-        try:
-            validate_password(user)
-        except exceptions.ValidationError as e:
-            serializer_errors = serializers.as_serializer_error(e)
-            raise exceptions.ValidationError(
-                {"password": serializer_errors["non_field_errors"]}
-            )
-
-        return data
