@@ -82,7 +82,7 @@
 }
 
 .formLoginDiv{
-    width: 50%;
+    width: 100%;
     max-width: 500px;
     display: flex;
     align-items: flex-start;
@@ -139,8 +139,7 @@
     }
 
     .Container{
-        gap: 0;
-        padding: 0 16px 64px;
+        padding: 0 16px;
     }
 
     .Container figure{

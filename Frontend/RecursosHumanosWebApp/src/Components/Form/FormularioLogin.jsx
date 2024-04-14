@@ -89,7 +89,7 @@ export function FormularioLogin() {
         boxSizing: 'border-box',
         boxShadow: '0 5px 8px -1px rgba(0, 0, 0, 0.3)',
         padding: '24px',
-        minWidth: '350px',
+        minWidth: '320px',
         gap: '8px',
         borderRadius:'8px'
       }}>
