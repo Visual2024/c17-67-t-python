@@ -8,8 +8,8 @@ router = DefaultRouter()
 
 
 # API Versioning
-router.register(r"Postulants", RegisterPostulantViewSet, "Postulantes")
+router.register(r"postulants", RegisterPostulantViewSet, "Postulantes")
 
 urlpatterns = [
-    path("api/v1/", include("router.urls")),
+    path("v1/", include(router.urls)),
 ]
