@@ -2,7 +2,7 @@ from rest_framework import serializers, permissions, status
 from django.contrib.auth import get_user_model
 from django.core import exceptions
 from django.contrib.auth.password_validation import validate_password
-from GRH.models import Postulant
+from GRH.models import Postulant, Stage, Vacancy, Role
 
 # Instantiate the CustomUser
 User = get_user_model()
@@ -35,4 +35,21 @@ class CreatePostulantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Postulant
         fields = "__all__"
-        extra_kwargs = {"password": {"write_only": True}}
+
+
+class CreateVacancySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vacancy
+        fields = "__all__"
+
+
+class CreateStageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stage
+        fields = "__all__"
+
+
+class CreateRoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = "__all__"

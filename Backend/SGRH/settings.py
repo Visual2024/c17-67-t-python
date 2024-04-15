@@ -138,12 +138,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "staticfiles"),
 ]
 
 # Default primary key field type
@@ -158,6 +158,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "https://localhost:9000",
     "https://127.0.0.1:9000",
+    "https://c17-67-t-python-production.up.railway.app",
 ]
 
 REST_FRAMEWORK = {
