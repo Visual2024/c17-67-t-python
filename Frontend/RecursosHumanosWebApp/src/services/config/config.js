@@ -1,1 +1,0 @@
-export const API_KEY= 'https://c17-67-t-python-production.up.railway.app/'
