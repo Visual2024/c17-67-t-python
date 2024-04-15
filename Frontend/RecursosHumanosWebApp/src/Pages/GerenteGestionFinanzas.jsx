@@ -1,9 +1,12 @@
 import { LinesChart } from "../Components/Gaficos/Lineas";
-import { Bars } from "../Components/Gaficos/Moths";
 import { Pies } from "../Components/Gaficos/PiesChart";
 
 
 export const GerenteGestionFinanzas = () => {
+
+
+
+
   return (
     <main className="flex flex-row flex-wrap">
       <h1 className="font-bold text-3xl mb-5">Gestión Financiera</h1>

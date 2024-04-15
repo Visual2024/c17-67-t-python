@@ -9,7 +9,7 @@ let options = {
 };
 
 let data = {
-    labels: ['Carne', 'Jamón', 'Dulces', 'Turrón', 'Vino'],
+    labels: ['enero','febrero','marzo','abril'],
     datasets: [
         {
             label: 'Popularidad en Navidad',
