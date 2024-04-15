@@ -10,3 +10,4 @@ DB_USER=MyDatabaseUserName
 DB_PASSWORD=MyDatabasePassword
 DB_PORT=12345
 DB_SSL=require
+
