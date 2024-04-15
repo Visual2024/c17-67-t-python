@@ -51,15 +51,14 @@ export const MenuLateral = ({ rol }) => {
   const cerrarSesionClick = () => {
     Swal.fire({
       title: "Desea Cerrar Sesión?",
-      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: '#0B0060',
+      cancelButtonColor: "#626262",
       confirmButtonText: "Si!",
       cancelButtonText: "No!",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.clear();
+        sessionStorage.clear();
         navigate("/login");
       }
     });
