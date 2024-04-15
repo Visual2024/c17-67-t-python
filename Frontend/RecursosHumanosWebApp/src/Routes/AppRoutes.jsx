@@ -1,19 +1,11 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Header } from "@/Layout/Header/Header";
 import { MenuLateral } from "@/Layout/SideBar/MenuLateral";
-import { Perfil } from "@/Pages/Perfil";
-import { Login } from "@/Pages/Login";
-import { Home } from "@/Pages/Home";
-import { Candidates } from "@/Pages/Candidates";
-import { Error404 } from "@/Pages/Error404";
+import { useEffect, useState } from "react";
 import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
-import { useEffect, useState } from "react";
-import { GestionDeEmpleados } from "../Pages/GestionDeEmpleados";
-import { GestionDeUsuarios } from "../Pages/GestionDeUsuarios";
-import { GerenteGestionFinanzas } from "../Pages/GerenteGestionFinanzas";
-import { EmpleadoGestionFinanzas } from "../Pages/EmpleadoGestionFinanzas";
-import { DatosPersonales } from "../Pages/DatosPersonales";
+import { Home, Candidates, Error404, GestionDeEmpleados, GestionDeUsuarios, GerenteGestionFinanzas, EmpleadoGestionFinanzas, DatosPersonales, Login } from '@/Pages';
+
 
 export function AppRoutes() {
 
@@ -24,7 +16,6 @@ export function AppRoutes() {
             <Route path="/register-2" element={<FormularioRegistro2 />} />
             <Route element={<Layout/>}>
                 <Route path="/" element={<Home />} />
-                <Route path="/perfildeusuario" element={<Perfil />} />
                 <Route path="/candidates" element={<Candidates />} />
                 <Route path="/gestiondeusuarios" element={<GestionDeUsuarios />} />
                 <Route path="/gestiondeempleados" element={<GestionDeEmpleados />} />
@@ -43,12 +34,12 @@ export function Layout() {
     const [rol, setRol] = useState(null);
 
     useEffect(() => {
-        const usuarioLocalStorage = JSON.parse(localStorage.getItem('nombreUsuario'));
-        const rolLocalStorage = JSON.parse(localStorage.getItem('rol'));
+        const usuarioSessionStorage = JSON.parse(sessionStorage.getItem('nombreUsuario'));
+        const rolSessionStorage = JSON.parse(sessionStorage.getItem('rol'));
 
-        if (usuarioLocalStorage && rolLocalStorage) {
-            setUsuario(usuarioLocalStorage);
-            setRol(rolLocalStorage);
+        if (usuarioSessionStorage && rolSessionStorage) {
+            setUsuario(usuarioSessionStorage);
+            setRol(rolSessionStorage);
         }else{
             window.location.replace('/login')
         }
