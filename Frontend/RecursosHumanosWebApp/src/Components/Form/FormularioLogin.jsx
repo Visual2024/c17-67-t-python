@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import useInput from "../../Hook/useInput"
 import { useNavigate } from 'react-router-dom'
-import Swal from "sweetalert2"
 
 export function FormularioLogin() {
 
@@ -14,7 +13,7 @@ export function FormularioLogin() {
 
   const validarNombreUsuario = (usuario) => {
 
-    if (usuario.length > 1) {
+    if (usuario.includes('@nexo')) {
       return true
     }
     else{
@@ -64,20 +63,21 @@ export function FormularioLogin() {
 
     if (erroresValidacion.usuario === false && erroresValidacion.password === false) {
 
-      localStorage.setItem('nombreUsuario', JSON.stringify(nombreUsuario.value.toUpperCase()))
-      localStorage.setItem('rol', JSON.stringify(password.value.toUpperCase()))
+      sessionStorage.setItem('nombreUsuario', JSON.stringify(nombreUsuario.value.toUpperCase()))
+      sessionStorage.setItem('rol', JSON.stringify(password.value.toUpperCase()))
 
       navigate('/')
     }
   }
 
-  useEffect(()=>{
-    setErrorNameFeed(false)
-  }, [nombreUsuario.value])
+  // useEffect(()=>{
+  //   setErrorNameFeed(false)
+  // }, [nombreUsuario.value])
 
   useEffect(()=>{
     setErrorPassFeed(false)
   }, [password.value])
+
 
   return (
     <>
@@ -98,32 +98,30 @@ export function FormularioLogin() {
           <p className='text-sm  text-gray-600'>Inicia sesión para unirte a tu equipo</p>          
         </header>
 
-          <form onSubmit={IniciarSesionClick} className='flex-col w-full pt-2 pb-4'>
+          <form onSubmit={IniciarSesionClick} className='flex-col w-full pt-2'>
             <label className="text-gray-700 text-lg mb-2 mt-2">Correo electrónico</label>
             <input {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
             {
-              (error.usuario && nombreUsuario.value.length === 0 && errorNameFeed) &&
-              <h5>*Campo Obligatorio</h5>
+              (error.usuario && nombreUsuario.value.length === 0) &&
+              <h5>*Campo obligatorio</h5>
             }
             {
-              (error.usuario && nombreUsuario.value.length === 1 && errorNameFeed) &&
-              <h5>+2 Caracteres</h5>
+              (error.usuario && !nombreUsuario.value.includes('@nexo') && nombreUsuario.value.length !== 0 && errorNameFeed) &&
+              <h5>Debe contener '@nexo'</h5>
             }
             <label className="text-gray-700 text-lg mb-2 mt-2">Contraseña</label>
             <input {...password} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
             {
               (error.password && password.value.length === 0 && errorPassFeed) ?
-              <h5>*Campo Obligatorio</h5> :
+              <h5>*Campo obligatorio</h5> :
               (error.password && password.value.length > 0 && errorPassFeed) &&
               <h5>Contraseña incorrecta</h5>
             }
-            <button type="submit" className='text-white text-lg font-semibold rounded-full mt-8 border border-gray-400 w-full p-2 bg-primary hover:bg-blue-900'>Ingresar</button>
+            <button className='text-white text-lg font-semibold rounded-full mt-8 border border-gray-400 w-full p-2 bg-primary hover:bg-blue-900'>Ingresar</button>
           
             <a href=""><h4 className="pt-6 underline text-center">Olvidé mi contraseña</h4></a>
           </form>
-      </div>        
+      </div>
     </>
   )
 }
-
-

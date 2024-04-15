@@ -52,7 +52,7 @@ export const Login = () => {
             !loginSwitch ?
             <h2 onClick={cambiarForm} className='cursor-pointer text-2xl underline'>Trabaja con Nosotros</h2>
                :
-            <h2 onClick={cambiarForm} className='cursor-pointer text-2xl underline'>Ingresar</h2>
+            <h2 onClick={cambiarForm} className='cursor-pointer text-2xl underline'>Iniciar Sesión</h2>
           }
       </figure>
 
