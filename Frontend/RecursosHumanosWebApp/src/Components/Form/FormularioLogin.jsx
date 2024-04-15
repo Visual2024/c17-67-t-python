@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import useInput from "../../Hook/useInput"
 import { useNavigate } from 'react-router-dom'
 
-export function FormularioLogin() {
+export function FormularioLogin({modalSwitch}) {
 
   const nombreUsuario = useInput('text')
   const password = useInput('password')
@@ -119,7 +119,7 @@ export function FormularioLogin() {
             }
             <button className='text-white text-lg font-semibold rounded-full mt-8 border border-gray-400 w-full p-2 bg-primary hover:bg-blue-900'>Ingresar</button>
           
-            <a href=""><h4 className="pt-6 underline text-center">Olvidé mi contraseña</h4></a>
+            <h4 onClick={modalSwitch} className="pt-6 underline text-center cursor-pointer">Olvidé mi contraseña</h4>
           </form>
       </div>
     </>
