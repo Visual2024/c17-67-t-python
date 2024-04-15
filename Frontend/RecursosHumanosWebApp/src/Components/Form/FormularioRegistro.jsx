@@ -16,6 +16,7 @@ export const FormularioRegistro = () => {
 
     const endpoint = import.meta.env.VITE_API_KEY;
 
+    console.log(endpoint);
     const validateFields = (candidate) => {
         setError({
             first_name: !validateName(candidate.first_name),

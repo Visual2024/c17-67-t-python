@@ -34,12 +34,12 @@ export function Layout() {
     const [rol, setRol] = useState(null);
 
     useEffect(() => {
-        const usuarioLocalStorage = JSON.parse(localStorage.getItem('nombreUsuario'));
-        const rolLocalStorage = JSON.parse(localStorage.getItem('rol'));
+        const usuarioSessionStorage = JSON.parse(sessionStorage.getItem('nombreUsuario'));
+        const rolSessionStorage = JSON.parse(sessionStorage.getItem('rol'));
 
-        if (usuarioLocalStorage && rolLocalStorage) {
-            setUsuario(usuarioLocalStorage);
-            setRol(rolLocalStorage);
+        if (usuarioSessionStorage && rolSessionStorage) {
+            setUsuario(usuarioSessionStorage);
+            setRol(rolSessionStorage);
         }else{
             window.location.replace('/login')
         }
