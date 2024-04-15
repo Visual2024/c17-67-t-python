@@ -1,5 +1,24 @@
+.header{
+    width: 100vw;
+    box-shadow: 0px 3px 6px rgb(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 16px 32px;
+    width: 100%;
+}
+
 .Container{
-    padding: 0 48px 36px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,21 +27,7 @@
     width: 100%;
     user-select: none;
     gap: 36px;
-}
-
-.Container figure{
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-}
-
-.imgLogo{
-    width: 200px;
-    height: 200px;
+    margin: 96px 0;
 }
 
 .formulariosDiv{
@@ -146,9 +151,7 @@
         padding: 0 16px;
     }
 
-    .Container figure{
-        margin: 0;
-        justify-content: space-around;
+    .nav{
         text-align: end;
     }
 

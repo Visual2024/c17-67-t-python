@@ -8,6 +8,9 @@ export const FormularioRegistro = () => {
     const [error, setError] = useState({ firstState: true });
     const navigate = useNavigate();
 
+    const endpoint = import.meta.env.VITE_API_KEY
+
+    console.log(endpoint);
     const validateFields = (candidate) => {
         setError({
             first_name: !validateName(candidate.first_name),
@@ -47,7 +50,7 @@ export const FormularioRegistro = () => {
         )
             return;
 
-        fetch("http://127.0.0.1:8000/hiring/api/v1/candidate/", {
+        fetch(`${endpoint}/api/v1/candidate/`, {
             method: "POST",
             body: JSON.stringify(candidate),
             headers: {
