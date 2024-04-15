@@ -1,27 +1,22 @@
+import { LinesChart } from "../Components/Gaficos/Lineas";
+import { Bars } from "../Components/Gaficos/Moths";
+import { Pies } from "../Components/Gaficos/PiesChart";
+
+
 export const GerenteGestionFinanzas = () => {
-  /* 
-  Dashboard de Finanzas: Al acceder a la página de gestión financiera, el usuario sería recibido por un 
-  dashboard que presenta de manera visual y resumida los datos financieros clave, como 
-  ingresos, 
-  gastos, 
-  presupuesto disponible, 
-  entre otros. 
-  Se podrían incluir gráficos de barras o tortas para una rápida comprensión de la información.
-  */
-    return (
-     <main>
-        <section>
-          <h1>Ingresos</h1>
-        </section>
-        <section>
-        <h1>Gastos</h1>
-        </section>
-        <section>
-        <h1>Presupuesto Disponible</h1>
-        </section>
-        
-     </main>
-      
-    )
-  }
-  
+  return (
+    <main className="flex flex-row flex-wrap">
+      <h1 className="font-bold text-3xl mb-5">Gestión Financiera</h1>
+      <section className="flex flex-row mr-10 border-solid border-gris border-[2px] w-[100%] h-[20rem]">
+        <div className=" p-3 w-[100%]">
+          <LinesChart />
+        </div>
+      </section>
+      <section className="flex flex-row  justify-end  mr-10 border-solid  w-[50%] h-[20rem] mt-10">
+        <div className=" p-3 w-[100%]">
+          <Pies />
+        </div>
+      </section>
+    </main>
+  );
+};
