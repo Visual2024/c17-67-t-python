@@ -1,14 +1,20 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { validateName, validateDNI, validateEmail, validatePhoneNumber } from "../../utils/regexValidation";
+import {
+    validateName,
+    validateDNI,
+    validateEmail,
+    validatePhoneNumber,
+} from "../../utils/regexValidation";
+import { FormContext } from "../../Context/FormContext";
+import Swal from "sweetalert2";
 
 export const FormularioRegistro = () => {
     const [candidate, setCandidate] = useState({});
     const [error, setError] = useState({ firstState: true });
-    const navigate = useNavigate();
+    const { puestoDeTrabajo, formSwitch } = useContext(FormContext);
 
-    const endpoint = import.meta.env.VITE_API_KEY
+    const endpoint = import.meta.env.VITE_API_KEY;
 
     console.log(endpoint);
     const validateFields = (candidate) => {
@@ -25,7 +31,7 @@ export const FormularioRegistro = () => {
             email: !validateEmail(candidate.email),
             dni: !validateDNI(candidate.dni),
             phone_number: !validatePhoneNumber(candidate.phone_number),
-        }
+        };
     };
 
     const handleSubmit = (e) => {
@@ -50,16 +56,24 @@ export const FormularioRegistro = () => {
         )
             return;
 
-        fetch(`${endpoint}/api/v1/candidate/`, {
+        fetch(`http://127.0.0.1:8000/hiring/api/v1/candidate/`, {
             method: "POST",
             body: JSON.stringify(candidate),
             headers: {
-                "Content-Type": "application/json"
-            }
-        }).then((res) => res.json()).then(data => {
-            console.log(data)
-            navigate("/register-2")
+                "Content-Type": "application/json",
+            },
         })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                Swal.fire({
+                    title: "¡Postulación exitosa!",
+                    text: "Gracias por postularte",
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                });
+                return formSwitch();
+            });
     };
 
     return (
@@ -106,7 +120,8 @@ export const FormularioRegistro = () => {
                             }));
                             return setCandidate({
                                 ...candidate,
-                                last_name: e.target.value,
+                                last_name:
+                                    e.target.value + " " + puestoDeTrabajo,
                             });
                         }}
                         placeholder="Pérez"

@@ -1,22 +1,39 @@
-import { useState } from 'react'
-import Swal from "sweetalert2"
-import { Box, Modal } from '@mui/material';
-import { FormularioRegistro } from './FormularioRegistro';
+
+import { useState, useContext } from "react";
+import { FormContext } from "../../Context/FormContext";
+import Swal from "sweetalert2";
+import { Box, Modal } from "@mui/material";
+import { FormularioRegistro } from "./FormularioRegistro";
+
 import muiStyles from '../../Styles/LoginFormRegis.module.css';
 
+
 export const LoginFormRegis = () => {
+    // const [verFormRegistro, setVerFormRegistro] = useState(false);
+    const {
+        puestoDeTrabajo,
+        setPuestoDeTrabajo,
+        verFormRegistro,
+        setVerFormRegistro,
+        formSwitch,
+    } = useContext(FormContext);
 
-    const [verFormRegistro, setVerFormRegistro] = useState(false)
-    const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
+    // const formSwitch = () => {
+    //     setVerFormRegistro(!verFormRegistro);
+    // };
 
-    const formSwitch = () => {
-      setVerFormRegistro(!verFormRegistro)
-    }
-  
+
+    const style = {
+        position: "absolute",
+        top: "20%",
+        bgcolor: "background.paper",
+        boxShadow: 15,
+    };
+
     const selectOnChange = (event) => {
-      setPuestoDeTrabajo(event.target.value)
-    }
-  
+        setPuestoDeTrabajo(event.target.value);
+    };
+
     const registrateClick = (event) => {
       event.preventDefault()
       if (puestoDeTrabajo === '') {
@@ -27,6 +44,7 @@ export const LoginFormRegis = () => {
       }
       return formSwitch()
     }
+
 
 
   return (
@@ -58,3 +76,4 @@ export const LoginFormRegis = () => {
     </>
   )
 }
+
