@@ -33,10 +33,10 @@ let midata = {
             data: beneficios,
             tension: 0.5,
             fill : true,
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            borderColor: 'rgba(100, 140, 255,1 )',
+            backgroundColor: 'rgba(255, 255, 255, 0)',
             pointRadius: 5,
-            pointBorderColor: 'rgba(255, 99, 132)',
+            pointBorderColor: 'rgba(255, 0, 0, 0)',
             pointBackgroundColor: 'rgba(255, 99, 132)',
         },
         {
@@ -53,7 +53,7 @@ let misoptions = {
             min : 0
         },
         x: {
-            ticks: { color: 'rgb(255, 99, 132)'}
+            ticks: { color: 'rgb(255, 240, 132)'}
             
         }
     }
