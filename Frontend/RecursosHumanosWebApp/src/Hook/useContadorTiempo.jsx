@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { format, addSeconds } from "date-fns";
+// import { format, addSeconds } from "date-fns";
 
 export const useContadorTiempo = () => {
   const [tiempoActual, setTiempoActual] = useState(
@@ -47,10 +47,10 @@ export const useContadorTiempo = () => {
 
   };
 
-  const tiempoFormateado = format(tiempoActual, "HH'h' mm'min'");
+  // const tiempoFormateado = format(tiempoActual, "HH'h' mm'min'");
 
   return {
-    tiempoFormateado,
+    // tiempoFormateado,
     iniciarContador,
     pausarContador,
     reanudarContador,
