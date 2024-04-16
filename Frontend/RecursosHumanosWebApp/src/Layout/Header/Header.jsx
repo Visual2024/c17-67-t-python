@@ -8,7 +8,8 @@ const rutasNombres = {
   "comunicacion": "Comunicación",
   "registrodehorarios": "Registro de Horarios",
   "datospersonales": "Datos Personales",
-  "gestiondeusuarios": "Gestion de Usuarios"
+  "gestiondeusuarios": "Gestion de Usuarios",
+  "":"Panel"
 };
 
 export function Header({ nombreUsuario }) {
