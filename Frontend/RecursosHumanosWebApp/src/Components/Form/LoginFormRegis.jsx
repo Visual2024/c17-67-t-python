@@ -1,15 +1,18 @@
-
 import { useState, useContext } from "react";
 import { FormContext } from "../../Context/FormContext";
 import Swal from "sweetalert2";
 import { Box, Modal } from "@mui/material";
 import { FormularioRegistro } from "./FormularioRegistro";
-
 import muiStyles from '../../Styles/LoginFormRegis.module.css';
 
 
-export const LoginFormRegis = () => {
+export const LoginFormRegis = ({formPostulants}) => {
+
     // const [verFormRegistro, setVerFormRegistro] = useState(false);
+    // const formSwitch = () => {
+    //     setVerFormRegistro(!verFormRegistro);
+    // };
+
     const {
         puestoDeTrabajo,
         setPuestoDeTrabajo,
@@ -17,10 +20,6 @@ export const LoginFormRegis = () => {
         setVerFormRegistro,
         formSwitch,
     } = useContext(FormContext);
-
-    // const formSwitch = () => {
-    //     setVerFormRegistro(!verFormRegistro);
-    // };
 
 
     const style = {
@@ -42,9 +41,8 @@ export const LoginFormRegis = () => {
           confirmButtonColor: '#0B0060'
         })
       }
-      return formSwitch()
+      return formPostulants()
     }
-
 
 
   return (
@@ -63,7 +61,7 @@ export const LoginFormRegis = () => {
             <button className='text-white text-lg  p-2 rounded-full bg-primary hover:bg-blue-900' >Regístrate</button>
         </form>
 
-        <Modal
+        {/* <Modal
           open={verFormRegistro}
           onClose={formSwitch}
           aria-labelledby="modal-modal-title"
@@ -72,7 +70,7 @@ export const LoginFormRegis = () => {
         <Box className={muiStyles.Container}>
           <FormularioRegistro formSwitch={formSwitch} puestoDeTrabajo={puestoDeTrabajo}/>
         </Box>
-      </Modal>
+      </Modal> */}
     </>
   )
 }

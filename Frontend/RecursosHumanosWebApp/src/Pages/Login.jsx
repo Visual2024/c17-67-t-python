@@ -27,6 +27,7 @@ export const Login = () => {
     setModalMsj(false)
     setModal(!modal)
   }
+
   const modalMsjSwitch = () => {
     if (modalInputValue.includes('@')) {
       setModalMsj(!modalMsj)
@@ -34,7 +35,7 @@ export const Login = () => {
     }
   }
 
-  const cForm = () => {
+  const formPostulants = () => {
     setVerFormRegistro(!verFormRegistro)
   }
 
@@ -87,7 +88,7 @@ export const Login = () => {
       <header className={loginstyles.header}>
         <nav className={loginstyles.nav}>
           <figure>
-            <img onClick={cForm} className={loginstyles.imgLogo} src="/images/HR-Nexo-2.png" alt="logo-Nexo-RecursosHumanos" />
+            <img className={loginstyles.imgLogo} src="/images/HR-Nexo-2.png" alt="logo-Nexo-RecursosHumanos" />
           </figure>            
             {
               !loginSwitch ?
@@ -108,7 +109,7 @@ export const Login = () => {
             </div>
             :
             <div className={loginstyles.formRegistro}>
-              <LoginFormRegis />
+              <LoginFormRegis formPostulants={formPostulants}/>
               <div className={loginstyles.formImg}>
                 <img src="/images/img-login-1.png" alt="" />            
               </div>
@@ -118,7 +119,7 @@ export const Login = () => {
 
         <div className={loginstyles.formEmergenteExterior} style={{backgroundColor: verFormRegistro ? 'rgb(0, 0, 0,.2)' : 'transparent', zIndex: indexZ}}>
           <div className={loginstyles.formEmergenteContainer} style={{width: divEmergenteSize}}>
-            <span onClick={cForm} style={{display: verFormRegistro? 'block' : 'none'}}><i className="fas fa-x fa-2x text-gray-900"></i></span>
+            <span onClick={formPostulants} style={{display: verFormRegistro? 'block' : 'none'}}><i className="fas fa-x fa-2x text-gray-900"></i></span>
               {
                 verFormRegistro &&
                 <div className={loginstyles.formEmergenteDiv} style={{opacity: formOpacity, transition: 'opacity .2s ease'}}>
@@ -149,13 +150,11 @@ export const Login = () => {
                 <button onClick={modalMsjSwitch} className=' text-lg'>Enviar</button>               
               </>
             }
-
           </Box>
         </Modal>
 
 
       </div>
     </>
-    
   )
 }

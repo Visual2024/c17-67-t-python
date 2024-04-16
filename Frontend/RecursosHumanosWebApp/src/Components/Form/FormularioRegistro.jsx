@@ -1,13 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import { validateName, validateDNI, validateEmail, validatePhoneNumber } from "../../utils/regexValidation";
 import { useState, useContext, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import {
-    validateName,
-    validateDNI,
-    validateEmail,
-    validatePhoneNumber,
-} from "../../utils/regexValidation";
 import { FormContext } from "../../Context/FormContext";
 import Swal from "sweetalert2";
+
 
 export const FormularioRegistro = () => {
     const [candidate, setCandidate] = useState({});
