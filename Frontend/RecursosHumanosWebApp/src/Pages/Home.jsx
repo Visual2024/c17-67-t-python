@@ -15,7 +15,7 @@ export function Home() {
     if (rolSessionStorage) {
       setRol(rolSessionStorage);
     } else {
-      window.location.replace("/login");
+      // window.location.replace("/login");
     }
   }, []);
 

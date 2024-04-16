@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
-import { es } from "date-fns/locale"; // Importa el locale 'es' para español
+// import { format } from "date-fns";
+// import { es } from "date-fns/locale"; // Importa el locale 'es' para español
 import Polygon from "@/../public/img/Polygon";
 
 
@@ -21,15 +21,18 @@ export function NameCard() {
       setUsuario(usuarioSessionStorage);
       setRol(rolSessionStorage);
     } else {
-      window.location.replace("/login");
+      // window.location.replace("/login");
     }
 
     // Obtener la fecha actual
     const fecha = new Date();
-    const fechaDescriptiva = format(fecha, "EEEE, d 'de' MMMM 'del' yyyy", {
-      locale: es,
-    });
-    setFechaActual(fechaDescriptiva);
+    // const fechaDescriptiva = format(fecha, "EEEE, d 'de' MMMM 'del' yyyy", {
+    //   locale: es,
+    // });
+    // setFechaActual(fechaDescriptiva);
+
+    setFechaActual(fecha);
+
   }, []);
 
   // Obtener el nombre de usuario del correo electrónico
@@ -67,7 +70,7 @@ export function NameCard() {
         </div>
       <h1 className="text-lg">{`Hola ${obtenerNombreUsuario(usuario)}, bienvenido! `}</h1>
       </header>
-      <small className="capitalize text-xs">{fechaActual}</small>
+      {/* <small className="capitalize text-xs">{fechaActual}</small> */}
     </article>
   );
 }
