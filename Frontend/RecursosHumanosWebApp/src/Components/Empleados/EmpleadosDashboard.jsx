@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom';
 
-export const EmpleadosDashboard = ({cambiosSwitch}) => {
+export const EmpleadosDashboard = ({cambiosSwitch, contratarEmpleado}) => {
 
     const [empleados, setEmpleados] = useState({});
     const navigate = useNavigate()
@@ -128,8 +128,8 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
         },
     ];
 
-
     const verDatosPersonales = (index) => {
+        console.log(index);
         const id = index.id;
         navigate(`/datospersonales/${id}`)
     }
