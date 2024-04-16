@@ -27,7 +27,7 @@ let meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Ag
 
 let midata = {
     labels: meses,
-    datasets: [ // Cada una de las líneas del gráfico
+    datasets: [ 
         {
             label: 'Sueldo',
             data: beneficios,
@@ -40,8 +40,13 @@ let midata = {
             pointBackgroundColor: 'rgba(255, 99, 132)',
         },
         {
-            label: 'Otra línea',
-            data: [20, 25, 60, 65, 45, 10, 0, 25, 35, 7, 20, 25]
+            label: 'Descuentos',
+            data: [500, 700, 600, 1000, 4050, 1000, 10, 250, 3500, 6000, 200, 2500],
+            borderColor: 'rgba(100, 100, 100, .2 )',
+            pointRadius: 5,
+            tension: 0.6,
+            pointBorderColor: 'rgba(255, 0, 0, 0)',
+            pointBackgroundColor: 'rgba(0, 255, 0)',
         },
     ],
 };
@@ -53,7 +58,7 @@ let misoptions = {
             min : 0
         },
         x: {
-            ticks: { color: 'rgb(255, 240, 132)'}
+            ticks: { color: 'rgb(0, 0, 132)'}
             
         }
     }
