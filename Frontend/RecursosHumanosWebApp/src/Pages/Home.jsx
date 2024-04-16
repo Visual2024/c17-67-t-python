@@ -27,7 +27,7 @@ export function Home() {
             display: "grid",
             gridTemplateColumns: "288px 384px 384px",
             gridTemplateRows: "136px 1fr 1fr",
-            gap:'1rem'
+            gap: "1rem",
           }}
         >
           <div style={{ gridColumn: "1 / 2", gridRow: "1 / 2" }}>
@@ -39,7 +39,10 @@ export function Home() {
           <div style={{ gridColumn: "3 / 4", gridRow: "1 / 4" }}>
             <QuienEstaAdentroCard />
           </div>
-          <div className=" mt-12" style={{ gridColumn: "2 / 2", gridRow: "2 / 4" }}>
+          <div
+            className=" mt-12"
+            style={{ gridColumn: "2 / 2", gridRow: "2 / 4" }}
+          >
             <ProyectosActivosCard />
           </div>
           <div className="" style={{ gridColumn: "1 / 2", gridRow: "2 / 4" }}>
@@ -51,8 +54,21 @@ export function Home() {
         </section>
       ) : (
         <>
-          <NameCard />
-          <ComunicacionCard rol={rol} />
+          <section
+            style={{
+              display: "grid",
+              gridTemplateColumns: "288px 384px 384px",
+              gridTemplateRows: "136px 1fr 1fr",
+              gap: "1rem",
+            }}
+          >
+            <div style={{ gridColumn: "1 / 2", gridRow: "1 / 2" }}>
+              <NameCard />
+            </div>
+            <div style={{ gridColumn: "2 / 3", gridRow: "1 / 2" }}>
+              <ComunicacionCard rol={rol} />
+            </div>
+          </section>
         </>
       )}
     </section>
