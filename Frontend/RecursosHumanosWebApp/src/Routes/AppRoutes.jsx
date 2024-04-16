@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
 import { Home, Candidates, Error404, GestionDeEmpleados, GestionDeUsuarios, GerenteGestionFinanzas, EmpleadoGestionFinanzas, DatosPersonales, Login } from '@/Pages';
+import { useJwt } from "react-jwt";
 
 
 export function AppRoutes() {
@@ -31,26 +32,50 @@ export function AppRoutes() {
 export function Layout() {
 
     const [usuario, setUsuario] = useState(null);
+    const [ususarioId, setUsusarioId] = useState(null);
     const [rol, setRol] = useState(null);
+    const url = import.meta.env.VITE_API_KEY
 
+    const secret = import.meta.env.VITE_SECRET_KEY
+    const token = ''
+
+
+    const { decodedToken } = useJwt(token, secret);
+  
     useEffect(() => {
-        const usuarioSessionStorage = JSON.parse(sessionStorage.getItem('nombreUsuario'));
-        const rolSessionStorage = JSON.parse(sessionStorage.getItem('rol'));
+      if (decodedToken) {
+        console.log('Token decodificado:', decodedToken);
+        const userId = decodedToken.user_id;
+        setUsusarioId(userId)
+        localStorage.setItem('userId', JSON.stringify(ususarioId))
+      } else {
+        console.error('Error al intentar decodificar el token.');
+      }
+    }, [decodedToken]);
 
-        if (usuarioSessionStorage && rolSessionStorage) {
-            setUsuario(usuarioSessionStorage);
-            setRol(rolSessionStorage);
-        }else{
-            window.location.replace('/login')
-        }
-    }, []);
+
+    const cerrarSesionClick = () => {
+        Swal.fire({
+          title: "Desea Cerrar Sesión?",
+          showCancelButton: true,
+          confirmButtonColor: '#0B0060',
+          cancelButtonColor: "#626262",
+          confirmButtonText: "Si!",
+          cancelButtonText: "No!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.removeItem('userId');
+            navigate("/login");
+          }
+        });
+      };
 
 
     return (
         <div className="flex">
-            <MenuLateral rol={rol}/>
+            <MenuLateral rol="ADMIN" cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full">
-                <Header nombreUsuario={usuario}/>
+                <Header nombreUsuario="SUPERUSUARIO"/>
                 <div className="p-4">
                     <Outlet />
                 </div>
