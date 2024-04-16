@@ -19,6 +19,9 @@ Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus 
 
   - [Facundo Alorz]()
 
+- Diseñadora UX/UI
+  - [Sofia Pericas]() 
+
 - Frontend:
 
   - [Alejandro Luna]()
