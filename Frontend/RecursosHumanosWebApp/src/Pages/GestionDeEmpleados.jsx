@@ -119,9 +119,18 @@ export const GestionDeEmpleados = () => {
 
           eliminarCandidatoContratado(index)
           setearCambios()
+          Swal.fire({
+            title: `Nuevo empleado admitido: ${payload.first_name} ${payload.last_name} \nDatos de acceso: \nEmail: ${payload.email} \nContraseña: ${payload.password}`,
+            confirmButtonColor: '#0B0060',
+            icon: "success",
+          })
         })
         .catch(error =>{
-          alert('Error al intentar contratar empleado')
+          Swal.fire({
+            title: "Error al procesar la solicitud de contratación",
+            icon: "error",
+            confirmButtonColor: '#0B0060',
+          })
           console.error(error)
         })
       }
