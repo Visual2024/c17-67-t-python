@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { useNavigate } from 'react-router-dom';
 
-export const EmpleadosDashboard = ({cambiosSwitch, contratarEmpleado}) => {
+export const EmpleadosDashboard = ({cambiosSwitch}) => {
 
     const [empleados, setEmpleados] = useState({});
     const navigate = useNavigate()
 
     const url = import.meta.env.VITE_API_KEY
-    const token = JSON.parse(localStorage.getItem('token'))
+    // const token = JSON.parse(localStorage.getItem('token'))
 
-    const configuraciones = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    }
+
+    // const configuraciones = {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${token}`
+    //     }
+    // }
 
     useEffect(() => {
-        fetch(`${url}/api/v1/employees/`, configuraciones)
+        fetch(`${url}/api/v1/employees/`)
         .then(res => {
             if (!res.ok) {
                 throw new Error (res.status)
@@ -31,6 +32,7 @@ export const EmpleadosDashboard = ({cambiosSwitch, contratarEmpleado}) => {
         })
         .then((data) => {
             console.log(data)
+            setEmpleados(data)
         })
         .catch(error=> console.error(error))
 
@@ -139,7 +141,7 @@ export const EmpleadosDashboard = ({cambiosSwitch, contratarEmpleado}) => {
     <div className="m-2 shadow-xl">
         <DataTable 
             columns={columns}
-            data={data}
+            data={empleados.length > 0 ? empleados : data}
             highlightOnHover
             pointerOnHover
             responsive

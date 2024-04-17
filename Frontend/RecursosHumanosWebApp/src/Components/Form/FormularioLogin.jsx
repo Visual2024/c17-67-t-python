@@ -86,8 +86,8 @@ export function FormularioLogin({modalSwitch}) {
     if (erroresValidacion.usuario === false && erroresValidacion.password === false) {
       console.log(configuraciones);
       console.log(JSON.parse(configuraciones.body));
-      fetch(`${endpoint}/api/v1/token/`, configuraciones)
 
+      fetch(`${endpoint}/api/v1/token/`, configuraciones)
       .then(res=> {
         if(!res.ok){
           throw new Error (res.status)
@@ -102,20 +102,14 @@ export function FormularioLogin({modalSwitch}) {
         localStorage.setItem('refresh', JSON.stringify(data.refresh))
         localStorage.setItem('token', JSON.stringify(data.access))
 
-        alert('login')
         nombreUsuario.onChange({target: { value: ''}})
         password.onChange({target: { value: ''}})
-
+        navigate('/')
       })
       .catch((error)=>{
         console.error(error)
         setErrorCredenciales(true)
       })
-
-      // sessionStorage.setItem('nombreUsuario', JSON.stringify(nombreUsuario.value.toUpperCase()))
-      // sessionStorage.setItem('rol', JSON.stringify(password.value.toUpperCase()))
-
-      // navigate('/')
     }
   }
 
@@ -153,7 +147,7 @@ export function FormularioLogin({modalSwitch}) {
               </div>
             }
             <label className="text-gray-700 text-lg mb-2 mt-2">Correo electrónico</label>
-            <input {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
+            <input {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 pl-3 w-full'/>
             {
               (error.usuario && nombreUsuario.value.length === 0) &&
               <h5>*Campo obligatorio</h5>
@@ -167,7 +161,7 @@ export function FormularioLogin({modalSwitch}) {
               <h5 style={{color: "green"}}>Email Ok!</h5>
             }
             <label className="text-gray-700 text-lg mb-2 mt-2">Contraseña</label>
-            <input {...password} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 w-full'/>
+            <input {...password} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 pl-3 w-full'/>
             {
               (error.password && password.value.length === 0) ?
               <h5>*Campo obligatorio</h5> :

@@ -38,7 +38,7 @@ export function Layout() {
     const url = import.meta.env.VITE_API_KEY
     const navigate = useNavigate()
     const secret = import.meta.env.VITE_SECRET_KEY
-    const token = ''
+    const token = JSON.parse(localStorage.getItem('token'))
 
 
     const { decodedToken } = useJwt(token, secret);
@@ -47,7 +47,9 @@ export function Layout() {
       if (decodedToken) {
         console.log('Token decodificado:', decodedToken);
         const userId = decodedToken.user_id;
+        const userName = decodedToken.user_name;
         setUsusarioId(userId)
+        setUsuario(userName)
         localStorage.setItem('userId', JSON.stringify(ususarioId))
       } else {
         console.error('Error al intentar decodificar el token.');
@@ -66,17 +68,19 @@ export function Layout() {
         }).then((result) => {
           if (result.isConfirmed) {
             localStorage.removeItem('userId');
+            localStorage.removeItem('token');
+            localStorage.removeItem('refresh');
             navigate("/login");
           }
         });
-      };
+    };
 
 
     return (
         <div className="flex">
             <MenuLateral rol="ADMIN" cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full">
-                <Header nombreUsuario="SUPERUSUARIO"/>
+                <Header nombreUsuario={usuario !== null ? usuario : 'Visitante'} />
                 <div className="p-4">
                     <Outlet />
                 </div>
