@@ -6,20 +6,28 @@
 [![Django REST Framework](https://img.shields.io/badge/Django%20REST%20Framework-v3.15.1-orange.svg)](https://www.django-rest-framework.org/)
 [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
 
-## Descripción
+## Descripción  
 
 Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus recursos humanos de manera simple y eficiente. Se basa en las tecnologías React y Django, lo que la hace moderna, escalable y fácil de usar.
 
 ## Colaboradores
 
+- Product Manager
+     - [Dario Romero](https://www.linkedin.com/in/dario-ricardo-romero/)
+
 - QA
 
-  - []
+  - [Facundo Alorz]()
 
 - Frontend:
 
   - [Alejandro Luna]()
   - [Facundo Pettersson]()
+  - [Lucas Gotz]()
+  - [Martin Roldan]()
+  - [Piero Ramirez]()
 
 - Backend:
   - [Felix Pacheco Lobos](https://www.linkedin.com/in/felix-pacheco-lobos/)
+  - [Mariana ]()
+  - [Juan Cruz ]()
