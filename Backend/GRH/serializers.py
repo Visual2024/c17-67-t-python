@@ -1,15 +1,15 @@
-from rest_framework import serializers, permissions, status
+from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.core import exceptions
 from django.contrib.auth.password_validation import validate_password
-from GRH.models import Postulant, Stage, Vacancy, Role
+from .models import Postulant, Stage, Vacancy, Role
 
 # Instantiate the CustomUser
 User = get_user_model()
 
 
 # Create your serializers here.
-class CreateUserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
@@ -31,25 +31,25 @@ class CreateUserSerializer(serializers.ModelSerializer):
         return data
 
 
-class CreatePostulantSerializer(serializers.ModelSerializer):
+class PostulantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Postulant
         fields = "__all__"
 
 
-class CreateVacancySerializer(serializers.ModelSerializer):
+class VacancySerializer(serializers.ModelSerializer):
     class Meta:
         model = Vacancy
         fields = "__all__"
 
 
-class CreateStageSerializer(serializers.ModelSerializer):
+class StageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stage
         fields = "__all__"
 
 
-class CreateRoleSerializer(serializers.ModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
         fields = "__all__"

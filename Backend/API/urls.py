@@ -1,15 +1,29 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import RegisterPostulantView, RegisterEmployeeView
+from GRH.views import *
 
-# Instantiate the router
-router = DefaultRouter()
-
-# API Versioning
-router.register(r"postulants", RegisterPostulantView, "Postulantes")
-router.register(r"employees", RegisterEmployeeView, "Empleados")
 
 urlpatterns = [
-    path("v1/", include(router.urls)),
+    path("v1/employees", UserList.as_view()),
+    path(
+        "v1/employees/<int:pk>",
+        UserDetail.as_view(),
+    ),
+    path("v1/postulants", PostulantList.as_view()),
+    path(
+        "v1/postulants/<int:pk>",
+        PostulantDetail.as_view(),
+    ),
+    path("v1/vacancies", VacancyList.as_view()),
+    path(
+        "v1/vacancies/<int:pk>",
+        VacancyDetail.as_view(),
+    ),
+    path("v1/stages", StageList.as_view()),
+    path("v1/stages/<int:pk>", StageDetail.as_view()),
+    path("v1/roles", RoleList.as_view()),
+    path("v1/roles/<int:pk>", RoleDetail.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
