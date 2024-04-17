@@ -11,8 +11,6 @@ function FormProvider({ children }) {
     const formSwitch = () => {
         setVerFormRegistro(!verFormRegistro);
     };
-
-    
     return (
         <FormContext.Provider
             value={{
