@@ -81,7 +81,7 @@ export function Layout() {
 
     return (
         <div className="flex">
-            <MenuLateral rol="ADMIN" cerrarSesion={cerrarSesionClick}/>
+            <MenuLateral rol="ADMIN" userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full">
                 <Header nombreUsuario={usuario !== null ? usuario : 'Visitante'} />
                 <div className="p-4">
