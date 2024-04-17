@@ -1,22 +1,38 @@
-import { useState } from 'react'
-import Swal from "sweetalert2"
-import { Box, Modal } from '@mui/material';
-import { FormularioRegistro } from './FormularioRegistro';
+import { useState, useContext } from "react";
+import { FormContext } from "../../Context/FormContext";
+import Swal from "sweetalert2";
+import { Box, Modal } from "@mui/material";
+import { FormularioRegistro } from "./FormularioRegistro";
 import muiStyles from '../../Styles/LoginFormRegis.module.css';
 
-export const LoginFormRegis = () => {
 
-    const [verFormRegistro, setVerFormRegistro] = useState(false)
-    const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
+export const LoginFormRegis = ({formPostulants}) => {
 
-    const formSwitch = () => {
-      setVerFormRegistro(!verFormRegistro)
-    }
-  
+    // const [verFormRegistro, setVerFormRegistro] = useState(false);
+    // const formSwitch = () => {
+    //     setVerFormRegistro(!verFormRegistro);
+    // };
+
+    const {
+        puestoDeTrabajo,
+        setPuestoDeTrabajo,
+        verFormRegistro,
+        setVerFormRegistro,
+        formSwitch,
+    } = useContext(FormContext);
+
+
+    const style = {
+        position: "absolute",
+        top: "20%",
+        bgcolor: "background.paper",
+        boxShadow: 15,
+    };
+
     const selectOnChange = (event) => {
-      setPuestoDeTrabajo(event.target.value)
-    }
-  
+        setPuestoDeTrabajo(event.target.value);
+    };
+
     const registrateClick = (event) => {
       event.preventDefault()
       if (puestoDeTrabajo === '') {
@@ -25,7 +41,7 @@ export const LoginFormRegis = () => {
           confirmButtonColor: '#0B0060'
         })
       }
-      return formSwitch()
+      return formPostulants()
     }
 
 
@@ -45,7 +61,7 @@ export const LoginFormRegis = () => {
             <button className='text-white text-lg  p-2 rounded-full bg-primary hover:bg-blue-900' >Regístrate</button>
         </form>
 
-        <Modal
+        {/* <Modal
           open={verFormRegistro}
           onClose={formSwitch}
           aria-labelledby="modal-modal-title"
@@ -54,7 +70,8 @@ export const LoginFormRegis = () => {
         <Box className={muiStyles.Container}>
           <FormularioRegistro formSwitch={formSwitch} puestoDeTrabajo={puestoDeTrabajo}/>
         </Box>
-      </Modal>
+      </Modal> */}
     </>
   )
 }
+
