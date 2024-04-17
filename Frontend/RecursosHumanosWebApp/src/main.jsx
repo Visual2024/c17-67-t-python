@@ -5,12 +5,13 @@ import { App } from "./App.jsx";
 import "./Styles/index.css";
 import FormProvider from "./Context/FormContext.jsx";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+    <React.StrictMode>     
         <FormProvider>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
         </FormProvider>
     </React.StrictMode>
 );
