@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { LinesChart } from "../Components/Gaficos/Lineas";
 import { Pies } from "../Components/Gaficos/PiesChart";
+import { Date_Finanzas } from "../Components/Finanzas/Date_Finanzas";
+import { Date_Finanzas_2 } from "../Components/Finanzas/Date_Finanzas2";
 
 export const GerenteGestionFinanzas = () => {
 
@@ -47,12 +49,8 @@ export const GerenteGestionFinanzas = () => {
           <LinesChart />
         </div>
       </section>
-
-      <section className="flex flex-row  justify-end  mr-10 border-solid  w-[50%] h-[20rem] mt-10">
-        <div className=" p-3 w-[100%]">
-          <Pies />
-        </div>
-      </section>
+          <Date_Finanzas/>
+          <Date_Finanzas_2/>
     </main>
   );
 };
