@@ -31,6 +31,7 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # API Documentation
     path("docs/v1/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "docs/v1/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
@@ -38,6 +39,7 @@ urlpatterns = [
     path(
         "docs/v1/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"
     ),
+    # API authentication and authorization with JWT
     path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/v1/token/verify/", TokenVerifyView.as_view(), name="token_verify"),
