@@ -13,9 +13,10 @@ import {
   Config,
 } from "../../../public/img/Categorias";
 import { Panel } from "../../../public/img/Panel";
-import Swal from "sweetalert2";
 
-export const MenuLateral = ({ rol }) => {
+export const MenuLateral = ({ rol, cerrarSesion }) => {
+  console.log(cerrarSesion);
+
   const [open, setOpen] = useState(true);
 
   console.log(rol);
@@ -47,22 +48,6 @@ export const MenuLateral = ({ rol }) => {
   ];
 
   const navigate = useNavigate();
-
-  const cerrarSesionClick = () => {
-    Swal.fire({
-      title: "Desea Cerrar Sesión?",
-      showCancelButton: true,
-      confirmButtonColor: '#0B0060',
-      cancelButtonColor: "#626262",
-      confirmButtonText: "Si!",
-      cancelButtonText: "No!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        sessionStorage.clear();
-        navigate("/login");
-      }
-    });
-  };
 
   return (
     <aside className="mr-5 h-100vh">
@@ -274,7 +259,7 @@ export const MenuLateral = ({ rol }) => {
                   <ul className="">
                     <li
                       className="flex cursor-pointer items-center"
-                      onClick={cerrarSesionClick}
+                      onClick={cerrarSesion}
                     >
                       <Salir width={16} height={16} />
                       {!open == "" && <p className="pl-1 text-sm ">Salir</p>}
@@ -284,7 +269,7 @@ export const MenuLateral = ({ rol }) => {
               </div>
             )}
 
-              {rol === "GERENTE" && (
+            {rol === "GERENTE" && (
               <div
                 className={`ml-5 mt-5 ${
                   !open
@@ -308,7 +293,7 @@ export const MenuLateral = ({ rol }) => {
                   <ul className="">
                     <li
                       className="flex cursor-pointer items-center"
-                      onClick={cerrarSesionClick}
+                      onClick={cerrarSesion}
                     >
                       <Salir width={16} height={16} />
                       {!open == "" && <p className="pl-1 text-sm ">Salir</p>}
@@ -342,7 +327,7 @@ export const MenuLateral = ({ rol }) => {
                   <ul className="">
                     <li
                       className="flex cursor-pointer items-center"
-                      onClick={cerrarSesionClick}
+                      onClick={cerrarSesion}
                     >
                       <Salir width={16} height={16} />
                       {!open == "" && <p className="pl-1 text-sm ">Salir</p>}

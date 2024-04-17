@@ -3,7 +3,7 @@ import { Pies } from "../Components/Gaficos/PiesChart";
 
 export const GerenteGestionFinanzas = () => {
 
-
+  
 
  
   return (

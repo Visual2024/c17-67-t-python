@@ -1,7 +1,24 @@
+import { useEffect, useState } from "react";
 import { LinesChart } from "../Components/Gaficos/Lineas";
 
 export const EmpleadoGestionFinanzas = () => {
+
+  const [data, setData] = useState([])
+
+  const url = import.meta.env.VITE_API_KEY
+ 
+
+  useEffect(()=>{
+    fetch(`${url}/api/v1/postulants/`)
+      .then((res) => res.json())
+      .then((date)=>{
+          setData(date)
+      })
+
+  },[])
+
   return (
+
     <div>
       <main className="flex flex-row flex-wrap min-w-[100%]">
         <h1 className="font-bold text-3xl mb-3">Gestión Financiera</h1>
