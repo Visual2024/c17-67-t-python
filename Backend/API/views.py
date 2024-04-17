@@ -1,20 +1,60 @@
-from rest_framework import permissions, status, viewsets
-from GRH.serializers import CreatePostulantSerializer, CreateUserSerializer
+from rest_framework import permissions, status
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
+from django.contrib.auth import get_user_model
+from GRH.serializers import CreatePostulantSerializer
 
 
-# Create your API views here.
-class RegisterPostulantViewSet(viewsets.ModelViewSet):
-    serializer_class = CreatePostulantSerializer
-    queryset = CreatePostulantSerializer.Meta.model.objects.all()
+# Instantiate the CustomUser
+User = get_user_model()
 
 
-class RegisterEmployeeViewSet(viewsets.ModelViewSet):
-    serializer_class = CreateUserSerializer
-    queryset = CreateUserSerializer.Meta.model.objects.all()
+# Create the API views here.
+class RegisterPostulantView(ModelViewSet):
+    def post(self, request):
+        data = request.data
+        first_name = data["first_name"]
+        last_name = data["last_name"]
+        email = data["email"]
+        phone_number = data["phone_number"]
+        secondary_phone_number = data["secondary_phone_number"]
+        address = data["address"]
+        city = data["city"]
+        state = data["state"]
+        country = data["country"]
+
+        postulant = User.objects.create_user(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            phone_number=phone_number,
+            secondary_phone_number=secondary_phone_number,
+            address=address,
+            city=city,
+            state=state,
+            country=country,
+        )
+        postulant = CreatePostulantSerializer(postulant)
+
+        return Response(postulant.data, status=status.HTTP_201_CREATED)
 
 
-class RetrievePostulantViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+class RegisterEmployeeView(ModelViewSet):
+    permission_classes = permissions.IsAuthenticated
 
-    serializer_class = CreatePostulantSerializer
-    queryset = CreatePostulantSerializer.Meta.model.objects.all()
+    def post(self, request):
+        pass
+
+
+class RetrievePostulantView(ModelViewSet):
+    permission_classes = permissions.IsAuthenticated
+
+    def get(self, request):
+        pass
+
+
+class RetrieveEmployeeView(ModelViewSet):
+    permission_classes = permissions.IsAuthenticated
+
+    def get(self, request):
+        pass

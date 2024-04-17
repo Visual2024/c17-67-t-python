@@ -6,7 +6,6 @@ from .views import RegisterPostulantViewSet, RegisterEmployeeViewSet
 # Instantiate the router
 router = DefaultRouter()
 
-
 # API Versioning
 router.register(r"postulants", RegisterPostulantViewSet, "Postulantes")
 router.register(r"employees", RegisterEmployeeViewSet, "Empleados")
