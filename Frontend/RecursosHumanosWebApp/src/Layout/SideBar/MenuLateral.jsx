@@ -50,7 +50,7 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
   const navigate = useNavigate();
 
   return (
-    <aside className="mr-5 h-100vh">
+    <aside className="mr-5 h-dvh">
       <nav className="flex flex-col flex-wrap shadow-2xl shadow-black h-auto">
         <div
           className={`flex flex-col flex-wrap items-start ml-0 pl-4 ${
@@ -87,7 +87,7 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
               <Panel width={18} height={18} />
             </Link>
             {!open == "" && (
-              <Link to={"/dashboard"}>
+              <Link to={"/"}>
                 <h1 className="ml-1 font-normal text-[1rem] pb-[.01rem] text-[#0B0060]">
                   Panel
                 </h1>
@@ -95,7 +95,7 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
             )}
           </div>
 
-          <div>
+          <div className="h-dvh">
             {rol === "ADMIN" && (
               <div className="">
                 <ul
@@ -140,9 +140,8 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
                   <h1 className=" text-[#474747] mb-5">GERENTE</h1>
                 )}
                 {gerente.map((ger, index) => (
-                  <div className="">
+                  <div key={index} className="">
                     <li
-                      key={index}
                       className={`flex rounded-md p-2 pt-[0px] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
                    ${ger.gap ? "mt-[.1px]" : "mt-[.1px]"} 
               `}
@@ -194,13 +193,10 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
                   <h1 className=" text-[#474747] mb-5">EMPLEADO</h1>
                 )}
                 {empleado.map((emp, index) => (
-                  <div>
+                  <div key={index}>
                     <li
-                      key={index}
                       className={`flex rounded-md p-2 pt-[0] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
-                   ${emp.gap ? "mt-[.1px]" : "mt-[.1px]"} 
-                   
-                   `}
+                   ${emp.gap ? "mt-[.1px]" : "mt-[.1px]"}`}
                     >
                       <div>
                         <Link to={""}>
