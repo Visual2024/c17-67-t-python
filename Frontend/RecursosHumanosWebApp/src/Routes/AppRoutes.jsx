@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet, useNavigate } from "react-router-dom";
 import { Header } from "@/Layout/Header/Header";
 import { MenuLateral } from "@/Layout/SideBar/MenuLateral";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
 import { Home, Candidates, Error404, GestionDeEmpleados, GestionDeUsuarios, GerenteGestionFinanzas, EmpleadoGestionFinanzas, DatosPersonales, Login } from '@/Pages';
 import { useJwt } from "react-jwt";
+import Swal from "sweetalert2";
 
 
 export function AppRoutes() {
@@ -35,7 +36,7 @@ export function Layout() {
     const [ususarioId, setUsusarioId] = useState(null);
     const [rol, setRol] = useState(null);
     const url = import.meta.env.VITE_API_KEY
-
+    const navigate = useNavigate()
     const secret = import.meta.env.VITE_SECRET_KEY
     const token = ''
 
