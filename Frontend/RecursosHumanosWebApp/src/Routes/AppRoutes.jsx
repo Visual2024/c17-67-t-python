@@ -21,7 +21,7 @@ export function AppRoutes() {
                 <Route path="/gestiondeempleados" element={<GestionDeEmpleados />} />
                 <Route path="/gestionfinancieragerente" element={<GerenteGestionFinanzas />} />
                 <Route path="/gestionfinancieraempleados" element={<EmpleadoGestionFinanzas />} />
-                <Route path="/datospersonales" element={<DatosPersonales />} />
+                <Route path="/datospersonales/:id" element={<DatosPersonales />} />
             </Route>
             <Route path="*" element={<Error404 />} />
         </Routes>
