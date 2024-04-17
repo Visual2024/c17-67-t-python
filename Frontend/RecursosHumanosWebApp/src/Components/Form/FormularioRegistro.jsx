@@ -25,8 +25,6 @@ export const FormularioRegistro = () => {
         setError,
     } = useContext(FormContext);
 
-    const endpoint = import.meta.env.VITE_API_KEY;
-
     // const validateFields = (candidate) => {
     //     setError({
     //         first_name: !validateName(candidate.first_name),
@@ -75,7 +73,26 @@ export const FormularioRegistro = () => {
     //         });
     // };
 
-    // TODO Agregar los campos de los pasos 2 y 3 y renderizarlos usando el paso que se recibe como prop
+    const getLastName = (candidate) => {
+        if (candidate.last_name) {
+            let str = candidate.last_name;
+            let words = str.split(" ");
+            words.pop();
+            return words.join(" ");
+        } else {
+            return "";
+        }
+    };
+
+    const getPuestoDeTrabajo = (candidate) => {
+        let str = candidate.last_name;
+        let words = str.split(" ");
+        let puesto = words.find(
+            (word) => word === "Frontend" || word === "Backend"
+        );
+        return puesto;
+    };
+
     return (
         <form className="p-5 flex flex-col gap-2">
             {/* Primer paso */}
@@ -118,7 +135,7 @@ export const FormularioRegistro = () => {
                                     "px-2 py-2 border-2 border-gray-300 rounded-md",
                                     error.last_name && "border-red-500"
                                 )}
-                                // value={candidate.last_name || ""}
+                                value={getLastName(candidate) || ""}
                                 onChange={(e) => {
                                     setError((prevErrors) => ({
                                         ...prevErrors,
@@ -143,7 +160,7 @@ export const FormularioRegistro = () => {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <div className="flex flex-col max-w-fit">
+                        {/* <div className="flex flex-col max-w-fit">
                             <label htmlFor="dni">DNI:</label>
                             <input
                                 type="text"
@@ -170,7 +187,7 @@ export const FormularioRegistro = () => {
                                     Algo ha salido mal
                                 </p>
                             )}
-                        </div>
+                        </div> */}
                         <div className="flex flex-col max-w-fit">
                             <label htmlFor="telefono">
                                 Fecha de nacimiento:
@@ -211,40 +228,208 @@ export const FormularioRegistro = () => {
             )}
             {/* Segundo paso */}
             {paso === 2 && (
-                <div className="p-5 space-y-5">
-                    <div className="flex items-center gap-5">
-                        <label htmlFor="dni">Email:</label>
-                        <input
-                            type="text"
-                            className={twMerge(
-                                "px-2 py-2 border-2 border-gray-300 rounded-md",
-                                error.email && "border-red-500"
+                <div className="p-5 flex flex-col justify-center gap-2">
+                    <div className="flex gap-2">
+                        <div className="flex flex-col">
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="text"
+                                className={twMerge(
+                                    "px-2 py-2 border-2 border-gray-300 rounded-md",
+                                    error.email && "border-red-500"
+                                )}
+                                value={candidate.email || ""}
+                                onChange={(e) => {
+                                    setError((prevErrors) => ({
+                                        ...prevErrors,
+                                        email: false,
+                                        allFields: false,
+                                    }));
+                                    return setCandidate({
+                                        ...candidate,
+                                        email: e.target.value,
+                                    });
+                                }}
+                                placeholder="ejemplo@mail.com"
+                            />
+                            {error.email && (
+                                <p className="text-red-500">
+                                    Algo ha salido mal
+                                </p>
                             )}
-                            value={candidate.email || ""}
-                            onChange={(e) => {
-                                setError((prevErrors) => ({
-                                    ...prevErrors,
-                                    email: false,
-                                    allFields: false,
-                                }));
-                                return setCandidate({
-                                    ...candidate,
-                                    email: e.target.value,
-                                });
-                            }}
-                            placeholder="12345678"
-                        />
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="telefono">Teléfono:</label>
+                            <input
+                                type="text"
+                                className={twMerge(
+                                    "px-2 py-2 border-2 border-gray-300 rounded-md",
+                                    error.phone_number && "border-red-500"
+                                )}
+                                value={candidate.phone_number || ""}
+                                onChange={(e) => {
+                                    setError((prevErrors) => ({
+                                        ...prevErrors,
+                                        phone_number: false,
+                                        allFields: false,
+                                    }));
+                                    return setCandidate({
+                                        ...candidate,
+                                        phone_number: e.target.value,
+                                    });
+                                }}
+                                placeholder="+5491112345678"
+                            />
+                            {error.phone_number && (
+                                <p className="text-red-500">
+                                    Algo ha salido mal
+                                </p>
+                            )}
+                        </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <label htmlFor="cargo">Cargo:</label>
-                        <input
-                            type="text"
-                            name="cargo"
-                            id="cargo"
-                            className="px-2 py-0.5 border-2 border-gray-300 rounded-md"
-                            placeholder="Docente"
-                        />
+                    <div className="flex gap-2">
+                        <div className="flex flex-col">
+                            <label htmlFor="address">Dirección:</label>
+                            <input
+                                type="text"
+                                className={twMerge(
+                                    "px-2 py-2 border-2 border-gray-300 rounded-md",
+                                    error.address && "border-red-500"
+                                )}
+                                value={candidate.address || ""}
+                                onChange={(e) => {
+                                    setError((prevErrors) => ({
+                                        ...prevErrors,
+                                        address: false,
+                                        allFields: false,
+                                    }));
+                                    return setCandidate({
+                                        ...candidate,
+                                        address: e.target.value,
+                                    });
+                                }}
+                                placeholder="Calle 1234"
+                            />
+                            {error.address && (
+                                <p className="text-red-500">
+                                    Algo ha salido mal
+                                </p>
+                            )}
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="ciudad">Ciudad:</label>
+                            <input
+                                type="text"
+                                className={twMerge(
+                                    "px-2 py-2 border-2 border-gray-300 rounded-md",
+                                    error.city && "border-red-500"
+                                )}
+                                value={candidate.city || ""}
+                                onChange={(e) => {
+                                    setError((prevErrors) => ({
+                                        ...prevErrors,
+                                        city: false,
+                                        allFields: false,
+                                    }));
+                                    return setCandidate({
+                                        ...candidate,
+                                        city: e.target.value,
+                                    });
+                                }}
+                                placeholder="La Plata"
+                            />
+                            {error.city && (
+                                <p className="text-red-500">
+                                    Algo ha salido mal
+                                </p>
+                            )}
+                        </div>
                     </div>
+                    <div className="flex gap-2">
+                        <div className="flex flex-col">
+                            <label htmlFor="provincia">Provincia:</label>
+                            <input
+                                type="text"
+                                className={twMerge(
+                                    "px-2 py-2 border-2 border-gray-300 rounded-md",
+                                    error.state && "border-red-500"
+                                )}
+                                value={candidate.state || ""}
+                                onChange={(e) => {
+                                    setError((prevErrors) => ({
+                                        ...prevErrors,
+                                        state: false,
+                                        allFields: false,
+                                    }));
+                                    return setCandidate({
+                                        ...candidate,
+                                        state: e.target.value,
+                                    });
+                                }}
+                                placeholder="Buenos Aires"
+                            />
+                            {error.state && (
+                                <p className="text-red-500">
+                                    Algo ha salido mal
+                                </p>
+                            )}
+                        </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="pais">País:</label>
+                            <input
+                                type="text"
+                                className={twMerge(
+                                    "px-2 py-2 border-2 border-gray-300 rounded-md",
+                                    error.country && "border-red-500"
+                                )}
+                                value={candidate.country || ""}
+                                onChange={(e) => {
+                                    setError((prevErrors) => ({
+                                        ...prevErrors,
+                                        country: false,
+                                        allFields: false,
+                                    }));
+                                    return setCandidate({
+                                        ...candidate,
+                                        country: e.target.value,
+                                    });
+                                }}
+                                placeholder="Argentina"
+                            />
+                            {error.country && (
+                                <p className="text-red-500">
+                                    Algo ha salido mal
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                    {error.allFields && (
+                        <p className="text-red-500">
+                            Faltan campos por completar
+                        </p>
+                    )}
+                </div>
+            )}
+            {paso === 3 && (
+                <div className="flex flex-col items-center gap-1">
+                    <h4 className="text-2xl font-bold">
+                        Tus datos de postulación
+                    </h4>
+                    <p>Puesto de trabajo: {getPuestoDeTrabajo(candidate)}</p>
+                    <p>Nombre: {candidate.first_name}</p>
+                    <p>Apellido: {getLastName(candidate)}</p>
+                    <p>
+                        Fecha de nacimiento:{" "}
+                        {new Date(
+                            candidate.secondary_phone_number
+                        ).toLocaleDateString("es-AR")}
+                    </p>
+                    <p>Email: {candidate.email}</p>
+                    <p>Teléfono: {candidate.phone_number}</p>
+                    <p>Dirección: {candidate.address}</p>
+                    <p>Ciudad: {candidate.city}</p>
+                    <p>Provincia: {candidate.state}</p>
+                    <p>País: {candidate.country}</p>
                 </div>
             )}
             <div
