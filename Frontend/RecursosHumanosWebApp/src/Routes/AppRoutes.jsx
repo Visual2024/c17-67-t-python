@@ -7,11 +7,13 @@ import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
 import { Home, Candidates, Error404, GestionDeEmpleados, GestionDeUsuarios, GerenteGestionFinanzas, EmpleadoGestionFinanzas, DatosPersonales, Login } from '@/Pages';
 import { useJwt } from "react-jwt";
 import Swal from "sweetalert2";
+import ErrorBoundary from "../utils/ErrorBoundary";
 
 
 export function AppRoutes() {
 
     return (
+        <ErrorBoundary>      
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<FormularioRegistro />} />
@@ -27,6 +29,7 @@ export function AppRoutes() {
             </Route>
             <Route path="*" element={<Error404 />} />
         </Routes>
+        </ErrorBoundary>        
     );
 }
 
