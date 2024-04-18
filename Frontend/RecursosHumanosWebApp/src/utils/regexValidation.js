@@ -10,12 +10,17 @@ export const validateName = (name) => {
     return nameRegex.test(name);
 };
 
+export const validateText = (text) => {
+    const textRegex = new RegExp("^[a-zA-Z0-9ñÑ\\s]{3,}$");
+    return textRegex.test(text);
+};
+
 export const validateDNI = (dni) => {
     const dniRegex = new RegExp("^\\d{8}$");
     return dniRegex.test(dni);
 };
 
 export const validatePhoneNumber = (phone) => {
-    const phoneRegex = new RegExp("^\\+\\d{13}$");
+    const phoneRegex = new RegExp("^\\+54.{4,}$");
     return phoneRegex.test(phone);
 };

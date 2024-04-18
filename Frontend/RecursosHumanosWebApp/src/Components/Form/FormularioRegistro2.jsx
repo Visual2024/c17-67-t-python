@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { FormContext } from "../../Context/FormContext";
+
 export const FormularioRegistro2 = () => {
+    const { paso, pasoSiguiente, pasoAnterior } = useContext(FormContext);
+
     return (
         <div className="p-5 space-y-5">
             <div className="flex gap-5">
@@ -29,3 +34,35 @@ export const FormularioRegistro2 = () => {
         </div>
     );
 };
+
+{
+    /* <div
+    className={`flex ${
+        paso === 1 ? "justify-end" : "justify-between"
+    }`}
+>
+    {paso !== 1 && (
+        <button
+            onClick={pasoAnterior}
+            className=" w-32 p-1 rounded-2xl border border-primary hover:bg-primary hover:text-white hover:border-none"
+        >
+            Regresar
+        </button>
+    )}
+    {paso !== 3 ? (
+        <button
+            className=" w-32 p-1 rounded-2xl border border-primary hover:bg-primary hover:text-white hover:border-none"
+            onClick={pasoSiguiente}
+        >
+            Próximo
+        </button>
+    ) : (
+        <button
+            className=" w-32 p-1 rounded-2xl border border-primary hover:bg-primary hover:text-white hover:border-none"
+            onClick={formSwitch}
+        >
+            Finalizar
+        </button>
+    )}
+</div> */
+}
