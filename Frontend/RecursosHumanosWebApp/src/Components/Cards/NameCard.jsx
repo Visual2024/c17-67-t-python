@@ -42,12 +42,12 @@ export function NameCard() {
         <Polygon />
       </div>
       <header className="flex flex-col gap-3">
-        <div className="w-48 px-2 py-[2px] bg-white text-gray-500 rounded-xl text-sm capitalize">
+        <div className=" z-10 w-48 px-2 py-[2px] bg-white text-gray-500 rounded-xl text-sm capitalize">
           {rol}
         </div>
-        <h1 className="text-lg">{`Hola ${usuario ? usuario : "Raul"}, bienvenido!`}</h1>
+        <h1 className="text-lg z-10">{`Hola ${usuario ? usuario : "Raul"}, bienvenido!`}</h1>
       </header>
-      <small className="text-xs">{fechaActual}</small>
+      <small className="text-xs z-10">{fechaActual}</small>
     </article>
   );
 }
