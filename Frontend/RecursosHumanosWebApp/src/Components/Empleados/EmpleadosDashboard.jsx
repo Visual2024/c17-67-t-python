@@ -20,7 +20,7 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
     // }
 
     useEffect(() => {
-        fetch(`${url}/api/v1/employees/`)
+        fetch(`${url}/api/v1/employees`)
         .then(res => {
             if (!res.ok) {
                 throw new Error (res.status)
