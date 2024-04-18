@@ -1,52 +1,160 @@
 import loginstyles from '../Styles/Login.module.css'
 import { FormularioLogin } from '../Components/Form/FormularioLogin';
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { LoginFormRegis } from '../Components/Form/LoginFormRegis';
+import { useEffect, useState } from 'react';
+import { ModalCandidatos } from '../Components/ModalCandidatos';
+import { Box, Modal, Typography } from '@mui/material';
+
 
 export const Login = () => {
 
-  const [puestoDeTrabajo, setPuestoDeTrabajo] = useState('')
-  const navigate = useNavigate()
+  const [divEmergenteSize, setDivEmergenteSIze] = useState('0')
+  const [formOpacity, setFormOpacity] = useState('0')
+  const [indexZ, setIndexZ] = useState('-1')
 
-  const selectOnChange = (event) => {
-    setPuestoDeTrabajo(event.target.value)
+  const [loginSwitch, setLoginSwitch] = useState(false)
+  const [verFormRegistro, setVerFormRegistro] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [modalMsj, setModalMsj] = useState(false)
+  const [modalInputValue, setModalInputValue] = useState('')
+
+  const onChangeModalInput = (e) => {
+    setModalInputValue(e.target.value)
   }
 
-  const registrateClick = (event) => {
-    event.preventDefault()
-    if (puestoDeTrabajo === '') {
-      return alert('completar campo obligatorio')
+  const modalSwitch = () => {
+    setModalInputValue('')
+    setModalMsj(false)
+    setModal(!modal)
+  }
+
+  const modalMsjSwitch = () => {
+    if (modalInputValue.includes('@')) {
+      setModalMsj(!modalMsj)
+      setModalInputValue('')
     }
-
-    return navigate('/register')
   }
 
+  const formPostulants = () => {
+    setVerFormRegistro(!verFormRegistro)
+  }
+
+  const cambiarForm = () => {
+    setLoginSwitch(!loginSwitch)
+  }
+
+  useEffect(()=>{
+    if (verFormRegistro) {
+      setDivEmergenteSIze('700px')
+      setIndexZ('2')
+      const timer = setTimeout(() => {
+        setFormOpacity('1')
+      }, 400)
+
+      return () => clearTimeout(timer)      
+    }
+    else{
+      setDivEmergenteSIze('0')
+      setFormOpacity('0')
+
+      const timer2 = setTimeout(() => {
+        setIndexZ('-1')
+      }, 400)
+
+      return () => clearTimeout(timer2) 
+    }
+  }, [verFormRegistro])
+
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: '3px',
+    height: '190px',
+    userSelect: 'none'
+  };
 
   return (
-    <div className={loginstyles.Container}>
-      <h1 className='m-10'>HR Nexo Recursos Humanos</h1>
+    <>
+      <header className={loginstyles.header}>
+        <nav className={loginstyles.nav}>
+          <figure>
+            <img className={loginstyles.imgLogo} src="/images/HR-Nexo-2.png" alt="logo-Nexo-RecursosHumanos" />
+          </figure>            
+            {
+              !loginSwitch ?
+              <h2 onClick={cambiarForm} className='cursor-pointer text-primary text-xl'>Trabaja con Nosotros</h2>
+                :
+              <h2 onClick={cambiarForm} className='cursor-pointer text-primary text-xl'>Iniciar Sesión</h2>
+            }          
+        </nav>        
+      </header>
 
-      <div className='flex flex-row items-center'>
-          <div className='rounded border-2 border-gray-400 p-10'>
-            <form action="" className='flex flex-col'>
-              <h2 className='text-gray-600 text-xl'>Trabaja con nosotros!</h2>
-              <p className='text-sm text-gray-600'>Tu proximo desafío laboral comienza aquí</p>
-              <select value={puestoDeTrabajo} onChange={selectOnChange} className='text-gray-600 rounded-full border border-gray-400 mt-4 mb-4'>
-              <option value="">Selecciona un puesto de trabajo</option>
-              <option value="Frontend">Frontend</option>
-              <option value="Backend">Backend</option>
-            </select>
-            <button onClick={registrateClick} className='text-white p-2 rounded-full bg-indigo-950' >Regístrate</button>
-          </form>
+      <div className={loginstyles.Container}>
 
-          <img src="" alt="" />
+        <div className={loginstyles.formulariosDiv}>
+        {
+          !loginSwitch ?
+            <div className={loginstyles.formLoginDiv}>
+              <FormularioLogin modalSwitch={modalSwitch}/>
+            </div>
+            :
+            <div className={loginstyles.formRegistro}>
+              <LoginFormRegis formPostulants={formPostulants}/>
+              <div className={loginstyles.formImg}>
+                <img src="/images/img-login-1.png" alt="" />            
+              </div>
+            </div>
+        }
         </div>
 
-        <div className={loginstyles.FormLoginDiv}>
-          <FormularioLogin />
+        <div className={loginstyles.formEmergenteExterior} style={{backgroundColor: verFormRegistro ? 'rgb(0, 0, 0,.2)' : 'transparent', zIndex: indexZ}}>
+          <div className={loginstyles.formEmergenteContainer} style={{width: divEmergenteSize}}>
+            <span onClick={formPostulants} style={{display: verFormRegistro? 'block' : 'none'}}><i className="fas fa-x fa-2x text-gray-900"></i></span>
+              {
+                verFormRegistro &&
+                <div className={loginstyles.formEmergenteDiv} style={{opacity: formOpacity, transition: 'opacity .2s ease'}}>
+                  <ModalCandidatos />
+                </div>
+              }
+          </div>
         </div>
+
+        <Modal
+          open={modal}
+          onClose={modalSwitch}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={modalStyle}>
+            <Typography id="modal-modal-title" variant="h6" component="h2" style={{textAlign: 'start', width: '100%'}}>
+              Restablecer mi contraseña
+            </Typography>
+            {
+              modalMsj ?
+              <Typography id="modal-modal-description">
+                Te enviaremos un link por mail para que puedas crear una nueva contraseña
+              </Typography>
+              :
+              <>
+                <input value={modalInputValue} onChange={onChangeModalInput} type="email" placeholder='Mail' style={{border: '2px solid grey', borderRadius: '3px', padding: '2px 4px', width: '100%'}}/>
+                <button onClick={modalMsjSwitch} className=' text-lg'>Enviar</button>               
+              </>
+            }
+          </Box>
+        </Modal>
+
+
       </div>
-
-    </div>
+    </>
   )
 }
