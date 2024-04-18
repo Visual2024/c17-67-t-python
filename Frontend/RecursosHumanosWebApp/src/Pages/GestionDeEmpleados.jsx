@@ -40,7 +40,7 @@ export const GestionDeEmpleados = () => {
     payload.first_name = item.first_name
     payload.last_name = item.last_name
     payload.email = item.email
-    payload.dni = item.secondary_phone_number
+    payload.dni = parseInt(item.secondary_phone_number)
     payload.phone_number = item.phone_number
     payload.secondary_phone_number = item.country
     payload.address = item.address
@@ -81,8 +81,7 @@ export const GestionDeEmpleados = () => {
   const configPost = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
   }
@@ -93,6 +92,7 @@ export const GestionDeEmpleados = () => {
     capturarDatosPostulante(index)
 
     console.log(index.id)
+    console.log(payload);
 
     Swal.fire({
       title: `Confirma la contratación de ${index.first_name} ${index.last_name}`,
