@@ -167,7 +167,9 @@ class Role(models.Model):
         blank=True,
     )
     team_members = models.ManyToManyField(
-        CustomUser, blank=True, through="Team", null=True, blank=True
+        CustomUser,
+        blank=True,
+        through="Team",
     )
 
     class Meta:
