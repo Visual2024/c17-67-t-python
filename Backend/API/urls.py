@@ -25,5 +25,3 @@ urlpatterns = [
     path("v1/roles", RoleList.as_view()),
     path("v1/roles/<int:pk>", RoleDetail.as_view()),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
