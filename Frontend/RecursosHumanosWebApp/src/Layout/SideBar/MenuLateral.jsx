@@ -44,10 +44,20 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
   ];
 
   return (
-    <aside className="mr-5 h-[100vh] static ">
-      <nav className="flex flex-col static flex-wrap shadow-2xl shadow-black ">
-        <div className={`flex flex-col flex-wrap items-start ml-0 pl-4 ${open ? "w-72 duration-500" : "w-24 h-max duration-500 "} duration-500  h-full relative bg-white`}>
-          <div className={`absolute right-[2.3rem] cursor-pointer rounded-full  top-[.9rem] w-7 border-2 border-dark-purple bg-white ${!open &&"rotate-180 absolute -right-[-45px] top-[15px]  pt-[-7%] px-[3%]"}`}>
+    <aside className="mr-5 h-dvh">
+      <nav className="flex flex-col flex-wrap shadow-2xl shadow-black h-auto">
+        <div
+          className={`flex flex-col flex-wrap items-start ml-0 pl-4 ${
+            open ? "w-72 duration-500" : "w-24 h-max duration-500 "
+          } duration-500  h-full relative bg-white`}
+        >
+          <div
+            className={`absolute right-[2.3rem] cursor-pointer rounded-full  top-[.9rem] w-7 border-2 border-dark-purple bg-white 
+            ${
+              !open &&
+              "rotate-180 absolute -right-[-45px] top-[15px]  pt-[-7%] px-[3%]"
+            }`}
+          >
             <button onClick={() => setOpen(!open)} className="relative">
               <i className={`fa-solid fa-arrow-left pt-[-7%] px-[37%]  ${!open && "pt-[-8%] mx-[-20%]"}`}></i>
             </button>
@@ -67,7 +77,7 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
               <Panel width={18} height={18} />
             </Link>
             {!open == "" && (
-              <Link to={"/dashboard"}>
+              <Link to={"/"}>
                 <h1 className="ml-1 font-normal text-[1rem] pb-[.01rem] text-[#0B0060]">
                   Panel
                 </h1>
@@ -75,7 +85,7 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
             )}
           </div>
 
-          <div className="flex flex-col flex-wrap justify-center items-center">
+          <div className="h-dvh">
             {rol === "ADMIN" && (
               <div className="">
                 {administrador.map((adm, index) => (
@@ -100,50 +110,45 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
             {(rol === "ADMIN" || rol === "GERENTE") && (
               <div className="pt-6 ml-3 mb-5 mt-5 border-t-[1px] border-solid border-gris"> 
                 {gerente.map((ger, index) => (
-                <ul key={index} className={` ${!open ? "" : ""}`}>
-                    {open ? <h1 className="text-[#474747] mb-5">GERENTE</h1> : ""}
-                    <div key={index}>
-                      <li className={`flex rounded-md p-2 pt-[0px] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
-                      ${ger.gap ? "mt-[.1px]" : "mt-[.1px]"} `}>
-                        <div>
-                          <Link to={"/gestiondeempleados"}>
-                            {index === 0 && (
-                              <Empleado width={16} height={16} />
-                            )}
-                          </Link>
-                          <Link to={"/gestionfinancieragerente"}>
-                            {index === 1 && (
-                              <Finanzas width={16} height={16} />
-                            )}
-                          </Link>
-                          <Link to={""}>
-                            {index === 2 && (
-                              <Comunicación width={16} height={16} />
-                            )}
-                          </Link>
-                          <Link to={""}>
-                            {index === 3 && (
-                              <Tiempo width={16} height={16} />
-                            )}
-                          </Link>
-                        </div>
-                        <span className={`${!open && "hidden"} origin-left duration-200 text-[#474747]`}>
-                          <Link to={"/gestiondeempleados"}>
-                            {index === 0 && `${ger.title}`}
-                          </Link>
-                          <Link to={"/gestionfinancieragerente"}>
-                            {index === 1 && `${ger.title}`}
-                          </Link>
-                          <Link to={""}>
-                            {index === 2 && `${ger.title}`}
-                          </Link>
-                          <Link to={""}>
-                            {index === 3 && `${ger.title}`}
-                          </Link>
-                        </span>
-                      </li>
-                    </div>
-                  </ul>
+                  <div key={index} className="">
+                    <li
+                      className={`flex rounded-md p-2 pt-[0px] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
+                   ${ger.gap ? "mt-[.1px]" : "mt-[.1px]"} 
+              `}
+                    >
+                      <div>
+                        <Link to={"/gestiondeempleados"}>
+                          {index == 0 && <Empleado width={16} height={16} />}
+                        </Link>
+                        <Link to={"/gestionfinancieragerente"}>
+                          {index == 1 && <Finanzas width={16} height={16} />}
+                        </Link>
+                        <Link to={""}>
+                          {index == 2 && (
+                            <Comunicación width={16} height={16} />
+                          )}
+                        </Link>
+
+                        <Link to={""}>
+                          {index == 3 && <Tiempo width={16} height={16} />}
+                        </Link>
+                      </div>
+                      <span
+                        className={`${
+                          !open && "hidden"
+                        } origin-left duration-200 text-[#474747]`}
+                      >
+                        <Link to={"/gestiondeempleados"}>
+                          {index == 0 && `${ger.title}`}
+                        </Link>
+                        <Link to={"/gestionfinancieragerente"}>
+                          {index == 1 && `${ger.title}`}
+                        </Link>
+                        <Link to={""}>{index == 2 && `${ger.title}`}</Link>
+                        <Link to={""}>{index == 3 && `${ger.title}`}</Link>
+                      </span>
+                    </li>
+                  </div>
                 ))}
               </div>
             )}
@@ -151,36 +156,40 @@ export const MenuLateral = ({ rol, cerrarSesion }) => {
             {(rol === "ADMIN" || rol === "EMPLEADO") && (
               <div className={`pt-6 ml-3 border-t-[1px] border-gris border-solid  ${!open && " "}`}>
                 {empleado.map((emp, index) => (
-                  <ul key={index} >
-                    {!open && <h1 className="text-[#474747] mb-5">EMPLEADO</h1>}
-                    <div key={index}>
-                      <li className={`flex rounded-md p-2 pt-[0] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 ${
-                          emp.gap ? "mt-[.1px]" : "mt-[.1px]"}`}>
-                        <div>
-                          <Link to={""}>
-                            {index === 1 && <Entrada width={16} height={16} />}
-                          </Link>
-                          <Link to={"/gestionfinancieraempleados"}>
-                            {index === 2 && <Finanzas width={16} height={16} />}
-                          </Link>
-                          <Link to={"/datospersonales"}>
-                            {index === 0 && <Perfil width={16} height={16} />}
-                          </Link>
-                        </div>
-                        <span className={`${!open && "hidden"} origin-left duration-200 text-[#474747]`}>
-                          <Link to={""}>
-                            {index === 1 && ` ${emp.title}`}
-                            </Link>
-                          <Link to={"/gestionfinancieraempleados"}>
-                            {index === 2 && ` ${emp.title}`}
-                          </Link>
-                          <Link to={"/datospersonales"}>
-                            {index === 0 && ` ${emp.title}`}
-                          </Link>
-                        </span>
-                      </li>
-                    </div>
-                  </ul>
+                  <div key={index}>
+                    <li
+                      className={`flex rounded-md p-2 pt-[0] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
+                   ${emp.gap ? "mt-[.1px]" : "mt-[.1px]"}`}
+                    >
+                      <div>
+                        <Link to={""}>
+                          {index == 1 && <Entrada width={16} height={16} />}
+                        </Link>
+                        <Link to={"/gestionfinancieraempleados"}>
+                          {index == 2 && <Finanzas width={16} height={16} />}
+                        </Link>
+                        <Link to={"/datospersonales"}>
+                          {index == 0 && <Perfil width={16} height={16} />}
+                        </Link>
+                      </div>
+
+                      <span
+                        className={`${
+                          !open && "hidden"
+                        } origin-left duration-200 text-[#474747]`}
+                      >
+                        <Link to={""}> {index == 1 && ` ${emp.title}`} </Link>
+                        <Link to={"/gestionfinancieraempleados"}>
+                          {" "}
+                          {index == 2 && ` ${emp.title}`}{" "}
+                        </Link>
+                        <Link to={"/datospersonales"}>
+                          {" "}
+                          {index == 0 && ` ${emp.title}`}{" "}
+                        </Link>
+                      </span>
+                    </li>
+                  </div>
                 ))}
               </div>
             )}

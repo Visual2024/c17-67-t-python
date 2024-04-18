@@ -28,29 +28,24 @@ export const GestionDeEmpleados = () => {
     state: '',
     is_staff: false,
     is_superuser: false,
-    is_active: true,
-    groups: [
-      2
-    ],
-    user_permissions: [
-      0
-    ]
+    is_active: true
   }
 
   const capturarDatosPostulante = (item) => {
 
     console.log(item)
 
-    payload.password = item.first_name+'123Nexo'
+    payload.password = item.first_name+'1234!'
+
     payload.first_name = item.first_name
     payload.last_name = item.last_name
     payload.email = item.email
-    payload.dni = ''
+    payload.dni = item.secondary_phone_number
     payload.phone_number = item.phone_number
-    payload.secondary_phone_number = ''
-    payload.address = ''
-    payload.city = ''
-    payload.state = ''
+    payload.secondary_phone_number = item.country
+    payload.address = item.address
+    payload.city = item.city
+    payload.state = item.state
   }
 
   const configDelete = {
@@ -124,9 +119,18 @@ export const GestionDeEmpleados = () => {
 
           eliminarCandidatoContratado(index)
           setearCambios()
+          Swal.fire({
+            title: `Nuevo empleado admitido: ${payload.first_name} ${payload.last_name} \nDatos de acceso: \nEmail: ${payload.email} \nContraseña: ${payload.password}`,
+            confirmButtonColor: '#0B0060',
+            icon: "success",
+          })
         })
         .catch(error =>{
-          alert('Error al intentar contratar empleado')
+          Swal.fire({
+            title: "Error al procesar la solicitud de contratación",
+            icon: "error",
+            confirmButtonColor: '#0B0060',
+          })
           console.error(error)
         })
       }
@@ -138,14 +142,13 @@ export const GestionDeEmpleados = () => {
   }
 
 
-
   return (
     <div>
         <h3 className="text-gray-700 text-xl">Empleados</h3>
-        <EmpleadosDashboard cambiosSwitch={cambiosSwitch} contratarEmpleado={contratarEmpleado}/>
+        <EmpleadosDashboard cambiosSwitch={cambiosSwitch}/>
 
         <h3 className="text-gray-700 text-xl">Candidatos</h3>
-        <CandidatesDashboard cambiosSwitch={cambiosSwitch}/>        
+        <CandidatesDashboard cambiosSwitch={cambiosSwitch} contratarEmpleado={contratarEmpleado}/>        
     </div>
   )
 }

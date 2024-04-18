@@ -1,5 +1,7 @@
 import { LinesChart } from "../Components/Gaficos/Lineas";
 import { Pies } from "../Components/Gaficos/PiesChart";
+import { Date_Finanzas } from "../Components/Finanzas/Date_Finanzas";
+import { Date_Finanzas_2 } from "../Components/Finanzas/Date_Finanzas2";
 
 export const GerenteGestionFinanzas = () => {
 
@@ -47,8 +49,8 @@ export const GerenteGestionFinanzas = () => {
           <LinesChart />
         </div>
       </section>
-
-      
+          <Date_Finanzas/>
+          <Date_Finanzas_2/>
     </main>
   );
 };
