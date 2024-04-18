@@ -8,6 +8,7 @@ import { Home, Candidates, Error404, GestionDeEmpleados, GestionDeUsuarios, Gere
 import { useJwt } from "react-jwt";
 import Swal from "sweetalert2";
 import ErrorBoundary from "../utils/ErrorBoundary";
+import { Comunicacion } from "../Pages/Comunicacion";
 
 
 export function AppRoutes() {
@@ -26,6 +27,7 @@ export function AppRoutes() {
                 <Route path="/gestionfinancieragerente" element={<GerenteGestionFinanzas />} />
                 <Route path="/gestionfinancieraempleados" element={<EmpleadoGestionFinanzas />} />
                 <Route path="/datospersonales/:id" element={<DatosPersonales />} />
+                <Route path="/comunicacion" element={<Comunicacion />} />
             </Route>
             <Route path="*" element={<Error404 />} />
         </Routes>
