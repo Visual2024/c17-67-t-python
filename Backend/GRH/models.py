@@ -9,14 +9,38 @@ from django.contrib.auth.models import (
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(
+        self,
+        email,
+        first_name=None,
+        last_name=None,
+        password=None,
+        dni=None,
+        phone_number=None,
+        secondary_phone_number=None,
+        address=None,
+        city=None,
+        state=None,
+        country=None,
+    ):
         if not email:
             raise ValueError("Debe proporcionar un email")
 
         email = self.normalize_email(email)
         email = email.lower()
 
-        user = self.model(email=email)
+        user = self.model(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            dni=dni,
+            phone_number=phone_number,
+            secondary_phone_number=secondary_phone_number,
+            address=address,
+            city=city,
+            state=state,
+            country=country,
+        )
 
         user.set_password(password)
         user.save(using=self._db)
@@ -37,12 +61,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
     dni = models.IntegerField(unique=True, null=True, blank=True)
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
     secondary_phone_number = models.CharField(max_length=20, null=True, blank=True)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
+    country = models.CharField(max_length=255, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -50,7 +76,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["password"]
 
     class Meta:
         verbose_name = "empleado"
@@ -96,10 +122,10 @@ class Postulant(models.Model):
     email = models.EmailField(max_length=255, unique=True)
     phone_number = models.CharField(max_length=20, unique=True)
     secondary_phone_number = models.CharField(max_length=20, null=True, blank=True)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
-    country = models.CharField(max_length=255)
+    country = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name = "postulante"
