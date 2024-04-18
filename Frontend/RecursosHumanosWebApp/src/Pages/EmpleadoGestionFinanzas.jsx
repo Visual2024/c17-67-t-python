@@ -10,11 +10,20 @@ export const EmpleadoGestionFinanzas = () => {
 
   useEffect(()=>{
     fetch(`${url}/api/v1/postulants/`)
-      .then((res) => res.json())
+      .then((res) => {
+            if (!res.ok) {
+              throw new Error(res.status)
+            }else{
+              console.log(res);
+              return res.json();
+            }})
       .then((date)=>{
           setData(date)
       })
-
+      .catch((error)=>{
+          console.error(error)
+          alert("Error en la solicitud")
+      })
   },[])
 
   return (

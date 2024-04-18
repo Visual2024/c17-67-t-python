@@ -12,7 +12,6 @@ function FormProvider({ children }) {
         setVerFormRegistro(!verFormRegistro);
     };
 
-    
     return (
         <FormContext.Provider
             value={{
