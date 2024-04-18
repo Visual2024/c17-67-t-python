@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const EmpleadosDashboard = ({cambiosSwitch}) => {
 
-    const [empleados, setEmpleados] = useState({});
+    const [empleados, setEmpleados] = useState([]);
     const navigate = useNavigate()
 
     const url = import.meta.env.VITE_API_KEY
@@ -32,7 +32,7 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
         })
         .then((data) => {
             console.log(data)
-            setEmpleados(data)
+            setEmpleados(data.results)
         })
         .catch(error=> console.error(error))
 

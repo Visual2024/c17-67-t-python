@@ -4,10 +4,12 @@ import { useState } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 
-export function CandidatesDashboard() {
+export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
     const [candidates, setCandidates] = useState(null);
     const [data, setData] = useState(null);
     const navigate = useNavigate();
+    const url = import.meta.env.VITE_API_KEY
+
 
     /* createTheme('solarized', {
     text: {
@@ -52,10 +54,6 @@ export function CandidatesDashboard() {
             selector: (row) => row.phone_number,
         },
         {
-            name: "Dia de postulacion",
-            selector: (row) => row.postulation_date,
-        },
-        {
             name: "Puesto de trabajo",
             selector: (row) => {
                 let str = row.last_name;
@@ -67,8 +65,8 @@ export function CandidatesDashboard() {
             },
         },
         {
-            name: "DNI",
-            selector: (row) => row.dni,
+            name: "Fecha de Nacimiento",
+            selector: (row) => row.secondary_phone_number,
         },
     ];
 
@@ -89,7 +87,7 @@ export function CandidatesDashboard() {
     };
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/hiring/api/v1/candidate/", {
+        fetch(`${url}/api/v1/postulants/`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -98,7 +96,7 @@ export function CandidatesDashboard() {
                 setData(data.results);
                 setCandidates(data.results);
             });
-    }, []);
+    }, [cambiosSwitch]);
 
     if (!candidates) return <p>Loading...</p>;
 
@@ -117,7 +115,7 @@ export function CandidatesDashboard() {
                 pointerOnHover
                 responsive
                 pagination
-                onRowClicked={() => navigate("/")}
+                onRowClicked={(index) => contratarEmpleado(index)}
             />
         </div>
     );
