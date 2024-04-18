@@ -87,7 +87,7 @@ export function FormularioLogin({modalSwitch}) {
       console.log(configuraciones);
       console.log(JSON.parse(configuraciones.body));
 
-      fetch(`${endpoint}/api/v1/token/`, configuraciones)
+      fetch(`${endpoint}/api/v1/token`, configuraciones)
       .then(res=> {
         if(!res.ok){
           throw new Error (res.status)

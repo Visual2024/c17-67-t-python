@@ -104,7 +104,7 @@ export const GestionDeEmpleados = () => {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        fetch(`${url}/api/v1/employees/`, configPost)
+        fetch(`${url}/api/v1/employees`, configPost)
         .then(res => {
           if (!res.ok) {
             throw new Error (res.status)

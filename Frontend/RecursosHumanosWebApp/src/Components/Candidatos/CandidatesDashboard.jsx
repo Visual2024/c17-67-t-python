@@ -87,7 +87,7 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
     };
 
     useEffect(() => {
-        fetch(`${url}/api/v1/postulants/`, {
+        fetch(`${url}/api/v1/postulants`, {
             method: "GET",
         })
             .then((res) => res.json())
