@@ -157,13 +157,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS Origins Authorization
 CORS_ALLOW_ALL_ORIGINS: True  # Set to True to allow all origins
 
-CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:8000",
-    # "http://127.0.0.1:8000",
-    # "https://localhost:9000",
-    # "https://127.0.0.1:9000",
-    # "https://c17-67-t-python-production.up.railway.app",
-]
+CORS_ALLOW_CREDENTIALS = True
+
+# CORS_ALLOWED_ORIGINS = [
+# "http://localhost:8000",
+# "http://127.0.0.1:8000",
+# "https://localhost:9000",
+# "https://127.0.0.1:9000",
+# "https://c17-67-t-python-production.up.railway.app",
+# ]
 
 CSRF_TRUSTED_ORIGINS = ["https://c17-67-t-python-production.up.railway.app"]
 
