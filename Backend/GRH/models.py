@@ -92,7 +92,9 @@ class Vacancy(models.Model):
     description = models.CharField(max_length=400, null=True, blank=True)
     process_start_date = models.DateField(auto_now_add=True)
     process_ending_date = models.DateField(null=True, blank=True)
-    selection_process = models.ForeignKey("SelectionProcess", on_delete=models.CASCADE)
+    selection_process = models.ForeignKey(
+        "SelectionProcess", on_delete=models.CASCADE, null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "vacante"
@@ -139,7 +141,9 @@ class Postulant(models.Model):
 class Stage(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
-    contest_for = models.ForeignKey("SelectionProcess", on_delete=models.CASCADE)
+    contest_for = models.ForeignKey(
+        "SelectionProcess", on_delete=models.CASCADE, null=True, blank=True
+    )
     participants = models.ManyToManyField(Postulant, blank=True)
 
     class Meta:
@@ -156,9 +160,15 @@ class Role(models.Model):
     description = models.CharField(max_length=255, null=True, blank=True)
 
     job_opening = models.ForeignKey(
-        "Vacancy", on_delete=models.CASCADE, related_name="opening"
+        "Vacancy",
+        on_delete=models.CASCADE,
+        related_name="opening",
+        null=True,
+        blank=True,
     )
-    team_members = models.ManyToManyField(CustomUser, blank=True, through="Team")
+    team_members = models.ManyToManyField(
+        CustomUser, blank=True, through="Team", null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "cargo"
@@ -170,8 +180,10 @@ class Role(models.Model):
 
 
 class Team(models.Model):
-    postulant_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    role_id = models.ForeignKey(Role, on_delete=models.CASCADE)
+    postulant_id = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=True, blank=True
+    )
+    role_id = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
     end_date = models.DateField(blank=True, null=True)
 
