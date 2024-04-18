@@ -7,7 +7,7 @@ import Incidentes from "../Components/Cards/Incidentes";
 import SolicitudVacaciones from "../Components/Cards/SolicitudVacaciones";
 
 export function Home() {
-  const [rol, setRol] = useState(null);
+  const [rol, setRol] = useState('GERENTE');
 
   useEffect(() => {
     const rolSessionStorage = JSON.parse(sessionStorage.getItem("rol"));
