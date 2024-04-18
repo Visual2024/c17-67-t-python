@@ -93,8 +93,8 @@ WSGI_APPLICATION = "SGRH.wsgi.application"
 
 DATABASES = {
     "default": {
-        #"ENGINE": "django.db.backends.sqlite3",
-        #"NAME": BASE_DIR / "db.sqlite3",
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
         "ENGINE": os.environ.get("DB_ENGINE"),
         "NAME": os.environ.get("DB_NAME"),
         "HOST": os.environ.get("DB_HOST"),
@@ -149,13 +149,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "/static/")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/build/static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -165,19 +165,26 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS Origins Authorization
 CORS_ALLOW_ALL_ORIGINS: True  # Set to True to allow all origins
 
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:8000",
-    # "http://127.0.0.1:8000",
-    # "https://localhost:9000",
-    # "https://127.0.0.1:9000",
-    # "https://c17-67-t-python-production.up.railway.app",
-    "http://localhost:9000",
-    "http://127.0.0.1:9000",
+    "https://localhost:8000",
+    "https://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
     "https://localhost:9000",
     "https://127.0.0.1:9000",
+    "http://localhost:9000",
+    "http://127.0.0.1:9000",
+    "https://c17-67-t-python-production.up.railway.app",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["https://c17-67-t-python-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://127.0.0.1:9000",
+    "http://localhost:9000",
+]
+
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
@@ -186,6 +193,10 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+}
+
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
 }
 
 AUTH_USER_MODEL = "GRH.CustomUser"
