@@ -42,7 +42,7 @@ export const GestionDeEmpleados = () => {
 
     payload.first_name = item.first_name
     payload.last_name = item.last_name
-    payload.email = item.email
+    payload.email = item.first_name+'@hrnexo.com'
     payload.dni = parseInt(item.secondary_phone_number) + randomNumber
     payload.phone_number = item.phone_number
     payload.secondary_phone_number = item.country
