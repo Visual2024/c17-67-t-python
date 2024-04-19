@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { CandidatesDashboard } from "../Components/Candidatos/CandidatesDashboard"
 import { EmpleadosDashboard } from "../Components/Empleados/EmpleadosDashboard"
+import { Spinner } from "../utils/Spinner"
 import Swal from "sweetalert2"
 
 export const GestionDeEmpleados = () => {
@@ -9,6 +10,7 @@ export const GestionDeEmpleados = () => {
   const token = JSON.parse(localStorage.getItem('token'))
 
   const [cambiosSwitch, setCambiosSwitch] = useState(false)
+  const [spinnerSwitch, setSpinnerSwitch] = useState(false)
 
   const setearCambios = () => {
     setCambiosSwitch(!cambiosSwitch)
@@ -142,12 +144,19 @@ export const GestionDeEmpleados = () => {
 
 
   return (
-    <div>
-        <h3 className="text-gray-700 text-xl">Empleados</h3>
-        <EmpleadosDashboard cambiosSwitch={cambiosSwitch}/>
+    <>
+      <h3 className="text-gray-900 text-2xl font-semibold ml-2">Empleados</h3>
+      <EmpleadosDashboard cambiosSwitch={cambiosSwitch}/>
 
-        <h3 className="text-gray-700 text-xl">Candidatos</h3>
-        <CandidatesDashboard cambiosSwitch={cambiosSwitch} contratarEmpleado={contratarEmpleado}/>        
-    </div>
+      <h3 className="text-gray-900 text-2xl font-semibold ml-2">Candidatos</h3>
+      <CandidatesDashboard cambiosSwitch={cambiosSwitch} contratarEmpleado={contratarEmpleado}/>
+
+      {
+        spinnerSwitch &&         
+        <div className="absolute w-full h-full flex justify-center items-center z-3 top-0 left-0 right-0 bottom-0">
+          <Spinner />
+        </div>
+      }       
+    </>
   )
 }

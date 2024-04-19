@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 export const EmpleadosDashboard = ({cambiosSwitch}) => {
 
-    const [empleados, setEmpleados] = useState([]);
+    const [empleados, setEmpleados] = useState(null);
+    const [data, setData] = useState(null);
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [totalResults, setTotalResults] = useState(0); 
+    const [totalResults, setTotalResults] = useState(0);
 
     const url = import.meta.env.VITE_API_KEY
     // const token = JSON.parse(localStorage.getItem('token'))
@@ -35,72 +35,14 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
         })
         .then((data) => {
             console.log(data)
+            setData(data.results)
             setEmpleados(data.results)
             setTotalResults(data.count)
-            const calculatedTotalPages = Math.ceil(data.count / 10)
-            setTotalPages(calculatedTotalPages);
         })
         .catch(error=> console.error(error))
 
     }, [cambiosSwitch, currentPage])
 
-
-    const data = [
-        {
-            "id": 2,
-            "last_login": null,
-            "first_name": null,
-            "last_name": null,
-            "email": "admin@hrnexo.com",
-            "dni": null,
-            "phone_number": "",
-            "secondary_phone_number": null,
-            "address": "",
-            "city": "",
-            "state": null,
-            "is_staff": true,
-            "is_superuser": true,
-            "is_active": true,
-            "groups": [],
-            "user_permissions": []
-        },
-        {
-            "id": 3,
-            "last_login": null,
-            "first_name": "Marcos",
-            "last_name": "Pacheco",
-            "email": "marcos.pachecopezo3@example.com",
-            "dni": "44444444",
-            "phone_number": "123245d4a54",
-            "secondary_phone_number": "456456456",
-            "address": "calle Falsa 1234",
-            "city": "Springfield",
-            "state": "Unknown",
-            "is_staff": false,
-            "is_superuser": false,
-            "is_active": true,
-            "groups": [],
-            "user_permissions": []
-        },
-        {
-            "id": 1,
-            "last_login": "2024-04-16T03:02:16.617303Z",
-            "first_name": null,
-            "last_name": null,
-            "email": "pachecolobos.felix@gmail.com",
-            "dni": null,
-            "phone_number": "",
-            "secondary_phone_number": null,
-            "address": "",
-            "city": "",
-            "state": null,
-            "is_staff": true,
-            "is_superuser": true,
-            "is_active": true,
-            "groups": [],
-            "user_permissions": []
-        }
-    ]
     
     const columns = [
         {
@@ -143,12 +85,35 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
         navigate(`/datospersonales/${id}`)
     }
 
+    const handleChange = (e) => {
+        const filteredCandidates = data
+            .map((candidate) => {
+                const fullName =
+                    candidate.first_name + " " + candidate.last_name;
+                return { ...candidate, full_name: fullName };
+            })
+            .filter((candidate) =>
+                candidate.full_name
+                    .toLowerCase()
+                    .includes(e.target.value.toLowerCase())
+            );
+        console.log(filteredCandidates);
+        setEmpleados(filteredCandidates);
+    };
+
+    if (!empleados) return <p>Loading...</p>;
 
   return (
-    <div className="m-2 shadow-xl">
+    <div className="m-2 mb-8 shadow-xl">
+        <input
+            type="text"
+            onChange={handleChange}
+            placeholder="Buscar por nombre..."
+            className="px-2 py-0.5 border-2 border-gray-300 rounded-md"
+        />
         <DataTable 
             columns={columns}
-            data={empleados.length > 0 ? empleados : data}
+            data={empleados}
             highlightOnHover
             pointerOnHover
             responsive
@@ -156,6 +121,7 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
             paginationServer
             paginationTotalRows={totalResults}
             paginationPerPage={10}
+            paginationComponentOptions={{noRowsPerPage: true}}
             onChangePage={(page) => setCurrentPage(page)}
             onRowClicked={(index) => verDatosPersonales(index)}
         />
