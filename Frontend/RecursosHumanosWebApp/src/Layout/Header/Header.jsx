@@ -22,7 +22,7 @@ export function Header({ nombreUsuario }) {
 
   return (
     <section className="flex items-center justify-between py-4 px-10">
-      <h2 className="text-2xl font-bold text-blue-950"></h2>
+      <h2 className="text-2xl font-bold text-blue-950">{rutasNombres[nombreARenderizar]}</h2>
       <div className="flex items-center justify-between gap-4">
         <HeaderCard nombreUsuario={nombreUsuario} />
       </div>
