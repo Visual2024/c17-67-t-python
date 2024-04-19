@@ -11,6 +11,7 @@ import ErrorBoundary from "../utils/ErrorBoundary";
 import { Comunicacion } from "../Pages/Comunicacion";
 
 
+
 export function AppRoutes() {
 
     return (
@@ -82,9 +83,9 @@ export function Layout() {
 
 
     return (
-        <div className="flex">
+        <div className="flex max-h-screen ">
             <MenuLateral rol="ADMIN" userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full overflow-y-auto">
                 <Header nombreUsuario={usuario !== null ? usuario : 'Visitante'} />
                 <div className="p-4">
                     <Outlet />
