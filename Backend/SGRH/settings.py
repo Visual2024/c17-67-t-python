@@ -182,6 +182,7 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://127.0.0.1:9000",
     "http://localhost:9000",
+    "https://c17-67-t-python-production.up.railway.app",
 ]
 
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
