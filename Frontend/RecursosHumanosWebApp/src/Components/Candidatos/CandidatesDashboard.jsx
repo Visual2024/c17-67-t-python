@@ -2,12 +2,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
-import { useNavigate } from "react-router-dom";
 
 export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
     const [candidates, setCandidates] = useState(null);
     const [data, setData] = useState(null);
-    const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0); 
     const url = import.meta.env.VITE_API_KEY
 
 
@@ -87,7 +87,7 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
     };
 
     useEffect(() => {
-        fetch(`${url}/api/v1/postulants`, {
+        fetch(`${url}/api/v1/postulants?page=${currentPage}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -95,13 +95,14 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
                 console.log(data);
                 setData(data.results);
                 setCandidates(data.results);
+                setTotalResults(data.count)
             });
-    }, [cambiosSwitch]);
+    }, [cambiosSwitch, currentPage]);
 
     if (!candidates) return <p>Loading...</p>;
 
     return (
-        <div className="mt-10 m-2 shadow-xl">
+        <div className="m-2 mb-8 shadow-xl">
             <input
                 type="text"
                 onChange={handleChange}
@@ -115,6 +116,11 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
                 pointerOnHover
                 responsive
                 pagination
+                paginationServer
+                paginationTotalRows={totalResults}
+                paginationPerPage={10}
+                paginationComponentOptions={{noRowsPerPage: true}}
+                onChangePage={(page) => setCurrentPage(page)}
                 onRowClicked={(index) => contratarEmpleado(index)}
             />
         </div>
