@@ -163,7 +163,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS Origins Authorization
-CORS_ALLOW_ALL_ORIGINS: True  # Set to True to allow all origins
+CORS_ALLOW_ALL_ORIGINS: False  # Set to True to allow all origins
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -176,12 +176,13 @@ CORS_ALLOWED_ORIGINS = [
     "https://127.0.0.1:9000",
     "http://localhost:9000",
     "http://127.0.0.1:9000",
-    "https://c17-67-t-python-production.up.railway.app",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://127.0.0.1:9000",
     "http://localhost:9000",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/",
 ]
 
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
