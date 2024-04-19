@@ -45,7 +45,7 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
   return (
     <aside className="mr-5 ">
       <nav className="flex flex-col flex-wrap shadow-2xl shadow-black ">
-        <div className={`flex flex-col flex-wrap items-start ml-0 pl-4 ${open ? "w-72 duration-500" : "w-24 h-max duration-500 "} duration-500  relative h-dvh bg-white `}>
+        <div className={`flex flex-col flex-wrap items-start ml-0 pl-4 ${open ? "w-72 duration-500" : "w-24 h-max duration-500 "} duration-500  relative  h-dvh bg-white `}>
           <div className={`absolute right-[2.3rem] cursor-pointer rounded-full  top-[.9rem] w-7 border-2 border-dark-purple bg-white 
             ${!open && "rotate-180 absolute -right-[-45px] top-[15px]  pt-[-7%] px-[3%]"}`}>
             <button onClick={() => setOpen(!open)} className="relative">
@@ -75,7 +75,7 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
             )}
           </div>
 
-          <div className={`h-dvh ${!open ? "ml-[0.1rem]" : "mt-32 ml-[-14.3rem]"} transition-none duration-0`}>
+          <div className={` ${!open ? "h-[42rem]" : "mt-32 ml-[-14.3rem] h-dvh"}`}>
 
             {rol === "ADMIN" && (
               <div className="ml-4">
@@ -149,7 +149,7 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
               <div className={`pt-6 ml-3 border-t-[1px] border-gris border-solid  ${!open && " "}`}>
                 {empleado.map((emp, index) => (
                   <div key={index}>
-                    <li className={`flex rounded-md p-2 pt-[0] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
+                    <li className={`flex rounded-md p-2  cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
                    ${emp.gap ? "mt-[.1px]" : "mt-[.1px]"}`}>
                       <div>
                         <Link to={""}>
@@ -182,9 +182,9 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
             )}
 
             {rol === "ADMIN" && (
-              <div className={`ml-5 mt-10 ${!open ? "min-h-[44vh] w-[100%] flex gap-1" : "min-h-[19vh] w-[100%] flex gap-2"}`}>
-                <div className="mt-[13rem] mb-3">
-                  <ul className={`${!open ? "mb-1 mt-[3rem] " : "mb-2 "}`}>
+              <div className={`ml-5 ${!open ? "w-[100%] " : "min-h-[19vh]"}`}>
+                <div className="absolute bottom-10 mb-3">
+                  <ul className={`${!open ? "" : ""}`}>
                     <li className="flex cursor-pointer items-center">
                       <Config width={16} height={16} />
                       {!open == "" && (
