@@ -101,7 +101,7 @@ export function Layout() {
 
     return (
         <div className="flex max-h-screen ">
-            <MenuLateral rol={ususarioId === 1 ? "ADMIN" : "EMPLEADO"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
+            <MenuLateral rol={(ususarioId && ususarioId < 1 )? "EMPLEADO" : "ADMIN"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full overflow-y-auto">
                 <Header nombreUsuario={userName} />
                 <div className="p-4">
