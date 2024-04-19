@@ -38,11 +38,14 @@ export const GestionDeEmpleados = () => {
 
     const randomNumber = Math.floor(10000000 + Math.random() * 90000000)
 
-    payload.password = item.first_name+'1234!'
+    const userNames = item.first_name.split(" ");
 
+    const primeraPalabraMinuscula = userNames[0].toLowerCase();
+
+    payload.password = userNames[0]+'1234!'
     payload.first_name = item.first_name
     payload.last_name = item.last_name
-    payload.email = item.first_name+'@hrnexo.com'
+    payload.email = primeraPalabraMinuscula+'@hrnexo.com'
     payload.dni = parseInt(item.secondary_phone_number) + randomNumber
     payload.phone_number = item.phone_number
     payload.secondary_phone_number = item.country

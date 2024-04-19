@@ -10,8 +10,8 @@ export function FormularioLogin({modalSwitch}) {
   const [errorCredenciales, setErrorCredenciales] = useState(false)
   const navigate = useNavigate()
 
-  const endpoint = import.meta.env.VITE_API_KEY;
-  console.log(endpoint);
+  const endpoint = import.meta.env.VITE_API_KEY_LOGIN;
+
   const validarNombreUsuario = (usuario) => {
 
     if (usuario.includes('@')) {
@@ -84,10 +84,8 @@ export function FormularioLogin({modalSwitch}) {
     setError(erroresValidacion)
 
     if (erroresValidacion.usuario === false && erroresValidacion.password === false) {
-      console.log(configuraciones);
-      console.log(JSON.parse(configuraciones.body));
 
-      fetch(`${endpoint}/api/v1/token`, configuraciones)
+      fetch(`${endpoint}`, configuraciones)
       .then(res=> {
         if(!res.ok){
           throw new Error (res.status)

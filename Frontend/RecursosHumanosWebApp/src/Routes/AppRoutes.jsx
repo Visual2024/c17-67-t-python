@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet, useNavigate } from "react-router-dom";
+import { Routes, Route, Outlet, useNavigate, json } from "react-router-dom";
 import { Header } from "@/Layout/Header/Header";
 import { MenuLateral } from "@/Layout/SideBar/MenuLateral";
 import { useEffect, useState } from "react";
@@ -38,14 +38,13 @@ export function AppRoutes() {
 
 export function Layout() {
 
-    const [usuario, setUsuario] = useState(null);
+    const [userName, setUserName] = useState(null);
     const [ususarioId, setUsusarioId] = useState(null);
-    const [rol, setRol] = useState(null);
-    const url = import.meta.env.VITE_API_KEY
     const navigate = useNavigate()
+
+    const url = import.meta.env.VITE_API_KEY
     const secret = import.meta.env.VITE_SECRET_KEY
     const token = JSON.parse(localStorage.getItem('token'))
-
 
     const { decodedToken } = useJwt(token, secret);
   
@@ -53,11 +52,28 @@ export function Layout() {
       if (decodedToken) {
         console.log('Token decodificado:', decodedToken);
         const userId = decodedToken.user_id;
-        const userName = decodedToken.user_name;
         setUsusarioId(userId)
-        setUsuario(userName)
-        localStorage.setItem('userId', JSON.stringify(ususarioId))
-      } else {
+        localStorage.setItem('userId', JSON.stringify(userId))
+
+        fetch(`${url}/api/v1/employees/${userId}`)
+        .then(res => {
+          if (!res.ok) {
+            throw new Error (res.status)
+          }
+          else{
+            return res.json()
+          }
+        })
+        .then((data) => {
+          console.log(data);
+          setUserName(data.first_name)
+          localStorage.setItem('userName', JSON.stringify(data.first_name))
+        })
+        .catch(error =>{
+          console.error(error)
+        })
+      } 
+      else {
         console.error('Error al intentar decodificar el token.');
       }
     }, [decodedToken]);
@@ -76,6 +92,7 @@ export function Layout() {
             localStorage.removeItem('userId');
             localStorage.removeItem('token');
             localStorage.removeItem('refresh');
+            localStorage.removeItem('userName');
             navigate("/login");
           }
         });
@@ -84,9 +101,9 @@ export function Layout() {
 
     return (
         <div className="flex max-h-screen ">
-            <MenuLateral rol="ADMIN" userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
+            <MenuLateral rol={ususarioId === 1 ? "ADMIN" : "EMPLEADO"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full overflow-y-auto">
-                <Header nombreUsuario={usuario !== null ? usuario : 'Visitante'} />
+                <Header nombreUsuario={userName} />
                 <div className="p-4">
                     <Outlet />
                 </div>
