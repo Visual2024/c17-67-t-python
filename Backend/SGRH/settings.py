@@ -176,13 +176,13 @@ CORS_ALLOWED_ORIGINS = [
     "https://127.0.0.1:9000",
     "http://localhost:9000",
     "http://127.0.0.1:9000",
-    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://127.0.0.1:9000",
     "http://localhost:9000",
-    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app",
 ]
 
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
