@@ -1,28 +1,23 @@
 import { useState, useEffect } from "react";
- import { format, addSeconds } from "date-fns";
+import { DateTime } from "luxon";
 
 export const useContadorTiempo = () => {
-  const [tiempoActual, setTiempoActual] = useState(
-    new Date().setHours(0, 0, 0, 0)
-  );
+  const [tiempoActual, setTiempoActual] = useState(DateTime.local().startOf('day'));
   const [inicio, setInicio] = useState(false);
   const [pausa, setPausa] = useState(false);
   const [tiempoPausado, setTiempoPausado] = useState(null);
-
 
   useEffect(() => {
     let interval;
     if (inicio && !pausa) {
       interval = setInterval(() => {
-        setTiempoActual((prev) => addSeconds(prev, 1));
+        setTiempoActual(prev => prev.plus({ seconds: 1 }));
       }, 1000);
     } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [inicio, pausa]);
-
-
 
   const iniciarContador = () => {
     setInicio(true);
@@ -42,16 +37,14 @@ export const useContadorTiempo = () => {
   const detenerContador = () => {
     setInicio(false);
     setPausa(false);
-    
-    setTiempoActual(new Date().setHours(0, 0, 0, 0));
+    setTiempoActual(DateTime.local().startOf('day'));
     setTiempoPausado(null);
-
   };
 
-  const tiempoFormateado = format(tiempoActual, "HH'h' mm'min' ss'seg'");
+  const tiempoFormateado = tiempoActual.toFormat("HH'h' mm'min' ss'seg'");
 
   return {
-     tiempoFormateado,
+    tiempoFormateado,
     iniciarContador,
     pausarContador,
     reanudarContador,

@@ -26,6 +26,7 @@ export const GestionDeEmpleados = () => {
     address: '',
     city: '',
     state: '',
+    country: '',
     is_staff: false,
     is_superuser: false,
     is_active: true
@@ -33,19 +34,21 @@ export const GestionDeEmpleados = () => {
 
   const capturarDatosPostulante = (item) => {
 
-    console.log(item)
+    const randomNumber = Math.floor(10000000 + Math.random() * 90000000)
 
     payload.password = item.first_name+'1234!'
 
     payload.first_name = item.first_name
     payload.last_name = item.last_name
     payload.email = item.email
-    payload.dni = item.secondary_phone_number
+    payload.dni = parseInt(item.secondary_phone_number) + randomNumber
     payload.phone_number = item.phone_number
     payload.secondary_phone_number = item.country
     payload.address = item.address
     payload.city = item.city
     payload.state = item.state
+    payload.country = item.state
+
   }
 
   const configDelete = {
@@ -61,7 +64,7 @@ export const GestionDeEmpleados = () => {
     fetch(`${url}/api/v1/postulants/${item.id}`, configDelete)
     .then(res => {
       if (!res.ok) {
-        throw new Error (res.status)
+        throw new Error (res.status, res.text)
       }
       else{
         console.log(res)
@@ -78,21 +81,17 @@ export const GestionDeEmpleados = () => {
   }
 
 
-  const configPost = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify(payload)
-  }
-
-
   const contratarEmpleado = (index) => {
 
     capturarDatosPostulante(index)
 
-    console.log(index.id)
+    const configPost = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    }
 
     Swal.fire({
       title: `Confirma la contratación de ${index.first_name} ${index.last_name}`,
@@ -104,7 +103,7 @@ export const GestionDeEmpleados = () => {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        fetch(`${url}/api/v1/employees/`, configPost)
+        fetch(`${url}/api/v1/employees`, configPost)
         .then(res => {
           if (!res.ok) {
             throw new Error (res.status)

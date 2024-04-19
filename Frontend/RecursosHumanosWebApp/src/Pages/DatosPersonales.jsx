@@ -7,7 +7,7 @@ export const DatosPersonales = () => {
 
   const {id} = useParams();
   const url = import.meta.env.VITE_API_KEY
-
+  
   useEffect(()=>{
     fetch(`${url}/api/v1/employees/${id}`)
     .then(res => {

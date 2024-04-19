@@ -6,6 +6,9 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
 
     const [empleados, setEmpleados] = useState([]);
     const navigate = useNavigate()
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalResults, setTotalResults] = useState(0); 
 
     const url = import.meta.env.VITE_API_KEY
     // const token = JSON.parse(localStorage.getItem('token'))
@@ -20,7 +23,7 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
     // }
 
     useEffect(() => {
-        fetch(`${url}/api/v1/employees/`)
+        fetch(`${url}/api/v1/employees?page=${currentPage}`)
         .then(res => {
             if (!res.ok) {
                 throw new Error (res.status)
@@ -33,10 +36,14 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
         .then((data) => {
             console.log(data)
             setEmpleados(data.results)
+            setTotalResults(data.count)
+            const calculatedTotalPages = Math.ceil(data.count / 10)
+            setTotalPages(calculatedTotalPages);
         })
         .catch(error=> console.error(error))
 
-    }, [cambiosSwitch])
+    }, [cambiosSwitch, currentPage])
+
 
     const data = [
         {
@@ -145,6 +152,11 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
             highlightOnHover
             pointerOnHover
             responsive
+            pagination
+            paginationServer
+            paginationTotalRows={totalResults}
+            paginationPerPage={10}
+            onChangePage={(page) => setCurrentPage(page)}
             onRowClicked={(index) => verDatosPersonales(index)}
         />
     </div>

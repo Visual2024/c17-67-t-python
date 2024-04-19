@@ -88,9 +88,6 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
 
     useEffect(() => {
         fetch(`${url}/api/v1/postulants`, {
-            'headers': {
-                'Access-Control-Allow-Origin': '*',
-            },
             method: "GET",
         })
             .then((res) => res.json())
