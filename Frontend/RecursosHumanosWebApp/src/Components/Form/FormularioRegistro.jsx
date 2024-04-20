@@ -1,4 +1,4 @@
-import { useContext, } from "react";
+import { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 import { FormContext } from "../../Context/FormContext";
 import { getLastName, getPuestoDeTrabajo } from "../../utils/apellidoUtils";
@@ -92,7 +92,7 @@ export const FormularioRegistro = () => {
                                 className={twMerge(
                                     "px-2 py-2 border-2 border-gray-300 rounded-md",
                                     error.secondary_phone_number &&
-                                    "border-red-500"
+                                        "border-red-500"
                                 )}
                                 value={candidate.secondary_phone_number || ""}
                                 onChange={(e) => {
@@ -329,8 +329,9 @@ export const FormularioRegistro = () => {
                 </div>
             )}
             <div
-                className={`flex ${paso === 1 ? "justify-end" : "justify-between"
-                    } mt-5`}
+                className={`flex ${
+                    paso === 1 ? "justify-end" : "justify-between"
+                } mt-5`}
             >
                 {paso !== 1 && (
                     <button
@@ -356,7 +357,6 @@ export const FormularioRegistro = () => {
                     </button>
                 )}
             </div>
-
         </form>
     );
 };

@@ -8,6 +8,7 @@ import {
     validateText,
 } from "../utils/regexValidation";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export const FormContext = createContext();
 
@@ -19,6 +20,7 @@ function FormProvider({ children }) {
     const [puestoDeTrabajo, setPuestoDeTrabajo] = useState("");
     const [verFormRegistro, setVerFormRegistro] = useState(false);
     const [usuarioLogueado, setUsuarioLogueado] = useState(false);
+    const navigate = useNavigate();
 
     const endpoint = import.meta.env.VITE_API_KEY;
 
@@ -121,32 +123,47 @@ function FormProvider({ children }) {
     const formSwitch = (e) => {
         e.preventDefault();
         console.log(candidate);
-        fetch(`${endpoint}/api/v1/postulants`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(candidate),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                Swal.fire({
-                    title: "Registro exitoso",
-                    text: "Tu postulación ha sido registrada con éxito",
-                    icon: "success",
-                    confirmButtonText: "Aceptar",
-                });
-            })
-            .catch((error) => {
-                Swal.fire({
-                    title: "Error",
-                    text: "Ha ocurrido un error al registrar tu postulación",
-                    icon: "error",
-                    confirmButtonText: "Aceptar",
-                });
-                console.error("Error:", error);
-            });
+        Swal.fire({
+            title: "¿Estás seguro de enviar tu postulación?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#0B0060",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Enviar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`${endpoint}/api/v1/postulants`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(candidate),
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        Swal.fire({
+                            title: "Registro exitoso",
+                            text: "Tu postulación ha sido registrada con éxito",
+                            icon: "success",
+                            confirmButtonText: "Aceptar",
+                        }).then(() => {
+                            setCandidate({});
+                            navigate("/");
+                        });
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Ha ocurrido un error al registrar tu postulación",
+                            icon: "error",
+                            confirmButtonText: "Aceptar",
+                        });
+                        console.error("Error:", error);
+                    });
+            }
+        });
         setVerFormRegistro(!verFormRegistro);
     };
 
@@ -160,6 +177,7 @@ function FormProvider({ children }) {
                 verFormRegistro,
                 setVerFormRegistro,
                 formSwitch,
+                setPaso,
                 paso,
                 pasoSiguiente,
                 pasoAnterior,
@@ -168,7 +186,7 @@ function FormProvider({ children }) {
                 error,
                 setError,
                 usuarioLogueado,
-                setUsuarioLogueado
+                setUsuarioLogueado,
             }}
         >
             {children}
