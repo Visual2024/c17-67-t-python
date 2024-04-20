@@ -52,7 +52,7 @@ export function Layout() {
 
     useEffect(() => {
 
-      if(!usuarioLogueado){
+      if(!usuarioLogueado && !token){
         return navigate('/login')
       }
 
