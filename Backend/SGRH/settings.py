@@ -175,7 +175,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://localhost:9000",
     "https://127.0.0.1:9000",
     "http://localhost:9000",
-    "http://127.0.0.1:9000", "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/",
+    "http://127.0.0.1:9000",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/",
     "https://c17-67-t-python-production.up.railway.app",
 ]
 
