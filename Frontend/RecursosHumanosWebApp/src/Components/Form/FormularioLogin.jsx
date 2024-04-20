@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import useInput from "../../Hook/useInput"
 import { useNavigate } from 'react-router-dom'
+import { FormContext } from "../../Context/FormContext"
 
 export function FormularioLogin({modalSwitch}) {
 
@@ -9,6 +10,7 @@ export function FormularioLogin({modalSwitch}) {
   const [error, setError] = useState({})
   const [errorCredenciales, setErrorCredenciales] = useState(false)
   const navigate = useNavigate()
+  const {setUsuarioLogueado} = useContext(FormContext)
 
   const endpoint = import.meta.env.VITE_API_KEY_LOGIN;
 
@@ -99,6 +101,8 @@ export function FormularioLogin({modalSwitch}) {
 
         localStorage.setItem('refresh', JSON.stringify(data.refresh))
         localStorage.setItem('token', JSON.stringify(data.access))
+
+        setUsuarioLogueado(true)
 
         nombreUsuario.onChange({target: { value: ''}})
         password.onChange({target: { value: ''}})
