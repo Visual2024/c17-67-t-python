@@ -24,3 +24,4 @@ export const validatePhoneNumber = (phone) => {
     const phoneRegex = new RegExp("^\\+54.{4,}$");
     return phoneRegex.test(phone);
 };
+

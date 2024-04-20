@@ -18,6 +18,7 @@ function FormProvider({ children }) {
     const [error, setError] = useState({ firstState: true });
     const [puestoDeTrabajo, setPuestoDeTrabajo] = useState("");
     const [verFormRegistro, setVerFormRegistro] = useState(false);
+    const [usuarioLogueado, setUsuarioLogueado] = useState(false);
 
     const endpoint = import.meta.env.VITE_API_KEY;
 
@@ -148,6 +149,7 @@ function FormProvider({ children }) {
             });
         setVerFormRegistro(!verFormRegistro);
     };
+
     return (
         <FormContext.Provider
             value={{
@@ -165,6 +167,8 @@ function FormProvider({ children }) {
                 setCandidate,
                 error,
                 setError,
+                usuarioLogueado,
+                setUsuarioLogueado
             }}
         >
             {children}
