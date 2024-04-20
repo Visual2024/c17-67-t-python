@@ -1,112 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { EmpleadoOnline } from "../Icons/EmpleadoOnline";
 
-const empleados = [
-  {
-    nombre: "Juan",
-    apellido: "Pérez",
-    cargo: "frontend",
-    status: true,
-  },
-  {
-    nombre: "María",
-    apellido: "González",
-    cargo: "backend",
-    status: false,
-  },
-  {
-    nombre: "Carlos",
-    apellido: "López",
-    cargo: "frontend",
-    status: true,
-  },
-  {
-    nombre: "Ana",
-    apellido: "Martínez",
-    cargo: "backend",
-    status: false,
-  },
-  {
-    nombre: "Pedro",
-    apellido: "Sánchez",
-    cargo: "frontend",
-    status: false,
-  },
-  {
-    nombre: "Laura",
-    apellido: "Hernández",
-    cargo: "backend",
-    status: true,
-  },
-  {
-    nombre: "Miguel",
-    apellido: "García",
-    cargo: "frontend",
-    status: true,
-  },
-  {
-    nombre: "Isabel",
-    apellido: "Díaz",
-    cargo: "backend",
-    status: false,
-  },
-  {
-    nombre: "Luis",
-    apellido: "Torres",
-    cargo: "frontend",
-    status: false,
-  },
-  {
-    nombre: "Elena",
-    apellido: "Vázquez",
-    cargo: "backend",
-    status: true,
-  },
-];
-
-  // Función para ordenar los empleados con status true primero
-  const ordenarEmpleados = (empleados) => {
-    return empleados.sort((a, b) =>
-      a.status === b.status ? 0 : a.status ? -1 : 1
-    );
-  };
-
+// Función para ordenar los empleados con status true primero
+const ordenarEmpleados = (empleados) => {
+  if (!empleados) {
+    return []; // Devuelve un array vacío si no hay empleados
+  }
+  return empleados.sort((a, b) =>
+    a.status === b.status ? 0 : a.status ? -1 : 1
+  );
+};
 
 export default function QuienEstaAdentroCard() {
   const [verSoloOnline, setVerSoloOnline] = useState(false);
-/*   const [empleados, setEmpleados] = useState({}); */
-/* 
-  const url = import.meta.env.VITE_API_KEY
+  const [candidates, setCandidates] = useState([]);
+
+  const [data, setData] = useState(null);
+
+  const url = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
-    fetch(`${url}/api/v1/employees/`)
-    .then(res => {
+    fetch(`${url}/api/v1/postulants`, {
+      method: "GET",
+    })
+      .then((res) => {
         if (!res.ok) {
-            throw new Error (res.status)
+          throw new Error("Network response was not ok");
         }
-        else{
-            console.log(res)
-            return res.json()
-        }
-    })
-    .then((data) => {
-        console.log(data)
-        setEmpleados(data)
-    })
-    .catch(error=> console.error(error))
-
-}, [url]) */
-
-
-
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Data received:", data);
+        // Simulación de estado online y offline aleatorio
+        const modifiedData = data.results.map((empleado) => ({
+          ...empleado,
+          status: Math.random() < 0.5, // Establece el status aleatoriamente
+        }));
+        setData(modifiedData);
+        setCandidates(modifiedData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [url]);
 
   const handleCheckboxChange = () => {
     setVerSoloOnline((prevState) => !prevState);
   };
 
   const empleadosFiltrados = verSoloOnline
-    ? empleados.filter((empleado) => empleado.status)
-    : empleados;
+    ? candidates.filter((empleado) => empleado.status)
+    : candidates;
   const empleadosOrdenados = ordenarEmpleados(empleadosFiltrados);
 
   return (
@@ -121,15 +65,17 @@ export default function QuienEstaAdentroCard() {
             <li key={index} className="flex items-center ">
               <div>
                 <header>
-              <span
-                className={`inline-block h-2 w-2 rounded-full mr-3 ${
-                  empleado.status ? "bg-green-500" : "bg-gray-300"
-                }`}
-              ></span>
-                  <span className="text-sm font-medium mr-2">{empleado.nombre}</span>
-                  <span className="text-sm">{empleado.apellido}</span>
+                  <span
+                    className={`inline-block h-2 w-2 rounded-full mr-3 ${
+                      empleado.status ? "bg-green-500" : "bg-gray-300"
+                    }`}
+                  ></span>
+                  <span className="text-sm font-medium mr-2">
+                    {empleado.first_name}
+                  </span>
+                  <span className="text-sm">{empleado.last_name}</span>
                 </header>
-                <small className="ml-6 text-xs">{empleado.cargo}</small>
+                <small className="ml-6 text-xs">{empleado.email}</small>
               </div>
             </li>
           ))}

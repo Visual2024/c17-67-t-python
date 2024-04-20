@@ -65,5 +65,9 @@ let misoptions = {
 };
 
 export function LinesChart() {
-    return <Line data={midata} options={misoptions}/>
+    return (
+        <div className='shadow-xl h-[100%]'>
+            <Line data={midata} options={misoptions}/>
+        </div>
+    )
 }

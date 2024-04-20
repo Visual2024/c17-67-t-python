@@ -163,7 +163,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS Origins Authorization
-CORS_ALLOW_ALL_ORIGINS: True  # Set to True to allow all origins
+CORS_ALLOW_ALL_ORIGINS: False  # Set to True to allow all origins
 
 CORS_ALLOW_CREDENTIALS = True
 
