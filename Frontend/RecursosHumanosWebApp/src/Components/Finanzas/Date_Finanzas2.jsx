@@ -26,14 +26,14 @@ export const Date_Finanzas_2 = () => {
             label: 'Branch',
             data: [100, 200, 300, 400],
             backgroundColor: '#6366f1',
-          borderRadius: 10,
-            barThickness: 5, //ancho de la barra
+            borderRadius: 10,
+            barThickness: 5, 
             }
         ]
     };
 
     const options = {
-        indexAxis: 'y',
+        indexAxis: 'x',
         scales: {
             x: {
                 grid: {
@@ -49,8 +49,8 @@ export const Date_Finanzas_2 = () => {
     };
 
     return(
-        <div className="border border-gray-300 rounded-lg p-8"> 
-            <h3 className="font-bold text-[1.2rem] pb-4">Finanzas 2</h3>
+        <div className="border border-gray-300 rounded-lg p-8 shadow-xl"> 
+            <h3 className="font-bold text-[1.2rem] pb-9">Finanzas 2</h3>
             <p className="text-[13px] text-gris">Datos de Finanzas</p>
             <Bar data={data} options={options}/>
         </div>

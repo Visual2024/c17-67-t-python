@@ -6,9 +6,9 @@ export const Date_Finanzas = () => {
         labels: ['Azul', 'Blanco'],
         datasets: [
           {
-            data: [70, 30],
-            backgroundColor: ['#6366f1', '#F6F5F2'],
-            hoverBackgroundColor: ['#818cf8', '#FEFAF6'],
+            data: [70, 30, 50],
+            backgroundColor: ['#AD66f1', '#AA814F', "#403fad"],
+            hoverBackgroundColor: ['#818cf8', '#AA514F', "#403fad"],
           },
         ],
       };
@@ -18,16 +18,16 @@ export const Date_Finanzas = () => {
     };
 
     return (
-        <div className="flex border border-gray-300 rounded-lg p-5">
-            <div className='flex-grow'>
+        <div className="flex border border-gray-300 rounded-lg shadow-xl">
+            <div className='flex-grow p-3 pt-2'>
                 <h3 className="font-bold text-[1.2rem] pb-4">Finanzas</h3>
                 <p className="text-[13px] text-gris">Datos de Finanzas</p>
                 <h4 className="font-bold text-indigo-500 text-[1.3rem] py-3">$5,240</h4>
                 <p className="text-[13px] text-gris">May 28 - June 01</p>
                 <p className="text-[13px] text-gris">(2018)</p>
             </div>
-            <div className='flex-grow'>
-            <Doughnut data={data} options={options}/>
+            <div className='m-0'>
+            <Doughnut data={data} options={options} width={300}/>
             </div> 
         </div>
     );
