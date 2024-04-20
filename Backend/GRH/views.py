@@ -43,9 +43,6 @@ class UserDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-
 
 class PostulantList(
     mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
@@ -72,9 +69,6 @@ class PostulantDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
 
 
 class VacancyList(
@@ -104,9 +98,6 @@ class VacancyDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-
 
 class StageList(
     mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
@@ -134,9 +125,6 @@ class StageDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-
 
 class RoleList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = Role.objects.all()
@@ -161,6 +149,3 @@ class RoleDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)

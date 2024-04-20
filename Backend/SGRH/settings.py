@@ -176,17 +176,16 @@ CORS_ALLOWED_ORIGINS = [
     "https://127.0.0.1:9000",
     "http://localhost:9000",
     "http://127.0.0.1:9000",
-    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/",
-    "https://c17-67-t-python-production.up.railway.app",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://127.0.0.1:9000",
     "http://localhost:9000",
-    "https://c17-67-t-python-production.up.railway.app",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app",
 ]
 
-CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
