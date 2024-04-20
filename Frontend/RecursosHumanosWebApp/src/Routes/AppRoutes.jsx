@@ -1,7 +1,7 @@
 import { Routes, Route, Outlet, useNavigate, json } from "react-router-dom";
 import { Header } from "@/Layout/Header/Header";
 import { MenuLateral } from "@/Layout/SideBar/MenuLateral";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
 import { Home, Candidates, Error404, GestionDeEmpleados, GestionDeUsuarios, GerenteGestionFinanzas, EmpleadoGestionFinanzas, DatosPersonales, Login } from '@/Pages';
@@ -9,7 +9,7 @@ import { useJwt } from "react-jwt";
 import Swal from "sweetalert2";
 import ErrorBoundary from "../utils/ErrorBoundary";
 import { Comunicacion } from "../Pages/Comunicacion";
-
+import { FormContext } from "../Context/FormContext";
 
 
 export function AppRoutes() {
@@ -41,14 +41,21 @@ export function Layout() {
     const [userName, setUserName] = useState(null);
     const [ususarioId, setUsusarioId] = useState(null);
     const navigate = useNavigate()
+    const {usuarioLogueado, setUsuarioLogueado} = useContext(FormContext)
 
     const url = import.meta.env.VITE_API_KEY
     const secret = import.meta.env.VITE_SECRET_KEY
     const token = JSON.parse(localStorage.getItem('token'))
 
     const { decodedToken } = useJwt(token, secret);
-  
+
+
     useEffect(() => {
+
+      if(!usuarioLogueado){
+        return navigate('/login')
+      }
+
       if (decodedToken) {
         console.log('Token decodificado:', decodedToken);
         const userId = decodedToken.user_id;
@@ -93,15 +100,17 @@ export function Layout() {
             localStorage.removeItem('token');
             localStorage.removeItem('refresh');
             localStorage.removeItem('userName');
+            setUsuarioLogueado(false)
             navigate("/login");
           }
         });
     };
 
 
+
     return (
         <div className="flex max-h-screen ">
-            <MenuLateral rol={(ususarioId && ususarioId < 1 )? "EMPLEADO" : "ADMIN"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
+            <MenuLateral rol={ususarioId === 1 ? "ADMIN" : "EMPLEADO"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full overflow-y-auto">
                 <Header nombreUsuario={userName} />
                 <div className="p-4">
