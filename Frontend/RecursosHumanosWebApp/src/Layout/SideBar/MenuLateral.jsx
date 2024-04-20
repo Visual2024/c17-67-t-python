@@ -149,7 +149,7 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
               <div className={`pt-6 ml-3 border-t-[1px] border-gris border-solid  ${!open && " "}`}>
                 {empleado.map((emp, index) => (
                   <div key={index}>
-                    <li className={`flex rounded-md p-2  cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
+                    <li className={`flex rounded-md p-2 pt-[0px] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
                    ${emp.gap ? "mt-[.1px]" : "mt-[.1px]"}`}>
                       <div>
                         <Link to={""}>
