@@ -40,6 +40,7 @@ export function Layout() {
 
     const [userName, setUserName] = useState(null);
     const [ususarioId, setUsusarioId] = useState(null);
+    const [isStaff, setIsStaff] = useState(false);
     const navigate = useNavigate()
     const {usuarioLogueado, setUsuarioLogueado} = useContext(FormContext)
 
@@ -74,7 +75,9 @@ export function Layout() {
         .then((data) => {
           console.log(data);
           setUserName(data.first_name)
+          setIsStaff(data.is_staff)
           localStorage.setItem('userName', JSON.stringify(data.first_name))
+          localStorage.setItem('isStaff', JSON.stringify(data.is_staff))
         })
         .catch(error =>{
           console.error(error)
@@ -101,17 +104,29 @@ export function Layout() {
             localStorage.removeItem('token');
             localStorage.removeItem('refresh');
             localStorage.removeItem('userName');
+            localStorage.removeItem('isStaff');
             setUsuarioLogueado(false)
             navigate("/login");
           }
         });
     };
 
+    const definirRol = () => {
+      if (ususarioId === 1) {
+        return 'ADMIN'
+      }
+      if (ususarioId !== 1 && isStaff) {
+        return 'GERENTE'
+      }
+      if (!isStaff){
+        return 'EMPLEADO'
+      }
+    }
 
 
     return (
         <div className="flex max-h-screen ">
-            <MenuLateral rol={ususarioId === 1 ? "ADMIN" : "EMPLEADO"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
+            <MenuLateral rol={ususarioId === 1 ? "ADMIN" : (ususarioId !== 1 && isStaff) ? "GERENTE" : "EMPLEADO"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full overflow-y-auto">
                 <Header nombreUsuario={userName} />
                 <div className="p-4">
