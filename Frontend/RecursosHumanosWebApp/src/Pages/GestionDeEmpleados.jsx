@@ -107,6 +107,7 @@ export const GestionDeEmpleados = () => {
       cancelButtonText: "Denegar",
     }).then((result) => {
       if (result.isConfirmed) {
+        setSpinnerSwitch(true)
 
         fetch(`${url}/api/v1/employees`, configPost)
         .then(res => {
@@ -120,6 +121,7 @@ export const GestionDeEmpleados = () => {
         })
         .then((data) => {
           console.log(data)
+          setSpinnerSwitch(false)
 
           eliminarCandidatoContratado(index)
           setearCambios()
@@ -130,6 +132,7 @@ export const GestionDeEmpleados = () => {
           })
         })
         .catch(error =>{
+          setSpinnerSwitch(false)
           Swal.fire({
             title: "Error al procesar la solicitud de contratación",
             icon: "error",
@@ -156,7 +159,7 @@ export const GestionDeEmpleados = () => {
 
       {
         spinnerSwitch &&         
-        <div className="absolute w-full h-full flex justify-center items-center z-3 top-0 left-0 right-0 bottom-0">
+        <div className="absolute w-full h-full flex justify-center items-center z-3 top-0 left-0 right-0 bottom-0 bg-black bg-opacity-20">
           <Spinner />
         </div>
       }       
