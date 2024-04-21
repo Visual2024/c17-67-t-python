@@ -1,4 +1,4 @@
-from rest_framework import mixins, generics
+from rest_framework import mixins, generics, filters
 from django.contrib.auth.hashers import make_password
 
 # Imports for the models and serializers
@@ -20,9 +20,21 @@ User = get_user_model()
 class UserList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["first_name", "last_name", "email"]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        param = self.request.query_params.get("is_active")
+
+        if param == "true":
+            queryset = queryset.filter(is_active=True)
+        elif param == "false":
+            queryset = queryset.filter(is_active=False)
+        return queryset
 
     def post(self, request, *args, **kwargs):
         hashed_password = make_password(request.data["password"])
@@ -53,6 +65,16 @@ class PostulantList(
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+    def get_queryset(self):
+        queryset = User.objects.all()
+        param = self.request.query_params.get("is_active")
+
+        if param == "true":
+            queryset = queryset.filter(is_active=True)
+        elif param == "false":
+            queryset = queryset.filter(is_active=False)
+        return queryset
+
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
@@ -79,6 +101,16 @@ class VacancyList(
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        param = self.request.query_params.get("is_active")
+
+        if param == "true":
+            queryset = queryset.filter(is_active=True)
+        elif param == "false":
+            queryset = queryset.filter(is_active=False)
+        return queryset
 
     def post(self, request, *args, **kwargs):
 
@@ -108,6 +140,16 @@ class StageList(
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
+    def get_queryset(self):
+        queryset = User.objects.all()
+        param = self.request.query_params.get("is_active")
+
+        if param == "true":
+            queryset = queryset.filter(is_active=True)
+        elif param == "false":
+            queryset = queryset.filter(is_active=False)
+        return queryset
+
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
@@ -132,6 +174,16 @@ class RoleList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        param = self.request.query_params.get("is_active")
+
+        if param == "true":
+            queryset = queryset.filter(is_active=True)
+        elif param == "false":
+            queryset = queryset.filter(is_active=False)
+        return queryset
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
