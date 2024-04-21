@@ -2,14 +2,14 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
+import { Spinner } from "../../utils/Spinner";
 
-export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
+export function CandidatesDashboard({ contratarEmpleado, cambiosSwitch }) {
     const [candidates, setCandidates] = useState(null);
     const [data, setData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalResults, setTotalResults] = useState(0); 
-    const url = import.meta.env.VITE_API_KEY
-
+    const [totalResults, setTotalResults] = useState(0);
+    const url = import.meta.env.VITE_API_KEY;
 
     /* createTheme('solarized', {
     text: {
@@ -66,7 +66,10 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
         },
         {
             name: "Fecha de Nacimiento",
-            selector: (row) => row.secondary_phone_number,
+            selector: (row) => {
+                const fechaDeNacimiento = new Date(row.secondary_phone_number);
+                return fechaDeNacimiento.toLocaleDateString("es-ar");
+            },
         },
     ];
 
@@ -95,11 +98,16 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
                 console.log(data);
                 setData(data.results);
                 setCandidates(data.results);
-                setTotalResults(data.count)
+                setTotalResults(data.count);
             });
     }, [cambiosSwitch, currentPage]);
 
-    if (!candidates) return <p>Loading...</p>;
+    if (!candidates)
+        return (
+            <div className="mt-20 grid place-items-center">
+                <Spinner />
+            </div>
+        );
 
     return (
         <div className="m-2 mb-8 shadow-xl">
@@ -119,7 +127,7 @@ export function CandidatesDashboard({contratarEmpleado, cambiosSwitch}) {
                 paginationServer
                 paginationTotalRows={totalResults}
                 paginationPerPage={10}
-                paginationComponentOptions={{noRowsPerPage: true}}
+                paginationComponentOptions={{ noRowsPerPage: true }}
                 onChangePage={(page) => setCurrentPage(page)}
                 onRowClicked={(index) => contratarEmpleado(index)}
             />
