@@ -25,11 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or "MySecretKey"
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
+CSRF_COOKIE_SECURE = os.environ["CSRF_COOKIE_SECURE"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
+DEBUG = os.environ["DEBUG"]
 
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "c17-67-t-python-production.up.railway.app"]
@@ -100,12 +101,12 @@ if DEBUG:
 
 else:
     DATABASE_CONFIG = {
-        "ENGINE": os.environ.get("DBENGINE"),
-        "NAME": os.environ.get("PGDATABASE"),
-        "HOST": os.environ.get("PGHOST"),
-        "USER": os.environ.get("PGUSER"),
-        "PASSWORD": os.environ.get("PGPASSWORD"),
-        "PORT": os.environ.get("PGPORT"),
+        "ENGINE": os.environ["DBENGINE"],
+        "NAME": os.environ["PGDATABASE"],
+        "HOST": os.environ["PGHOST"],
+        "USER": os.environ["PGUSER"],
+        "PASSWORD": os.environ["PGPASSWORD"],
+        "PORT": os.environ["PGPORT"],
     }
 
 DATABASES = {"default": DATABASE_CONFIG}
