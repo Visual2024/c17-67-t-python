@@ -29,7 +29,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or "MySecretKey"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") or True
+DEBUG = os.environ.get("DEBUG")
+
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "c17-67-t-python-production.up.railway.app"]
 
@@ -91,28 +92,23 @@ WSGI_APPLICATION = "SGRH.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        # "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": BASE_DIR / "db.sqlite3",
-        "ENGINE": os.environ.get("DB_ENGINE"),
-        "NAME": os.environ.get("DB_NAME"),
-        "HOST": os.environ.get("DB_HOST"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "PORT": os.environ.get("DB_PORT"),
-        # Development purposes
-        # "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": BASE_DIR / "db.sqlite3",
-        # Deployment purposes
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+if DEBUG:
+    DATABASE_CONFIG = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+
+else:
+    DATABASE_CONFIG = {
+        "ENGINE": os.environ.get("DBENGINE"),
         "NAME": os.environ.get("PGDATABASE"),
         "HOST": os.environ.get("PGHOST"),
         "USER": os.environ.get("PGUSER"),
         "PASSWORD": os.environ.get("PGPASSWORD"),
         "PORT": os.environ.get("PGPORT"),
     }
-}
+
+DATABASES = {"default": DATABASE_CONFIG}
 
 
 # Password validation
@@ -212,4 +208,5 @@ SPECTACULAR_SETTINGS = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "TOKEN_OBTAIN_SERIALIZER": "GRH.serializers.MyTokenObtainPairSerializer",
 }
