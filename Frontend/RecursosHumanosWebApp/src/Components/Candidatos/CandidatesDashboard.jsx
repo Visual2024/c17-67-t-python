@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useState } from "react";
-import DataTable, { createTheme } from "react-data-table-component";
+import DataTable from "react-data-table-component";
 import { Spinner } from "../../utils/Spinner";
+import { getLastName, getPuestoDeTrabajo } from "../../utils/apellidoUtils";
 
 export function CandidatesDashboard({ contratarEmpleado, cambiosSwitch }) {
     const [candidates, setCandidates] = useState(null);
@@ -11,36 +11,11 @@ export function CandidatesDashboard({ contratarEmpleado, cambiosSwitch }) {
     const [totalResults, setTotalResults] = useState(0);
     const url = import.meta.env.VITE_API_KEY;
 
-    /* createTheme('solarized', {
-    text: {
-      primary: '#0B0060',
-      secondary: '#2aa198',
-    },
-    background: {
-      default: '#FFFFFF',
-    },
-    context: {
-      background: '#cb4b16',
-      text: '#FFFFFF',
-    }, 
-    divider: {
-      default: '#073642',
-    },
-     action: {
-      button: 'rgba(0,0,0,.54)',
-      hover: 'rgba(0,0,0,.5)',
-      disabled: 'rgba(0,0,0,.12)',
-    }, 
-  }, 'light') */
-
     const columns = [
         {
             name: "Nombre",
             selector: (row) => {
-                let str = row.last_name;
-                let words = str.split(" ");
-                words.pop();
-                return row.first_name + " " + words.join(" ");
+                return row.first_name + " " + getLastName(row);
             },
             sortable: true,
         },
@@ -56,18 +31,14 @@ export function CandidatesDashboard({ contratarEmpleado, cambiosSwitch }) {
         {
             name: "Puesto de trabajo",
             selector: (row) => {
-                let str = row.last_name;
-                let words = str.split(" ");
-                let puesto = words.find(
-                    (word) => word === "Frontend" || word === "Backend"
-                );
-                return puesto;
+                return getPuestoDeTrabajo(row);
             },
         },
         {
             name: "Fecha de Nacimiento",
             selector: (row) => {
                 const fechaDeNacimiento = new Date(row.secondary_phone_number);
+                console.log(fechaDeNacimiento.toLocaleDateString("es-ar"));
                 return fechaDeNacimiento.toLocaleDateString("es-ar");
             },
         },

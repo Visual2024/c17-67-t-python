@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Modal, Button } from '@mui/material';
 import { Comunicación } from "@/../public/img/Categorias";
 
-export default function ComunicacionCard({ rol }) {
+export function ComunicacionCard({ rol }) {
   const [comunicadosList, setComunicadosList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [mensajeSeleccionado, setMensajeSeleccionado] = useState(null);

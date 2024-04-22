@@ -15,6 +15,10 @@ export const validateText = (text) => {
     return textRegex.test(text);
 };
 
+export const validateSelect = (text) => {
+    return text === "seleccionar-opcion" ? false : true;
+};
+
 export const validateDNI = (dni) => {
     const dniRegex = new RegExp("^\\d{8}$");
     return dniRegex.test(dni);
@@ -25,3 +29,7 @@ export const validatePhoneNumber = (phone) => {
     return phoneRegex.test(phone);
 };
 
+export const validateCurrentJob = (job) => {
+    const jobRegex = new RegExp("^[a-zA-Z0-9ñÑ\\s-]{3,}$");
+    return jobRegex.test(job);
+};

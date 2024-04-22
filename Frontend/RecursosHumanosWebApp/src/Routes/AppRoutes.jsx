@@ -59,29 +59,14 @@ export function Layout() {
 
       if (decodedToken) {
         console.log('Token decodificado:', decodedToken);
-        const userId = decodedToken.user_id;
-        setUsusarioId(userId)
-        localStorage.setItem('userId', JSON.stringify(userId))
+        setUserName(decodedToken.first_name)
+        setIsStaff(decodedToken.is_staff)
+        setUsusarioId(decodedToken.user_id)
 
-        fetch(`${url}/api/v1/employees/${userId}`)
-        .then(res => {
-          if (!res.ok) {
-            throw new Error (res.status)
-          }
-          else{
-            return res.json()
-          }
-        })
-        .then((data) => {
-          console.log(data);
-          setUserName(data.first_name)
-          setIsStaff(data.is_staff)
-          localStorage.setItem('userName', JSON.stringify(data.first_name))
-          localStorage.setItem('isStaff', JSON.stringify(data.is_staff))
-        })
-        .catch(error =>{
-          console.error(error)
-        })
+        localStorage.setItem('userId', JSON.stringify(decodedToken.user_id))
+        localStorage.setItem('userName', JSON.stringify(decodedToken.first_name))
+        localStorage.setItem('isStaff', JSON.stringify(decodedToken.is_staff))        
+
       } 
       else {
         console.error('Error al intentar decodificar el token.');
@@ -110,18 +95,6 @@ export function Layout() {
           }
         });
     };
-
-    const definirRol = () => {
-      if (ususarioId === 1) {
-        return 'ADMIN'
-      }
-      if (ususarioId !== 1 && isStaff) {
-        return 'GERENTE'
-      }
-      if (!isStaff){
-        return 'EMPLEADO'
-      }
-    }
 
 
     return (
