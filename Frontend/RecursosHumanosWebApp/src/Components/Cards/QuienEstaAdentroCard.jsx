@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { EmpleadoOnline } from "../Icons/EmpleadoOnline";
+import {getPuestoDeTrabajo,getLastName} from '../../utils/apellidoUtils'
 
 const ordenarEmpleados = (empleados) => {
   if (!empleados) {
@@ -15,7 +15,6 @@ export function QuienEstaAdentroCard() {
   const [verSoloOnline, setVerSoloOnline] = useState(false);
   const [candidates, setCandidates] = useState([]);
   const [filteredName, setFilteredName] = useState("");
-  const [filterByRole, setFilterByRole] = useState(null);
   const [data, setData] = useState(null);
 
   const url = import.meta.env.VITE_API_KEY;
@@ -32,9 +31,6 @@ export function QuienEstaAdentroCard() {
         }
 
         const data = await response.json();
-
-        console.log("Datos recibidos:", data);
-
         const modifiedData = data.results.map((empleado) => ({
           ...empleado,
           status: Math.random() < 0.5,
@@ -50,78 +46,80 @@ export function QuienEstaAdentroCard() {
     fetchData();
   }, [url]);
 
-  const handleOnlineButtonClick = () => {
-    setVerSoloOnline((prevState) => !prevState);
-  };
 
-  const handleRoleFilter = (role) => {
-    setFilterByRole(role);
-  };
+const handleFilterButtonClick = () => {
+  const inputText = filteredName.toLowerCase();
+  if (inputText.trim() === "") {
+    setCandidates(data); 
+  } else {
+
+    const filteredEmployees = data.filter((empleado) => {
+      const nameMatch =
+        empleado.first_name &&
+        empleado.first_name.toLowerCase().includes(inputText);
+      const statusMatch = verSoloOnline ? empleado.status : true;
+      return nameMatch && statusMatch;
+    });
+    setCandidates(filteredEmployees);
+  }
+};
+
+const handleRenderOnlineButtonClick = () => {
+  setVerSoloOnline((prevState) => !prevState);
+
+  if (!verSoloOnline) {
+    const onlineEmployees = data.filter((empleado) => empleado.status);
+    setCandidates(onlineEmployees);
+  } else {
+
+    setCandidates(data);
+  }
+};
+
 
   const handleNameFilterChange = (e) => {
     setFilteredName(e.target.value);
   };
 
-  const filterEmployees = (empleado) => {
-    const nameMatch = filteredName
-      ? empleado.first_name.toLowerCase().includes(filteredName.toLowerCase())
-      : true;
-
-    const onlineMatch = verSoloOnline ? empleado.status : true;
-
-    const roleMatch =
-      filterByRole && empleado.role === filterByRole ? true : !filterByRole;
-
-    return nameMatch && onlineMatch && roleMatch;
-  };
-
-  const empleadosFiltrados = candidates.filter(filterEmployees);
-  const empleadosOrdenados = ordenarEmpleados(empleadosFiltrados);
+  const empleadosOrdenados = ordenarEmpleados(candidates);
 
   return (
     <section className="shadow-[4px_5px_10px_1px_rgba(0,0,0,0.3)] w-96 h-dvh  p-4 overflow-y-hidden">
-      <header className="flex flex-col  gap-1 mb-3">
-        <EmpleadoOnline />
-        <h1 className="">En Línea</h1>
-        <input
-          type="text"
-          placeholder="Filtrar por nombre"
-          value={filteredName}
-          onChange={handleNameFilterChange}
-          className="ml-auto border border-gray-300 rounded px-2 py-1"
-        />
+      <header className="flex flex-col gap-1 mb-3">
+        <div className="flex items-center">
+          <EmpleadoOnline />
+          <h1 className="">En Línea</h1>
+        </div>
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            placeholder="Buscar"
+            value={filteredName}
+            onChange={handleNameFilterChange}
+            className=" border border-gray-300 rounded px-2 py-1"
+          />
+          <button
+            onClick={handleFilterButtonClick}
+            className="bg-blue-500 text-white px-2 py-1 rounded"
+          >
+            Filtrar
+          </button>
+        </div>
         <div>
-        <button
-          onClick={handleOnlineButtonClick}
-          className={`ml-3 ${
-            verSoloOnline ? "bg-blue-500 text-white" : "bg-gray-200"
-          } px-2 py-1 rounded`}
-        >
-          Ver solo En Línea
-        </button>
-        <button
-          onClick={() => handleRoleFilter("backend")}
-          className={`ml-3 ${
-            filterByRole === "backend" ? "bg-blue-500 text-white" : "bg-gray-200"
-          } px-2 py-1 rounded`}
-        >
-          Backend
-        </button>
-        <button
-          onClick={() => handleRoleFilter("frontend")}
-          className={`ml-3 ${
-            filterByRole === "frontend" ? "bg-blue-500 text-white" : "bg-gray-200"
-          } px-2 py-1 rounded`}
-        >
-          Frontend
-        </button>
-
+          <button
+            onClick={handleRenderOnlineButtonClick}
+            className={`mt-2 ${
+              verSoloOnline ? " bg-green-600 text-white" : "bg-gray-200"
+            } px-2 py-1 rounded`}
+          >
+            {verSoloOnline ? "Mostrar todos" : "Ver solo En Línea"}
+          </button>
         </div>
       </header>
-      <div className="flex flex-col justify-between h-full py-2">
-        <ul className=" max-h-96 overflow-y-auto flex flex-col gap-1">
+      <div className="flex flex-col justify-between h-dvh py-2">
+        <ul className="max-h-dvh overflow-y-auto flex flex-col gap-3">
           {empleadosOrdenados.map((empleado, index) => (
-            <li key={index} className="flex items-center ">
+            <li key={index} className="flex items-center">
               <div>
                 <header>
                   <span
@@ -132,7 +130,7 @@ export function QuienEstaAdentroCard() {
                   <span className="text-sm font-medium mr-2">
                     {empleado.first_name}
                   </span>
-                  <span className="text-sm">{empleado.last_name}</span>
+                  <span className="text-sm">{getLastName(empleado)}</span>
                 </header>
                 <small className="ml-6 text-xs">{empleado.email}</small>
               </div>

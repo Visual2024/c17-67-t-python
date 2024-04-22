@@ -102,7 +102,7 @@ export function Layout() {
             <MenuLateral rol={ususarioId === 1 ? "ADMIN" : (ususarioId !== 1 && isStaff) ? "GERENTE" : "EMPLEADO"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
             <div className="flex flex-col w-full overflow-y-auto">
                 <Header nombreUsuario={userName} />
-                <div className="p-4">
+                <div className="">
                     <Outlet />
                 </div>
             </div>
