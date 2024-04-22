@@ -1,63 +1,122 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { EmpleadoOnline } from "../Icons/EmpleadoOnline";
 
-// Función para ordenar los empleados con status true primero
 const ordenarEmpleados = (empleados) => {
   if (!empleados) {
-    return []; // Devuelve un array vacío si no hay empleados
+    return [];
   }
   return empleados.sort((a, b) =>
     a.status === b.status ? 0 : a.status ? -1 : 1
   );
 };
 
-export default function QuienEstaAdentroCard() {
+export function QuienEstaAdentroCard() {
   const [verSoloOnline, setVerSoloOnline] = useState(false);
   const [candidates, setCandidates] = useState([]);
-
+  const [filteredName, setFilteredName] = useState("");
+  const [filterByRole, setFilterByRole] = useState(null);
   const [data, setData] = useState(null);
 
   const url = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
-    fetch(`${url}/api/v1/postulants`, {
-      method: "GET",
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${url}/api/v1/employees`, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error("La respuesta de la red no fue exitosa");
         }
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Data received:", data);
-        // Simulación de estado online y offline aleatorio
+
+        const data = await response.json();
+
+        console.log("Datos recibidos:", data);
+
         const modifiedData = data.results.map((empleado) => ({
           ...empleado,
-          status: Math.random() < 0.5, // Establece el status aleatoriamente
+          status: Math.random() < 0.5,
         }));
+
         setData(modifiedData);
         setCandidates(modifiedData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+
+    fetchData();
   }, [url]);
 
-  const handleCheckboxChange = () => {
+  const handleOnlineButtonClick = () => {
     setVerSoloOnline((prevState) => !prevState);
   };
 
-  const empleadosFiltrados = verSoloOnline
-    ? candidates.filter((empleado) => empleado.status)
-    : candidates;
+  const handleRoleFilter = (role) => {
+    setFilterByRole(role);
+  };
+
+  const handleNameFilterChange = (e) => {
+    setFilteredName(e.target.value);
+  };
+
+  const filterEmployees = (empleado) => {
+    const nameMatch = filteredName
+      ? empleado.first_name.toLowerCase().includes(filteredName.toLowerCase())
+      : true;
+
+    const onlineMatch = verSoloOnline ? empleado.status : true;
+
+    const roleMatch =
+      filterByRole && empleado.role === filterByRole ? true : !filterByRole;
+
+    return nameMatch && onlineMatch && roleMatch;
+  };
+
+  const empleadosFiltrados = candidates.filter(filterEmployees);
   const empleadosOrdenados = ordenarEmpleados(empleadosFiltrados);
 
   return (
-    <section className="shadow-[4px_5px_10px_1px_rgba(0,0,0,0.3)] w-96 h-[520px] rounded-xl p-4 overflow-y-hidden">
-      <header className="flex items-center gap-1 mb-3">
+    <section className="shadow-[4px_5px_10px_1px_rgba(0,0,0,0.3)] w-96 h-dvh  p-4 overflow-y-hidden">
+      <header className="flex flex-col  gap-1 mb-3">
         <EmpleadoOnline />
-        <h1 className="">Quien esta adentro</h1>
+        <h1 className="">En Línea</h1>
+        <input
+          type="text"
+          placeholder="Filtrar por nombre"
+          value={filteredName}
+          onChange={handleNameFilterChange}
+          className="ml-auto border border-gray-300 rounded px-2 py-1"
+        />
+        <div>
+        <button
+          onClick={handleOnlineButtonClick}
+          className={`ml-3 ${
+            verSoloOnline ? "bg-blue-500 text-white" : "bg-gray-200"
+          } px-2 py-1 rounded`}
+        >
+          Ver solo En Línea
+        </button>
+        <button
+          onClick={() => handleRoleFilter("backend")}
+          className={`ml-3 ${
+            filterByRole === "backend" ? "bg-blue-500 text-white" : "bg-gray-200"
+          } px-2 py-1 rounded`}
+        >
+          Backend
+        </button>
+        <button
+          onClick={() => handleRoleFilter("frontend")}
+          className={`ml-3 ${
+            filterByRole === "frontend" ? "bg-blue-500 text-white" : "bg-gray-200"
+          } px-2 py-1 rounded`}
+        >
+          Frontend
+        </button>
+
+        </div>
       </header>
       <div className="flex flex-col justify-between h-full py-2">
         <ul className=" max-h-96 overflow-y-auto flex flex-col gap-1">
@@ -80,16 +139,6 @@ export default function QuienEstaAdentroCard() {
             </li>
           ))}
         </ul>
-        <label htmlFor="verOnline" className="block mb-5">
-          <input
-            type="checkbox"
-            id="verOnline"
-            checked={verSoloOnline}
-            onChange={handleCheckboxChange}
-            className="mr-2"
-          />
-          Ver solo Online
-        </label>
       </div>
     </section>
   );
