@@ -8,7 +8,11 @@
 
 ## Descripción  
 
-Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus recursos humanos de manera simple y eficiente. Se basa en las tecnologías React y Django, lo que la hace moderna, escalable y fácil de usar.
+Esta aplicación web es del rubro HRTech, está diseñada para ayudar a las empresas a gestionar sus recursos humanos de manera simple y eficiente. Se basa en las tecnologías React y Django, lo que la hace moderna, escalable y fácil de usar.
+Para este lanzamiento, y demostrar en la demoday, se implementaron las siguientes funcinalidades:
+-**portal de autoervisio**:  se loguea el empleado para visualizar sus sueldos
+-**gestion de reclutamiento y contratacion**: se loguea el gerente y hace la contratatacion de un candidato
+-**configuracion de permisos y seguridad** : se loguea el super- admin de django
 
 ## Colaboradores
 
@@ -36,3 +40,7 @@ Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus 
   - [Felix Pacheco Lobos](https://www.linkedin.com/in/felix-pacheco-lobos/)
   - [Mariana ]()
   - [Juan Cruz ]()
+
+## Enlaces
+-[HRNexo](https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app/login)
+-[Api](https://c17-67-t-python-production.up.railway.app/docs/v1/)
