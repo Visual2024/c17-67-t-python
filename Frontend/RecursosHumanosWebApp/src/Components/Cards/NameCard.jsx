@@ -39,7 +39,7 @@ export function NameCard() {
         <div className="z-10 w-48 py-[2px] text-white rounded-xl text-sm capitalize">
           {rol}
         </div>
-        <h1 className="text-lg z-10">{`Hola ${usuario ? usuario : "Usuario"}, bienvenido!`}</h1>
+        <h1 className="text-lg z-10">{`Hola ${usuario ? usuario : "Admin"}, bienvenido!`}</h1>
       </header>
       <small className="text-xs z-10">{fechaActual}</small>
     </article>
