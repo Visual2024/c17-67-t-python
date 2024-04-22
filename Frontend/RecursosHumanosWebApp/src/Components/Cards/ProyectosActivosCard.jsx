@@ -60,7 +60,7 @@ export function ProyectosActivosCard() {
 
 
   return (
-    <section className="shadow-[4px_5px_10px_1px_rgba(0,0,0,0.3)] w-96 h-80 rounded-xl p-4">
+    <section className="shadow-[4px_5px_10px_1px_rgba(0,0,0,0.3)] w-80 h-80 rounded-xl p-4">
       <header className="flex items-center gap-1 p-2">
    {/*      <ProyectosActivos /> */}
         <h1>Proyectos activos</h1>
