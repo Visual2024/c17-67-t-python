@@ -5,7 +5,7 @@ import { Date_Finanzas } from "../Components/Finanzas/Date_Finanzas";
 
 export const EmpleadoGestionFinanzas = () => {
   const [data, setData] = useState([]);
-  // const [id, setId] = useState(1)
+  const [id, setId] = useState(1)
 
   const url = import.meta.env.VITE_API_KEY;
 
