@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
-import { getLastName } from "../../utils/apellidoUtils";
+import { getLastName, getPuestoDeTrabajo } from "../../utils/apellidoUtils";
 import { Spinner } from "../../utils/Spinner";
 
 export const EmpleadosDashboard = ({ cambiosSwitch }) => {
@@ -44,11 +44,7 @@ export const EmpleadosDashboard = ({ cambiosSwitch }) => {
     const columns = [
         {
             name: "Nombre",
-            selector: (row) => row.first_name,
-        },
-        {
-            name: "Apellido",
-            selector: (row) => getLastName(row),
+            selector: (row) => row.first_name + " " + getLastName(row),
         },
         {
             name: "Mail",
@@ -59,17 +55,10 @@ export const EmpleadosDashboard = ({ cambiosSwitch }) => {
             name: "Telefono",
             selector: (row) => row.phone_number,
         },
-        // {
-        //     name: "Puesto de trabajo",
-        //     selector: (row) => {
-        //         let str = row.last_name;
-        //         let words = str.split(" ");
-        //         let puesto = words.find(
-        //             (word) => word === "Frontend" || word === "Backend"
-        //         );
-        //         return puesto;
-        //     },
-        // },
+        {
+            name: "Puesto de trabajo",
+            selector: (row) => getPuestoDeTrabajo(row),
+        },
         {
             name: "DNI",
             selector: (row) => row.dni,
@@ -77,7 +66,6 @@ export const EmpleadosDashboard = ({ cambiosSwitch }) => {
     ];
 
     const verDatosPersonales = (index) => {
-        console.log(index);
         const id = index.id;
         navigate(`/datospersonales/${id}`);
     };
