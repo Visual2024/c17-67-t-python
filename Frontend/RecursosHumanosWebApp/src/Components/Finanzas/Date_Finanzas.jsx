@@ -26,7 +26,7 @@ export const Date_Finanzas = () => {
                 <p className="text-[13px] text-gris">May 28 - June 01</p>
                 <p className="text-[13px] text-gris">(2018)</p>
             </div>
-            <div className='m-0'>
+            <div className='m-0 pb-2'>
             <Doughnut data={data} options={options} width={300}/>
             </div> 
         </div>

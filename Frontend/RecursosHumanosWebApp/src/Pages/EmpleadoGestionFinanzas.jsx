@@ -5,13 +5,13 @@ import { Date_Finanzas } from "../Components/Finanzas/Date_Finanzas";
 
 export const EmpleadoGestionFinanzas = () => {
   const [data, setData] = useState([]);
-  const [id, setId] = useState(1)
+
 
   const url = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
-      fetch(`${url}/api/v1/postulants`)
-      // fetch(`${url}/api/v1/postulants/${id}`) // Para sacar a cada empleado por su ID
+
+      fetch(`${url}/api/v1/postulants/${id}`) // Para sacar a cada empleado por su ID
         .then((res)=> res.json())
         .then((date)=>{
           setData(date.results)
@@ -23,9 +23,8 @@ export const EmpleadoGestionFinanzas = () => {
 
   return (
     <div>
-      {data && data.map((info, index) => (
+      {data &&  (
         <main key={index} className="flex flex-row flex-wrap min-w-[87%]">
-          <h1 className="font-bold text-3xl mb-3">Gestión Financiera</h1>
           <section className="w-[96%] mb-[4rem]">
             <div className="flex flex-row items-center bg-azul w-[100%] rounded-xl p-1">
               <img className="" src="img/work.png" alt="" />
@@ -77,7 +76,7 @@ export const EmpleadoGestionFinanzas = () => {
 
       
         </main>
-      ))}
+      )}
     </div>
   );
 };
