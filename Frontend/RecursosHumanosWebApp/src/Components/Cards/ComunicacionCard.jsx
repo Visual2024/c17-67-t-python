@@ -33,7 +33,7 @@ export function ComunicacionCard({ rol }) {
 
   return (
     <div>
-      <div className="relative shadow-[4px_5px_10px_1px_rgba(0,0,0,0.3)] w-96 h-48 rounded-xl p-4">
+      <div className="relative shadow-[4px_5px_10px_1px_rgba(0,0,0,0.3)] w-96 h-80 rounded-xl p-4">
         <header className="flex items-center gap-1 p-2">
         <Comunicación height="20px" />
           <h1 className="pb-1">Anuncios</h1>

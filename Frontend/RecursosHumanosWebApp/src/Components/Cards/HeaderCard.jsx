@@ -12,7 +12,7 @@ export function HeaderCard() {
 
 
   return (
-    <article className=" w-96 flex gap-7 shadow-md p-2 rounded-lg text-xl text-gray-500 font-medium">
+    <article className={`object-fit flex gap-7 shadow-md p-2 rounded-lg text-xl text-gray-500 font-medium ${inicio ? 'w-full' : 'w-96'}`}>
       <div className="flex gap-3">
         <p>{tiempoFormateado}</p>
         {inicio ? (
