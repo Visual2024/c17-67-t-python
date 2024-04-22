@@ -19,7 +19,6 @@ const useUserRole = () => {
       return;
     }
 
-    console.log('Token decodificado:', decodedToken);
     const userId = decodedToken.user_id;
     setUsuarioId(userId);
     localStorage.setItem('userId', JSON.stringify(userId));
@@ -33,7 +32,6 @@ const useUserRole = () => {
         }
       })
       .then((data) => {
-        console.log(data);
         setIsStaff(data.is_staff);
         setUsuario(data.first_name); // Guardar el nombre de usuario
         localStorage.setItem('userName', JSON.stringify(data.first_name));
