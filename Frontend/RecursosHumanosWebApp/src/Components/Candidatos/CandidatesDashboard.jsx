@@ -1,44 +1,21 @@
-/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useState } from "react";
-import DataTable, { createTheme } from "react-data-table-component";
-import { useNavigate } from "react-router-dom";
+import DataTable from "react-data-table-component";
+import { Spinner } from "../../utils/Spinner";
+import { getLastName, getPuestoDeTrabajo } from "../../utils/apellidoUtils";
 
-export function CandidatesDashboard() {
+export function CandidatesDashboard({ contratarEmpleado, cambiosSwitch }) {
     const [candidates, setCandidates] = useState(null);
     const [data, setData] = useState(null);
-    const navigate = useNavigate();
-
-    /* createTheme('solarized', {
-    text: {
-      primary: '#0B0060',
-      secondary: '#2aa198',
-    },
-    background: {
-      default: '#FFFFFF',
-    },
-    context: {
-      background: '#cb4b16',
-      text: '#FFFFFF',
-    }, 
-    divider: {
-      default: '#073642',
-    },
-     action: {
-      button: 'rgba(0,0,0,.54)',
-      hover: 'rgba(0,0,0,.5)',
-      disabled: 'rgba(0,0,0,.12)',
-    }, 
-  }, 'light') */
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
+    const url = import.meta.env.VITE_API_KEY;
 
     const columns = [
         {
             name: "Nombre",
             selector: (row) => {
-                let str = row.last_name;
-                let words = str.split(" ");
-                words.pop();
-                return row.first_name + " " + words.join(" ");
+                return row.first_name + " " + getLastName(row);
             },
             sortable: true,
         },
@@ -52,23 +29,18 @@ export function CandidatesDashboard() {
             selector: (row) => row.phone_number,
         },
         {
-            name: "Dia de postulacion",
-            selector: (row) => row.postulation_date,
-        },
-        {
             name: "Puesto de trabajo",
             selector: (row) => {
-                let str = row.last_name;
-                let words = str.split(" ");
-                let puesto = words.find(
-                    (word) => word === "Frontend" || word === "Backend"
-                );
-                return puesto;
+                return getPuestoDeTrabajo(row);
             },
         },
         {
-            name: "DNI",
-            selector: (row) => row.dni,
+            name: "Fecha de Nacimiento",
+            selector: (row) => {
+                const fechaDeNacimiento = new Date(row.secondary_phone_number);
+                console.log(fechaDeNacimiento.toLocaleDateString("es-ar"));
+                return fechaDeNacimiento.toLocaleDateString("es-ar");
+            },
         },
     ];
 
@@ -89,7 +61,7 @@ export function CandidatesDashboard() {
     };
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/hiring/api/v1/candidate/", {
+        fetch(`${url}/api/v1/postulants?page=${currentPage}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -97,13 +69,19 @@ export function CandidatesDashboard() {
                 console.log(data);
                 setData(data.results);
                 setCandidates(data.results);
+                setTotalResults(data.count);
             });
-    }, []);
+    }, [cambiosSwitch, currentPage]);
 
-    if (!candidates) return <p>Loading...</p>;
+    if (!candidates)
+        return (
+            <div className="mt-20 grid place-items-center">
+                <Spinner />
+            </div>
+        );
 
     return (
-        <div className="mt-10 m-2 shadow-xl">
+        <div className="m-2 mb-8 shadow-xl">
             <input
                 type="text"
                 onChange={handleChange}
@@ -117,7 +95,12 @@ export function CandidatesDashboard() {
                 pointerOnHover
                 responsive
                 pagination
-                onRowClicked={() => navigate("/")}
+                paginationServer
+                paginationTotalRows={totalResults}
+                paginationPerPage={10}
+                paginationComponentOptions={{ noRowsPerPage: true }}
+                onChangePage={(page) => setCurrentPage(page)}
+                onRowClicked={(index) => contratarEmpleado(index)}
             />
         </div>
     );

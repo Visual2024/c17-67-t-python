@@ -1,76 +1,47 @@
+/* eslint-disable no-undef */
+// NameCard.js
 import { useEffect, useState } from "react";
-// import { format } from "date-fns";
-// import { es } from "date-fns/locale"; // Importa el locale 'es' para español
-import Polygon from "@/../public/img/Polygon";
-
+import { DateTime } from "luxon";
+import useUserRole from "../../Hook/useUserRol";
 
 export function NameCard() {
-  const [usuario, setUsuario] = useState(null);
-  const [rol, setRol] = useState(null);
-  
+  const { rol, usuario } = useUserRole();
+
   const [fechaActual, setFechaActual] = useState(null);
 
-
   useEffect(() => {
-    const usuarioSessionStorage = JSON.parse(
-      sessionStorage.getItem("nombreUsuario")
-    );
-    const rolSessionStorage = JSON.parse(sessionStorage.getItem("rol"));
+    // Obtener la fecha actual usando Luxon
+    const fecha = DateTime.now().setLocale("es");
+    const fechaDescriptiva = fecha.toFormat("EEEE, d 'de' MMMM 'del' yyyy");
+    setFechaActual(fechaDescriptiva);
+  }, [usuario]);
 
-    if (usuarioSessionStorage && rolSessionStorage) {
-      setUsuario(usuarioSessionStorage);
-      setRol(rolSessionStorage);
-    } else {
-      // window.location.replace("/login");
-    }
-
-    // Obtener la fecha actual
-    const fecha = new Date();
-    // const fechaDescriptiva = format(fecha, "EEEE, d 'de' MMMM 'del' yyyy", {
-    //   locale: es,
-    // });
-    // setFechaActual(fechaDescriptiva);
-
-    setFechaActual(fecha);
-
-  }, []);
-
-  // Obtener el nombre de usuario del correo electrónico
-  const obtenerNombreUsuario = (correo) => {
-    if (correo) {
-      const arrobaIndex = correo.indexOf("@");
-      if (arrobaIndex !== -1) {
-        return correo.slice(0, arrobaIndex);
-      }
-      return correo;
-    }
-    return "";
-  };
-
-  //Color del Card segun Rol
+  // Color del Card según Rol
   const getBgColor = () => {
-    if (rol === "ADMIN") {
-      return "bg-[#092E20]";
-    } else if (rol === "GERENTE") {
-      return "bg-[rgb(11,0,96)]";
-    } else if (rol === "EMPLEADO") {
-      return "bg-blue-950";
+    switch (rol) {
+      case 'ADMIN':
+        return "bg-[#092E20]";
+      case 'GERENTE':
+        return "bg-[rgb(11,0,96)]";
+      case 'EMPLEADO':
+        return "bg-blue-950";
+      default:
+        return "";
     }
-    return ""; 
   };
 
   return (
-    <article className={` flex flex-col justify-between -z-10 relative w-72 h-[136px] p-3 rounded-xl text-white ${getBgColor()}`}>
-        <div className=" -z-10 absolute top-0 right-4">
-          <Polygon />
-        </div>
+    <article
+      className={`flex flex-col justify-between w-72 h-[136px] p-3 rounded-xl text-white ${getBgColor()}`}
+    >
+      <div className="absolute top-0 right-4"></div>
       <header className="flex flex-col gap-3">
-        <div className=" z-10 w-48 px-2 py-[2px] bg-white text-gray-500 rounded-xl text-sm">
+        <div className="z-10 w-48 py-[2px] text-white rounded-xl text-sm capitalize">
           {rol}
         </div>
-      <h1 className="text-lg">{`Hola ${obtenerNombreUsuario(usuario)}, bienvenido! `}</h1>
+        <h1 className="text-lg z-10">{`Hola ${usuario ? usuario : "Admin"}, bienvenido!`}</h1>
       </header>
-      {/* <small className="capitalize text-xs">{fechaActual}</small> */}
+      <small className="text-xs z-10">{fechaActual}</small>
     </article>
   );
 }

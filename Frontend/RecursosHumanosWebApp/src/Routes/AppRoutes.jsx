@@ -1,13 +1,15 @@
-import { Routes, Route, Outlet, useNavigate } from "react-router-dom";
+import { Routes, Route, Outlet, useNavigate, json } from "react-router-dom";
 import { Header } from "@/Layout/Header/Header";
 import { MenuLateral } from "@/Layout/SideBar/MenuLateral";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormularioRegistro } from "../Components/Form/FormularioRegistro";
 import { FormularioRegistro2 } from "../Components/Form/FormularioRegistro2";
 import { Home, Candidates, Error404, GestionDeEmpleados, GestionDeUsuarios, GerenteGestionFinanzas, EmpleadoGestionFinanzas, DatosPersonales, Login } from '@/Pages';
 import { useJwt } from "react-jwt";
 import Swal from "sweetalert2";
 import ErrorBoundary from "../utils/ErrorBoundary";
+import { Comunicacion } from "../Pages/Comunicacion";
+import { FormContext } from "../Context/FormContext";
 
 
 export function AppRoutes() {
@@ -26,6 +28,7 @@ export function AppRoutes() {
                 <Route path="/gestionfinancieragerente" element={<GerenteGestionFinanzas />} />
                 <Route path="/gestionfinancieraempleados" element={<EmpleadoGestionFinanzas />} />
                 <Route path="/datospersonales/:id" element={<DatosPersonales />} />
+                <Route path="/comunicacion" element={<Comunicacion />} />
             </Route>
             <Route path="*" element={<Error404 />} />
         </Routes>
@@ -35,27 +38,39 @@ export function AppRoutes() {
 
 export function Layout() {
 
-    const [usuario, setUsuario] = useState(null);
+    const [userName, setUserName] = useState(null);
     const [ususarioId, setUsusarioId] = useState(null);
-    const [rol, setRol] = useState(null);
-    const url = import.meta.env.VITE_API_KEY
+    const [isStaff, setIsStaff] = useState(false);
     const navigate = useNavigate()
+    const {usuarioLogueado, setUsuarioLogueado} = useContext(FormContext)
+
+    const url = import.meta.env.VITE_API_KEY
     const secret = import.meta.env.VITE_SECRET_KEY
     const token = JSON.parse(localStorage.getItem('token'))
 
-
     const { decodedToken } = useJwt(token, secret);
-  
+
+
     useEffect(() => {
+
+      if(!usuarioLogueado && !token){
+        return navigate('/login')
+      }
+
       if (decodedToken) {
         console.log('Token decodificado:', decodedToken);
-        const userId = decodedToken.user_id;
-        const userName = decodedToken.user_name;
-        setUsusarioId(userId)
-        setUsuario(userName)
-        localStorage.setItem('userId', JSON.stringify(ususarioId))
-      } else {
+        setUserName(decodedToken.first_name)
+        setIsStaff(decodedToken.is_staff)
+        setUsusarioId(decodedToken.user_id)
+
+        localStorage.setItem('userId', JSON.stringify(decodedToken.user_id))
+        localStorage.setItem('userName', JSON.stringify(decodedToken.first_name))
+        localStorage.setItem('isStaff', JSON.stringify(decodedToken.is_staff))        
+
+      } 
+      else {
         console.error('Error al intentar decodificar el token.');
+        setUsusarioId(JSON.parse(localStorage.getItem('userId')))
       }
     }, [decodedToken]);
 
@@ -73,6 +88,9 @@ export function Layout() {
             localStorage.removeItem('userId');
             localStorage.removeItem('token');
             localStorage.removeItem('refresh');
+            localStorage.removeItem('userName');
+            localStorage.removeItem('isStaff');
+            setUsuarioLogueado(false)
             navigate("/login");
           }
         });
@@ -80,11 +98,11 @@ export function Layout() {
 
 
     return (
-        <div className="flex">
-            <MenuLateral rol="ADMIN" cerrarSesion={cerrarSesionClick}/>
-            <div className="flex flex-col w-full">
-                <Header nombreUsuario={usuario !== null ? usuario : 'Visitante'} />
-                <div className="p-4">
+        <div className="flex max-h-screen ">
+            <MenuLateral rol={ususarioId === 1 ? "ADMIN" : (ususarioId !== 1 && isStaff) ? "GERENTE" : "EMPLEADO"} userId={ususarioId !== null ? ususarioId : 0} cerrarSesion={cerrarSesionClick}/>
+            <div className="flex flex-col w-full overflow-y-auto">
+                <Header nombreUsuario={userName} />
+                <div className="">
                     <Outlet />
                 </div>
             </div>

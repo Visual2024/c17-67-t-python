@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import DataTable from 'react-data-table-component'
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
+import { getLastName, getPuestoDeTrabajo } from "../../utils/apellidoUtils";
+import { Spinner } from "../../utils/Spinner";
 
-export const EmpleadosDashboard = ({cambiosSwitch}) => {
+export const EmpleadosDashboard = ({ cambiosSwitch }) => {
+    const [empleados, setEmpleados] = useState(null);
+    const [data, setData] = useState(null);
+    const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
 
-    const [empleados, setEmpleados] = useState({});
-    const navigate = useNavigate()
-
-    const url = import.meta.env.VITE_API_KEY
+    const url = import.meta.env.VITE_API_KEY;
     // const token = JSON.parse(localStorage.getItem('token'))
-
 
     // const configuraciones = {
     //     method: 'GET',
@@ -20,89 +23,28 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
     // }
 
     useEffect(() => {
-        fetch(`${url}/api/v1/employees/`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error (res.status)
-            }
-            else{
-                console.log(res)
-                return res.json()
-            }
-        })
-        .then((data) => {
-            console.log(data)
-            setEmpleados(data)
-        })
-        .catch(error=> console.error(error))
+        fetch(`${url}/api/v1/employees?page=${currentPage}`)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(res.status);
+                } else {
+                    console.log(res);
+                    return res.json();
+                }
+            })
+            .then((data) => {
+                console.log(data);
+                setData(data.results);
+                setEmpleados(data.results);
+                setTotalResults(data.count);
+            })
+            .catch((error) => console.error(error));
+    }, [cambiosSwitch, currentPage]);
 
-    }, [cambiosSwitch])
-
-    const data = [
-        {
-            "id": 2,
-            "last_login": null,
-            "first_name": null,
-            "last_name": null,
-            "email": "admin@hrnexo.com",
-            "dni": null,
-            "phone_number": "",
-            "secondary_phone_number": null,
-            "address": "",
-            "city": "",
-            "state": null,
-            "is_staff": true,
-            "is_superuser": true,
-            "is_active": true,
-            "groups": [],
-            "user_permissions": []
-        },
-        {
-            "id": 3,
-            "last_login": null,
-            "first_name": "Marcos",
-            "last_name": "Pacheco",
-            "email": "marcos.pachecopezo3@example.com",
-            "dni": "44444444",
-            "phone_number": "123245d4a54",
-            "secondary_phone_number": "456456456",
-            "address": "calle Falsa 1234",
-            "city": "Springfield",
-            "state": "Unknown",
-            "is_staff": false,
-            "is_superuser": false,
-            "is_active": true,
-            "groups": [],
-            "user_permissions": []
-        },
-        {
-            "id": 1,
-            "last_login": "2024-04-16T03:02:16.617303Z",
-            "first_name": null,
-            "last_name": null,
-            "email": "pachecolobos.felix@gmail.com",
-            "dni": null,
-            "phone_number": "",
-            "secondary_phone_number": null,
-            "address": "",
-            "city": "",
-            "state": null,
-            "is_staff": true,
-            "is_superuser": true,
-            "is_active": true,
-            "groups": [],
-            "user_permissions": []
-        }
-    ]
-    
     const columns = [
         {
             name: "Nombre",
-            selector: (row) => row.first_name
-        },
-        {
-            name: "Apellido",
-            selector: (row) => row.last_name
+            selector: (row) => row.first_name + " " + getLastName(row),
         },
         {
             name: "Mail",
@@ -113,17 +55,10 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
             name: "Telefono",
             selector: (row) => row.phone_number,
         },
-        // {
-        //     name: "Puesto de trabajo",
-        //     selector: (row) => {
-        //         let str = row.last_name;
-        //         let words = str.split(" ");
-        //         let puesto = words.find(
-        //             (word) => word === "Frontend" || word === "Backend"
-        //         );
-        //         return puesto;
-        //     },
-        // },
+        {
+            name: "Puesto de trabajo",
+            selector: (row) => getPuestoDeTrabajo(row),
+        },
         {
             name: "DNI",
             selector: (row) => row.dni,
@@ -131,22 +66,55 @@ export const EmpleadosDashboard = ({cambiosSwitch}) => {
     ];
 
     const verDatosPersonales = (index) => {
-        console.log(index);
         const id = index.id;
-        navigate(`/datospersonales/${id}`)
-    }
+        navigate(`/datospersonales/${id}`);
+    };
 
+    const handleChange = (e) => {
+        const filteredCandidates = data
+            .map((candidate) => {
+                const fullName =
+                    candidate.first_name + " " + candidate.last_name;
+                return { ...candidate, full_name: fullName };
+            })
+            .filter((candidate) =>
+                candidate.full_name
+                    .toLowerCase()
+                    .includes(e.target.value.toLowerCase())
+            );
+        console.log(filteredCandidates);
+        setEmpleados(filteredCandidates);
+    };
 
-  return (
-    <div className="m-2 shadow-xl">
-        <DataTable 
-            columns={columns}
-            data={empleados.length > 0 ? empleados : data}
-            highlightOnHover
-            pointerOnHover
-            responsive
-            onRowClicked={(index) => verDatosPersonales(index)}
-        />
-    </div>
-  )
-}
+    if (!empleados)
+        return (
+            <div className="mt-20 grid place-items-center">
+                <Spinner />
+            </div>
+        );
+
+    return (
+        <div className="m-2 mb-8 shadow-xl">
+            <input
+                type="text"
+                onChange={handleChange}
+                placeholder="Buscar por nombre..."
+                className="px-2 py-0.5 border-2 border-gray-300 rounded-md"
+            />
+            <DataTable
+                columns={columns}
+                data={empleados}
+                highlightOnHover
+                pointerOnHover
+                responsive
+                pagination
+                paginationServer
+                paginationTotalRows={totalResults}
+                paginationPerPage={10}
+                paginationComponentOptions={{ noRowsPerPage: true }}
+                onChangePage={(page) => setCurrentPage(page)}
+                onRowClicked={(index) => verDatosPersonales(index)}
+            />
+        </div>
+    );
+};

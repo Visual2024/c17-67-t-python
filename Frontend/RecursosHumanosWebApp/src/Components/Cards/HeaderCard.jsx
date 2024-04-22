@@ -1,26 +1,18 @@
 /* eslint-disable react/prop-types */
+import useUserRole from '../../Hook/useUserRol';
+import { useContadorTiempo } from '@/Hook/useContadorTiempo';
 
-import { useContadorTiempo } from '../../Hook/useContadorTiempo';
 
+export function HeaderCard() {
 
-export function HeaderCard({ nombreUsuario }) {
-/*   const [imageUrl, setImageUrl] = useState(null); */
   const { tiempoFormateado, iniciarContador, pausarContador, reanudarContador, detenerContador, inicio, pausa } = useContadorTiempo();
+  const { usuario } = useUserRole();
 
-  const obtenerNombreUsuario = (correo) => {
-    if (correo) {
-      const arrobaIndex = correo.indexOf('@');
-      if (arrobaIndex !== -1) {
-        return correo.slice(0, arrobaIndex);
-      }
-      return correo;
-    }
-    return '';
-  };
+
 
 
   return (
-    <article className="object-contain flex gap-7 shadow-md p-2 rounded-lg text-xl text-gray-500 font-medium">
+    <article className=" w-96 flex gap-7 shadow-md p-2 rounded-lg text-xl text-gray-500 font-medium">
       <div className="flex gap-3">
         <p>{tiempoFormateado}</p>
         {inicio ? (
@@ -44,7 +36,7 @@ export function HeaderCard({ nombreUsuario }) {
           </button>
         )}
       </div>
-   <h2>{obtenerNombreUsuario(nombreUsuario)}</h2>
+   <h2>{usuario ? usuario : 'Admin'}</h2>
     </article>
   );
 }
