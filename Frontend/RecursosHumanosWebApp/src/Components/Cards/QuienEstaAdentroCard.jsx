@@ -116,7 +116,7 @@ const handleRenderOnlineButtonClick = () => {
           </button>
         </div>
       </header>
-      <div className="flex flex-col justify-between h-full py-2">
+      <div className="flex flex-col justify-between h-dvh py-2">
         <ul className="max-h-dvh overflow-y-auto flex flex-col gap-3">
           {empleadosOrdenados.map((empleado, index) => (
             <li key={index} className="flex items-center">
