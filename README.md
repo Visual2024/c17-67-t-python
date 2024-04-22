@@ -28,7 +28,7 @@ Esta aplicación web está diseñada para ayudar a las empresas a gestionar sus 
 
   - [Alejandro Luna]()
   - [Facundo Pettersson]()
-  - [Lucas Gotz]()
+  - [Lucas Gotz](https://www.linkedin.com/in/lucas-gotz-baliner/)
   - [Martin Roldan]()
   - [Piero Ramirez]()
 
