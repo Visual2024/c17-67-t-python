@@ -12,7 +12,6 @@ export function Home() {
   const { rol } = useUserRole();
 
   useEffect(() => {
-    console.log('Rol del usuario:', rol);
   }, [rol]);
 
   return (
