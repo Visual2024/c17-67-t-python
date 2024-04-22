@@ -19,7 +19,7 @@
         display: grid;
         grid-template-columns: 288px 384px;
         grid-template-rows: 136px 1fr 1fr;
-        gap: 1rem;
+        gap: 20px;
         width: 65%;
         grid-template-areas:
           "name comunicacion"
