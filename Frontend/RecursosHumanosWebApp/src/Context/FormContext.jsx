@@ -6,6 +6,8 @@ import {
     validateEmail,
     validatePhoneNumber,
     validateText,
+    validateSelect,
+    validateCurrentJob,
 } from "../utils/regexValidation";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -28,12 +30,12 @@ function FormProvider({ children }) {
         setError({
             first_name: !validateName(candidate.first_name),
             last_name: !validateName(candidate.last_name),
-            // dni: !validateDNI(candidate.dni),
+            state: !validateDNI(candidate.state),
         });
         return {
             first_name: !validateName(candidate.first_name),
             last_name: !validateName(candidate.last_name),
-            // dni: !validateDNI(candidate.dni),
+            state: !validateDNI(candidate.state),
         };
     };
 
@@ -42,17 +44,22 @@ function FormProvider({ children }) {
             email: !validateEmail(candidate.email),
             phone_number: !validatePhoneNumber(candidate.phone_number),
             address: !validateText(candidate.address),
-            city: !validateText(candidate.city),
-            state: !validateText(candidate.state),
-            country: !validateText(candidate.country),
         });
         return {
             email: !validateEmail(candidate.email),
             phone_number: !validatePhoneNumber(candidate.phone_number),
             address: !validateText(candidate.address),
-            city: !validateText(candidate.city),
-            state: !validateText(candidate.state),
-            country: !validateText(candidate.country),
+        };
+    };
+
+    const validateThirdStepFields = (candidate) => {
+        setError({
+            city: !validateCurrentJob(candidate.city),
+            country: !validateSelect(candidate.country),
+        });
+        return {
+            city: !validateCurrentJob(candidate.city),
+            country: !validateSelect(candidate.country),
         };
     };
 
@@ -62,7 +69,7 @@ function FormProvider({ children }) {
             if (
                 !candidate.first_name ||
                 !candidate.last_name ||
-                // !candidate.dni ||
+                !candidate.state ||
                 !candidate.secondary_phone_number
             ) {
                 return setError({ allFields: true });
@@ -72,14 +79,13 @@ function FormProvider({ children }) {
                 validatedFields.firstState ||
                 validatedFields.first_name ||
                 validatedFields.last_name ||
-                validatedFields.secondary_phone_number
-                // validatedFields.dni
+                validatedFields.secondary_phone_number ||
+                validatedFields.state
             ) {
                 console.log(validatedFields);
                 return;
             }
             setPaso((prev) => prev + 1);
-            console.log(candidate);
 
             console.log(paso);
         }
@@ -88,10 +94,7 @@ function FormProvider({ children }) {
             if (
                 !candidate.email ||
                 !candidate.phone_number ||
-                !candidate.address ||
-                !candidate.city ||
-                !candidate.state ||
-                !candidate.country
+                !candidate.address
             ) {
                 return setError({ allFields: true });
             }
@@ -111,6 +114,18 @@ function FormProvider({ children }) {
             setPaso((prev) => prev + 1);
 
             console.log(paso);
+        }
+
+        if (paso === 3) {
+            if (!candidate.city || !candidate.country) {
+                return setError({ allFields: true });
+            }
+            const validatedFields = validateThirdStepFields(candidate);
+            if (validatedFields.city || validatedFields.country) {
+                console.log(validatedFields);
+                return;
+            }
+            setPaso((prev) => prev + 1);
         }
     };
 
