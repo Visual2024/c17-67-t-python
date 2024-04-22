@@ -1,0 +1,50 @@
+
+@media (width < 1099px) {
+    .HomeCard-Container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+        width: 100%;
+        gap: 5px;
+    }
+
+    .HomeCard-Container div {
+        display: flex;
+        justify-content: center;
+    }
+
+}
+
+@media (width > 1100px) {
+    .HomeCard-Container {
+        display: grid;
+        grid-template-columns: 288px 384px;
+        grid-template-rows: 136px 1fr 1fr;
+        gap: 1rem;
+        width: 65%;
+        grid-template-areas:
+          "name comunicacion"
+          "incidentes proyectos"
+          "vacaciones proyectos";
+      }
+      
+      .NameCard {
+        grid-area: name;
+      }
+      
+      .ComunicacionCard {
+        grid-area: comunicacion;
+      }
+         
+      .ProyectosActivosCard {
+        grid-area: proyectos;
+      }
+      
+      .Incidentes {
+        grid-area: incidentes;
+      }
+      
+      .SolicitudVacaciones {
+        grid-area: vacaciones;
+      }
+      
+}
