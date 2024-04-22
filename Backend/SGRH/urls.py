@@ -31,8 +31,7 @@ from rest_framework_simplejwt.views import (
 admin.autodiscover()
 
 urlpatterns = [
-    # path("admin/", admin.site.urls),
-    path(r"^admin/", include(admin.site.urls)),
+    path("admin/", admin.site.urls),
     # API Documentation
     path("docs/v1/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
