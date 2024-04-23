@@ -16,8 +16,8 @@ export const Dashboard_Gerente1 = () => {
       selector: (row) => row.amount,
       style: {
         fontWeight: 'bold',
-        fontSize: '1rem',
-        paddingBottom: '0.20rem',
+        fontSize: '0.8rem',
+        paddingBottom: '0.25rem',
       }
     },
   ]
@@ -48,7 +48,6 @@ export const Dashboard_Gerente1 = () => {
         highlightOnHover
         pointerOnHover
         pagination
-        
       />
       </div>
     </div>

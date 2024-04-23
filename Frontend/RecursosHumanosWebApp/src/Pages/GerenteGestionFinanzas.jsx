@@ -42,7 +42,6 @@ export const GerenteGestionFinanzas = () => {
           </div>
         </div>
       </section>
-      
     </main>
   );
 };
