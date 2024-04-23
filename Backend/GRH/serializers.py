@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.core import exceptions
 from django.contrib.auth.password_validation import validate_password
-from .models import Postulant, Salary, Stage, Vacancy, Role
+from .models import Postulant, Salary, SelectionProcess, Stage, Vacancy, Role
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # Instantiate the CustomUser
@@ -38,9 +38,17 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class SelectionProcessSerializer(serializers.ModelSerializer):
+class StageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Postulant
+        model = Stage
+        fields = "__all__"
+
+
+class SelectionProcessSerializer(serializers.ModelSerializer):
+    Stages = StageSerializer(many=True)
+
+    class Meta:
+        model = SelectionProcess
         fields = "__all__"
 
 
@@ -70,6 +78,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PostulantSerializer(serializers.ModelSerializer):
+    selected = StageSerializer(many=True)
+
     class Meta:
         model = Postulant
         fields = "__all__"
@@ -80,10 +90,4 @@ class VacancySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vacancy
-        fields = "__all__"
-
-
-class StageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Stage
         fields = "__all__"

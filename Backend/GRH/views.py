@@ -142,7 +142,7 @@ class StageList(
         return self.list(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = User.objects.all()
+        queryset = Stage.objects.all()
         param = self.request.query_params.get("is_active")
 
         if param == "true":

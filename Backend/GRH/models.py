@@ -12,6 +12,8 @@ class CustomUserManager(BaseUserManager):
     def create_user(
         self,
         email,
+        monthly_salaries=None,
+        positions=None,
         first_name=None,
         last_name=None,
         password=None,
@@ -30,6 +32,8 @@ class CustomUserManager(BaseUserManager):
         email = email.lower()
 
         user = self.model(
+            monthly_salaries=monthly_salaries,
+            positions=positions,
             first_name=first_name,
             last_name=last_name,
             email=email,
@@ -93,7 +97,11 @@ class Vacancy(models.Model):
     process_start_date = models.DateField(auto_now_add=True)
     process_ending_date = models.DateField(null=True, blank=True)
     selection_process = models.ForeignKey(
-        "SelectionProcess", on_delete=models.CASCADE, null=True, blank=True
+        "SelectionProcess",
+        related_name="job_openings",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     class Meta:
@@ -145,10 +153,12 @@ class Stage(models.Model):
         "SelectionProcess",
         related_name="stages",
         on_delete=models.CASCADE,
-        null=True,
         blank=True,
+        null=True,
     )
-    participants = models.ManyToManyField(Postulant, blank=True)
+    participants = models.ManyToManyField(
+        Postulant, related_name="selected", blank=True
+    )
 
     class Meta:
         verbose_name = "etapa"
@@ -165,10 +175,10 @@ class Role(models.Model):
 
     job_opening = models.ForeignKey(
         "Vacancy",
-        on_delete=models.CASCADE,
         related_name="openings",
-        null=True,
+        on_delete=models.CASCADE,
         blank=True,
+        null=True,
     )
     team_members = models.ManyToManyField(
         CustomUser,
@@ -213,8 +223,8 @@ class Salary(models.Model):
         CustomUser,
         related_name="monthly_salaries",
         on_delete=models.CASCADE,
-        null=True,
         blank=True,
+        null=True,
     )
 
     class Meta:
