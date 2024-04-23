@@ -1,5 +1,7 @@
 from rest_framework import mixins, generics, filters
 from django.contrib.auth.hashers import make_password
+from rest_framework import status
+from rest_framework.response import Response
 
 # Imports for the models and serializers
 from django.contrib.auth import get_user_model
@@ -36,6 +38,17 @@ class UserList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
         elif param == "false":
             queryset = queryset.filter(is_active=False)
         return queryset
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.monthly_salaries.set(request.data["monthly_salaries"])
+        serializer.positions.set(request.data["positions"])
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
     def post(self, request, *args, **kwargs):
         hashed_password = make_password(request.data["password"])
