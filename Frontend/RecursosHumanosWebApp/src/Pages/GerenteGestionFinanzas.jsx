@@ -33,9 +33,9 @@ export const GerenteGestionFinanzas = () => {
               <Dashboard_Gerente1 />
             </div>
         </div>
-        <div className="flex flex-row flex-wrap w-full mt-5">
-          <div className="w-[60%] mr-5">
-            <Date_Finanzas_2 />
+        <div className="flex flex-row flex-wrap w-full mt-6">
+          <div className="w-[60%] mr-5 pr-7">
+            <Date_Finanzas_2 /> 
           </div>
           <div className="w-[38%]">
             <Dashboard_Gerente2 />
