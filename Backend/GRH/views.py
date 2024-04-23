@@ -39,17 +39,6 @@ class UserList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
             queryset = queryset.filter(is_active=False)
         return queryset
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.monthly_salaries.set(request.data["monthly_salaries"])
-        serializer.positions.set(request.data["positions"])
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED, headers=headers
-        )
-
     def post(self, request, *args, **kwargs):
         hashed_password = make_password(request.data["password"])
         request.data["password"] = hashed_password

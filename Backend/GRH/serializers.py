@@ -45,7 +45,7 @@ class StageSerializer(serializers.ModelSerializer):
 
 
 class SelectionProcessSerializer(serializers.ModelSerializer):
-    Stages = StageSerializer(many=True)
+    Stages = StageSerializer(many=True, read_only=True)
 
     class Meta:
         model = SelectionProcess
@@ -53,8 +53,8 @@ class SelectionProcessSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    monthly_salaries = SalarySerializer(many=True)
-    positions = RoleSerializer(many=True)
+    monthly_salaries = SalarySerializer(many=True, read_only=True)
+    positions = RoleSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -78,7 +78,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PostulantSerializer(serializers.ModelSerializer):
-    selected = StageSerializer(many=True)
+    selected = StageSerializer(many=True, read_only=True)
 
     class Meta:
         model = Postulant
@@ -86,7 +86,7 @@ class PostulantSerializer(serializers.ModelSerializer):
 
 
 class VacancySerializer(serializers.ModelSerializer):
-    openings = RoleSerializer(many=True)
+    openings = RoleSerializer(many=True, read_only=True)
 
     class Meta:
         model = Vacancy
