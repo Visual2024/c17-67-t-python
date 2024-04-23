@@ -204,10 +204,11 @@ class Team(models.Model):
 
 
 class Salary(models.Model):
-    period = models.CharField(max_length=255)
-    worked_days = models.IntegerField()
-    salary = models.IntegerField()
-    discount = models.IntegerField()
+    period = models.CharField(max_length=255, blank=True, null=True)
+    worked_days = models.IntegerField(blank=True, null=True)
+    gross_salary = models.IntegerField(blank=True, null=True)
+    net_salary = models.IntegerField(blank=True, null=True)
+    deductions = models.IntegerField(blank=True, null=True)
     employee = models.ForeignKey(
         CustomUser,
         related_name="monthly_salaries",
@@ -219,7 +220,7 @@ class Salary(models.Model):
     class Meta:
         verbose_name = "salario"
         verbose_name_plural = "salarios"
-        ordering = ["salary"]
+        ordering = ["period"]
 
     def __str__(self):
-        return f"{self.salary}"
+        return f"{self.period}"

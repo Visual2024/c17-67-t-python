@@ -93,21 +93,21 @@ WSGI_APPLICATION = "SGRH.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASE_CONFIG = {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+# if DEBUG:
+#     DATABASE_CONFIG = {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
 
-else:
-    DATABASE_CONFIG = {
-        "ENGINE": os.environ["DBENGINE"],
-        "NAME": os.environ["PGDATABASE"],
-        "HOST": os.environ["PGHOST"],
-        "USER": os.environ["PGUSER"],
-        "PASSWORD": os.environ["PGPASSWORD"],
-        "PORT": os.environ["PGPORT"],
-    }
+# else:
+DATABASE_CONFIG = {
+    "ENGINE": os.environ["DBENGINE"],
+    "NAME": os.environ["PGDATABASE"],
+    "HOST": os.environ["PGHOST"],
+    "USER": os.environ["PGUSER"],
+    "PASSWORD": os.environ["PGPASSWORD"],
+    "PORT": os.environ["PGPORT"],
+}
 
 DATABASES = {"default": DATABASE_CONFIG}
 
