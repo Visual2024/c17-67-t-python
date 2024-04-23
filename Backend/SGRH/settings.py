@@ -25,11 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or "MySecretKey"
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
+CSRF_COOKIE_SECURE = os.environ["CSRF_COOKIE_SECURE"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") or True
+DEBUG = os.environ["DEBUG"]
+
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "c17-67-t-python-production.up.railway.app"]
 
@@ -91,28 +93,23 @@ WSGI_APPLICATION = "SGRH.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        #"ENGINE": "django.db.backends.sqlite3",
-        #"NAME": BASE_DIR / "db.sqlite3",
-        "ENGINE": os.environ.get("DB_ENGINE"),
-        "NAME": os.environ.get("DB_NAME"),
-        "HOST": os.environ.get("DB_HOST"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "PORT": os.environ.get("DB_PORT"),
-        # Development purposes
-        # "ENGINE": "django.db.backends.sqlite3",
-        # "NAME": BASE_DIR / "db.sqlite3",
-        # Deployment purposes
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("PGDATABASE"),
-        "HOST": os.environ.get("PGHOST"),
-        "USER": os.environ.get("PGUSER"),
-        "PASSWORD": os.environ.get("PGPASSWORD"),
-        "PORT": os.environ.get("PGPORT"),
+if DEBUG:
+    DATABASE_CONFIG = {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-}
+
+else:
+    DATABASE_CONFIG = {
+        "ENGINE": os.environ["DBENGINE"],
+        "NAME": os.environ["PGDATABASE"],
+        "HOST": os.environ["PGHOST"],
+        "USER": os.environ["PGUSER"],
+        "PASSWORD": os.environ["PGPASSWORD"],
+        "PORT": os.environ["PGPORT"],
+    }
+
+DATABASES = {"default": DATABASE_CONFIG}
 
 
 # Password validation
@@ -149,13 +146,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/build/static"),)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -163,21 +160,30 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/build/static"),)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS Origins Authorization
-CORS_ALLOW_ALL_ORIGINS: True  # Set to True to allow all origins
+CORS_ALLOW_ALL_ORIGINS: False  # Set to True to allow all origins
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    # "http://localhost:8000",
-    # "http://127.0.0.1:8000",
-    # "https://localhost:9000",
-    # "https://127.0.0.1:9000",
-    # "https://c17-67-t-python-production.up.railway.app",
-    "http://localhost:9000",
-    "http://127.0.0.1:9000",
+    "https://localhost:8000",
+    "https://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
     "https://localhost:9000",
     "https://127.0.0.1:9000",
+    "http://localhost:9000",
+    "http://127.0.0.1:9000",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["https://c17-67-t-python-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://127.0.0.1:9000",
+    "http://localhost:9000",
+    "https://gestion-de-recursos-humanos-en-la-nube-facundodevs-projects.vercel.app",
+    "https://c17-67-t-python-production.up.railway.app",
+]
+
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
@@ -186,6 +192,10 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+}
+
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
 }
 
 AUTH_USER_MODEL = "GRH.CustomUser"
@@ -200,4 +210,5 @@ SPECTACULAR_SETTINGS = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "TOKEN_OBTAIN_SERIALIZER": "GRH.serializers.MyTokenObtainPairSerializer",
 }

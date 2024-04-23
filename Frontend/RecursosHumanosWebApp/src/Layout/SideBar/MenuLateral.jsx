@@ -120,7 +120,7 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
                         </Link>
 
                         <Link to={""}>
-                          {index == 3 && <Tiempo width={16} height={16} />}
+                          {/* {index == 3 && <Tiempo width={16} height={16} />} */}
                         </Link>
                       </div>
                       <span
@@ -137,7 +137,9 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
                         <Link to={"/comunicacion"}>
                           {index == 2 && `${ger.title}`}
                           </Link>
-                        <Link to={"/"}>{index == 3 && `${ger.title}`}</Link>
+                        <Link to={"/"}>
+                          {/* {index == 3 && `${ger.title}`} */}
+                          </Link>
                       </span>
                     </li>
                   </div>
@@ -152,27 +154,27 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
                     <li className={`flex rounded-md p-2 pt-[0px] cursor-pointer hover:bg-light-white text-gris text-sm items-center gap-x-2 
                    ${emp.gap ? "mt-[.1px]" : "mt-[.1px]"}`}>
                       <div>
-                        <Link to={""}>
-                          {index == 1 && <Entrada width={16} height={16} />}
-                        </Link>
                         <Link to={"/gestionfinancieraempleados"}>
                           {index == 2 && <Finanzas width={16} height={16} />}
                         </Link>
                         <Link to={`/datospersonales/${userId}`}>
                           {index == 0 && <Perfil width={16} height={16} />}
                         </Link>
+                        <Link to={""}>
+                          {/* {index == 1 && <Entrada width={16} height={16} />} */}
+                        </Link>
                       </div>
 
                       <span
                         className={`${!open && "hidden"} origin-left duration-200 text-[#474747]`}>
-                        <Link to={""}> 
-                          {index == 1 && ` ${emp.title}`} 
-                        </Link>
-                        <Link to={"/gestionfinancieraempleados"}>
+                        <Link to={`/gestionfinancieraempleados/${userId}`}>
                           {index == 2 && ` ${emp.title}`}
                         </Link>
                         <Link to={`/datospersonales/${userId}`}>
                           {index == 0 && ` ${emp.title}`}
+                        </Link>
+                        <Link to={""}> 
+                          {/* {index == 1 && ` ${emp.title}`}  */}
                         </Link>
                       </span>
                     </li>
@@ -186,10 +188,10 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
                 <div className="absolute bottom-10 mb-3">
                   <ul className={`${!open ? "" : ""}`}>
                     <li className="flex cursor-pointer items-center">
-                      <Config width={16} height={16} />
+                      {/* <Config width={16} height={16} /> */}
                       {!open == "" && (
                         <p className="pl-1 text-sm">
-                          Configuracion y seguridad
+                          {/* Configuracion y seguridad */}
                         </p>
                       )}
                     </li>
@@ -243,10 +245,10 @@ export const MenuLateral = ({ rol, cerrarSesion, userId }) => {
                 <div className="mt-auto mb-3">
                   <ul className={`${!open ? "mb-1" : "mb-2"}`}>
                     <li className="flex cursor-pointer items-center">
-                      <Config width={16} height={16} />
+                      {/* <Config width={16} height={16} /> */}
                       {!open == "" && (
                         <p className="pl-1 text-sm">
-                          Configuracion y seguridad
+                          {/* Configuracion y seguridad */}
                         </p>
                       )}
                     </li>

@@ -9,14 +9,38 @@ from django.contrib.auth.models import (
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(
+        self,
+        email,
+        first_name=None,
+        last_name=None,
+        password=None,
+        dni=None,
+        phone_number=None,
+        secondary_phone_number=None,
+        address=None,
+        city=None,
+        state=None,
+        country=None,
+    ):
         if not email:
             raise ValueError("Debe proporcionar un email")
 
         email = self.normalize_email(email)
         email = email.lower()
 
-        user = self.model(email=email)
+        user = self.model(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            dni=dni,
+            phone_number=phone_number,
+            secondary_phone_number=secondary_phone_number,
+            address=address,
+            city=city,
+            state=state,
+            country=country,
+        )
 
         user.set_password(password)
         user.save(using=self._db)
@@ -37,12 +61,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
     dni = models.IntegerField(unique=True, null=True, blank=True)
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
     secondary_phone_number = models.CharField(max_length=20, null=True, blank=True)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
+    country = models.CharField(max_length=255, null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -50,7 +76,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["password"]
 
     class Meta:
         verbose_name = "empleado"
@@ -66,7 +92,9 @@ class Vacancy(models.Model):
     description = models.CharField(max_length=400, null=True, blank=True)
     process_start_date = models.DateField(auto_now_add=True)
     process_ending_date = models.DateField(null=True, blank=True)
-    selection_process = models.ForeignKey("SelectionProcess", on_delete=models.CASCADE)
+    selection_process = models.ForeignKey(
+        "SelectionProcess", on_delete=models.CASCADE, null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "vacante"
@@ -96,10 +124,10 @@ class Postulant(models.Model):
     email = models.EmailField(max_length=255, unique=True)
     phone_number = models.CharField(max_length=20, unique=True)
     secondary_phone_number = models.CharField(max_length=20, null=True, blank=True)
-    address = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
-    country = models.CharField(max_length=255)
+    country = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name = "postulante"
@@ -113,7 +141,9 @@ class Postulant(models.Model):
 class Stage(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
-    contest_for = models.ForeignKey("SelectionProcess", on_delete=models.CASCADE)
+    contest_for = models.ForeignKey(
+        "SelectionProcess", on_delete=models.CASCADE, null=True, blank=True
+    )
     participants = models.ManyToManyField(Postulant, blank=True)
 
     class Meta:
@@ -130,9 +160,17 @@ class Role(models.Model):
     description = models.CharField(max_length=255, null=True, blank=True)
 
     job_opening = models.ForeignKey(
-        "Vacancy", on_delete=models.CASCADE, related_name="opening"
+        "Vacancy",
+        on_delete=models.CASCADE,
+        related_name="opening",
+        null=True,
+        blank=True,
     )
-    team_members = models.ManyToManyField(CustomUser, blank=True, through="Team")
+    team_members = models.ManyToManyField(
+        CustomUser,
+        blank=True,
+        through="Team",
+    )
 
     class Meta:
         verbose_name = "cargo"
@@ -144,8 +182,10 @@ class Role(models.Model):
 
 
 class Team(models.Model):
-    postulant_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    role_id = models.ForeignKey(Role, on_delete=models.CASCADE)
+    postulant_id = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=True, blank=True
+    )
+    role_id = models.ForeignKey(Role, on_delete=models.CASCADE, null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
     end_date = models.DateField(blank=True, null=True)
 
