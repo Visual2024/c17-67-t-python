@@ -1,4 +1,7 @@
 export const getPuestoDeTrabajo = (candidate) => {
+    if (candidate.is_staff && !candidate.is_superuser) {
+        return "Gerente";
+    }
     if (candidate.last_name) {
         let str = candidate.last_name;
         let words = str.split(" ");
