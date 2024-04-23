@@ -24,31 +24,32 @@ export const Dashboard_Gerente1 = () => {
 
   const data = [
     {
-      name: "Flicker",
-      amount: "$" + 1200,
+      name: "Facundo Elorz",
+      amount: "$" + 3200,
     },
     {
-      name: "Intoxica",
-      amount: "$" + 1800,
+      name: "Dario Romero",
+      amount: "$" + 2800,
     },
     {
-      name: "Digiwatt",
+      name: "Felix Pacheco",
       amount: "$" + 2400,
     },
   ]
 
   return (
-    <div className="border border-gray-300 rounded-lg p-8">
-      <h3 className="font-bold text-[1.2rem] pb-1">RECENT TRANSCATIONS</h3>
-      <p className="text-[13px] text-gris">Projects where development work is on completion</p>
+    <div className="border border-gray-300 rounded-lg pl-2 pt-3">
+      <h3 className="font-bold text-[1.2rem] pb-1">EMPLEADOS</h3>
+      <p className="text-[13px] text-gris">LOS DATOS DEL INGRESO DE CADA EMPLEADO</p>
+      <div className="flex flex-col pb-5">
       <DataTable 
         columns={columns}
         data={data}
         highlightOnHover
         pointerOnHover
         pagination
-        //selectableRows
       />
+      </div>
     </div>
   )
 }
