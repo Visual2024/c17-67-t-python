@@ -2,13 +2,33 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.core import exceptions
 from django.contrib.auth.password_validation import validate_password
-from .models import Postulant, Stage, Vacancy, Role
+from .models import Postulant, Salary, Stage, Vacancy, Role
 
 # Instantiate the CustomUser
 User = get_user_model()
 
 
 # Create your serializers here.
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims
+        token["first_name"] = user.first_name
+        token["is_staff"] = user.is_staff
+        token["is_superuser"] = user.is_superuser
+        token["is_active"] = user.is_active
+
+        return token
+
+
+class PostulantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Postulant
+        fields = "__all__"
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -35,26 +55,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-
-        # Add custom claims
-        token["first_name"] = user.first_name
-        token["is_staff"] = user.is_staff
-        token["is_superuser"] = user.is_superuser
-        token["is_active"] = user.is_active
-
-        return token
-
-
-class PostulantSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Postulant
-        fields = "__all__"
-
-
 class VacancySerializer(serializers.ModelSerializer):
     class Meta:
         model = Vacancy
@@ -70,4 +70,10 @@ class StageSerializer(serializers.ModelSerializer):
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
+        fields = "__all__"
+
+
+class SalarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Salary
         fields = "__all__"

@@ -24,4 +24,6 @@ urlpatterns = [
     path("v1/stages/<int:pk>", StageDetail.as_view()),
     path("v1/roles", RoleList.as_view()),
     path("v1/roles/<int:pk>", RoleDetail.as_view()),
+    path("v1/salaries", SalaryList.as_view()),
+    path("v1/salaries/<int:pk>", SalaryDetail.as_view()),
 ]

@@ -196,3 +196,21 @@ class Team(models.Model):
 
     def __str__(self):
         return f"{self.role}-{self.user}"
+
+
+class Salary(models.Model):
+    period = models.CharField(max_length=255)
+    worked_days = models.IntegerField()
+    salary = models.IntegerField()
+    discount = models.IntegerField()
+    employee = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=True, blank=True
+    )
+
+    class Meta:
+        verbose_name = "salario"
+        verbose_name_plural = "salarios"
+        ordering = ["salary"]
+
+    def __str__(self):
+        return f"{self.salary}"
