@@ -69,7 +69,7 @@ export function Layout() {
 
       } 
       else {
-        console.error('Error al intentar decodificar el token.');
+        console.log('Error al intentar decodificar el token.');
         setUsusarioId(JSON.parse(localStorage.getItem('userId')))
       }
     }, [decodedToken]);
