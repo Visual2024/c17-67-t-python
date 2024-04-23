@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core import exceptions
 from django.contrib.auth.password_validation import validate_password
 from .models import Postulant, Salary, Stage, Vacancy, Role
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 # Instantiate the CustomUser
 User = get_user_model()
@@ -49,10 +50,6 @@ class UserSerializer(serializers.ModelSerializer):
             )
 
         return data
-
-
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class VacancySerializer(serializers.ModelSerializer):
