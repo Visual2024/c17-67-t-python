@@ -17,10 +17,10 @@ export const FormularioRegistro = () => {
     } = useContext(FormContext);
 
     return (
-        <form className="p-5 flex flex-col gap-2">
+        <form className="p-5 flex flex-col gap-2 items-start justify-start h-[360px] relative w-full">
             {/* Primer paso */}
             {paso === 1 && (
-                <div>
+                <div className="p-5 flex flex-col justify-center gap-2 w-full">
                     <div className="flex gap-2">
                         <div className="flex flex-col flex-1 max-w-fit">
                             <label htmlFor="nombre">Nombre:</label>
@@ -151,7 +151,7 @@ export const FormularioRegistro = () => {
             )}
             {/* Segundo paso */}
             {paso === 2 && (
-                <div className="p-5 flex flex-col justify-center gap-2">
+                <div className="p-5 flex flex-col justify-center gap-2 w-full">
                     <div className="flex gap-2">
                         <div className="flex flex-col">
                             <label htmlFor="email">Email:</label>
@@ -245,7 +245,7 @@ export const FormularioRegistro = () => {
             )}
             {/* Tercer paso */}
             {paso === 3 && (
-                <div className="p-5 flex flex-col justify-center gap-2">
+                <div className="p-5 flex flex-col justify-center gap-2 w-full">
                     <div className="flex flex-col">
                         <label htmlFor="cargo">Cargo o puesto actual:</label>
                         <input
@@ -338,10 +338,8 @@ export const FormularioRegistro = () => {
                 </div>
             )}
             {paso === 4 && (
-                <div className="flex flex-col items-center gap-1">
-                    <h4 className="text-2xl font-bold">
-                        Tus datos de postulación
-                    </h4>
+                <div className="flex flex-col items-center gap-1 w-full">
+
                     <p>Puesto de trabajo: {getPuestoDeTrabajo(candidate)}</p>
                     <p>Nombre: {candidate.first_name}</p>
                     <p>Apellido: {getLastName(candidate)}</p>
@@ -359,9 +357,9 @@ export const FormularioRegistro = () => {
                 </div>
             )}
             <div
-                className={`flex ${
+                className={`flex w-full ${
                     paso === 1 ? "justify-end" : "justify-between"
-                } mt-5`}
+                } absolute bottom-0`}
             >
                 {paso !== 1 && (
                     <button
