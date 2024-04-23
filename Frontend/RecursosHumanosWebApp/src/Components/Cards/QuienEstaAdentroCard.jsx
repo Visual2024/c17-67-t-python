@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { EmpleadoOnline } from "../Icons/EmpleadoOnline";
+import {getPuestoDeTrabajo,getLastName} from '../../utils/apellidoUtils'
 
 const ordenarEmpleados = (empleados) => {
   if (!empleados) {
@@ -30,9 +31,6 @@ export function QuienEstaAdentroCard() {
         }
 
         const data = await response.json();
-
-        console.log("Datos recibidos:", data);
-
         const modifiedData = data.results.map((empleado) => ({
           ...empleado,
           status: Math.random() < 0.5,
@@ -48,27 +46,36 @@ export function QuienEstaAdentroCard() {
     fetchData();
   }, [url]);
 
-  const handleOnlineButtonClick = () => {
-    setVerSoloOnline((prevState) => !prevState);
-  };
 
-  const handleFilterButtonClick = () => {
-    const inputText = filteredName.toLowerCase();
-    if (inputText.trim() === "") {
-      // Si el input está vacío, restaurar la lista completa de candidatos
-      setCandidates(data);
-    } else {
-      // Aplicar el filtro basado en el texto de búsqueda
-      const filteredEmployees = candidates.filter((empleado) => {
-        const nameMatch =
-          empleado.first_name &&
-          empleado.first_name.toLowerCase().includes(inputText);
-        const statusMatch = verSoloOnline ? empleado.status : true;
-        return nameMatch && statusMatch;
-      });
-      setCandidates(filteredEmployees);
-    }
-  };
+const handleFilterButtonClick = () => {
+  const inputText = filteredName.toLowerCase();
+  if (inputText.trim() === "") {
+    setCandidates(data); 
+  } else {
+
+    const filteredEmployees = data.filter((empleado) => {
+      const nameMatch =
+        empleado.first_name &&
+        empleado.first_name.toLowerCase().includes(inputText);
+      const statusMatch = verSoloOnline ? empleado.status : true;
+      return nameMatch && statusMatch;
+    });
+    setCandidates(filteredEmployees);
+  }
+};
+
+const handleRenderOnlineButtonClick = () => {
+  setVerSoloOnline((prevState) => !prevState);
+
+  if (!verSoloOnline) {
+    const onlineEmployees = data.filter((empleado) => empleado.status);
+    setCandidates(onlineEmployees);
+  } else {
+
+    setCandidates(data);
+  }
+};
+
 
   const handleNameFilterChange = (e) => {
     setFilteredName(e.target.value);
@@ -100,8 +107,8 @@ export function QuienEstaAdentroCard() {
         </div>
         <div>
           <button
-            onClick={handleOnlineButtonClick}
-            className={`ml-3 ${
+            onClick={handleRenderOnlineButtonClick}
+            className={`mt-2 ${
               verSoloOnline ? " bg-green-600 text-white" : "bg-gray-200"
             } px-2 py-1 rounded`}
           >
@@ -109,8 +116,8 @@ export function QuienEstaAdentroCard() {
           </button>
         </div>
       </header>
-      <div className="flex flex-col justify-between h-full py-2">
-        <ul className="max-h-96 overflow-y-auto flex flex-col gap-1">
+      <div className="flex flex-col justify-between h-dvh py-2">
+        <ul className="max-h-dvh overflow-y-auto flex flex-col gap-3">
           {empleadosOrdenados.map((empleado, index) => (
             <li key={index} className="flex items-center">
               <div>
@@ -123,7 +130,7 @@ export function QuienEstaAdentroCard() {
                   <span className="text-sm font-medium mr-2">
                     {empleado.first_name}
                   </span>
-                  <span className="text-sm">{empleado.last_name}</span>
+                  <span className="text-sm">{getLastName(empleado)}</span>
                 </header>
                 <small className="ml-6 text-xs">{empleado.email}</small>
               </div>
