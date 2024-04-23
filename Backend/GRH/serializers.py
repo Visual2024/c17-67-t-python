@@ -10,6 +10,8 @@ User = get_user_model()
 
 
 # Create your serializers here.
+
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -24,7 +26,28 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
+class SalarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Salary
+        fields = "__all__"
+
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = "__all__"
+
+
+class SelectionProcessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Postulant
+        fields = "__all__"
+
+
 class UserSerializer(serializers.ModelSerializer):
+    monthly_salaries = SalarySerializer(many=True)
+    positions = RoleSerializer(many=True)
+
     class Meta:
         model = User
         fields = "__all__"
@@ -53,6 +76,8 @@ class PostulantSerializer(serializers.ModelSerializer):
 
 
 class VacancySerializer(serializers.ModelSerializer):
+    openings = RoleSerializer(many=True)
+
     class Meta:
         model = Vacancy
         fields = "__all__"
@@ -61,16 +86,4 @@ class VacancySerializer(serializers.ModelSerializer):
 class StageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stage
-        fields = "__all__"
-
-
-class RoleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Role
-        fields = "__all__"
-
-
-class SalarySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Salary
         fields = "__all__"

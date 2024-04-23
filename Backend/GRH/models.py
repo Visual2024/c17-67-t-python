@@ -142,7 +142,11 @@ class Stage(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
     contest_for = models.ForeignKey(
-        "SelectionProcess", on_delete=models.CASCADE, null=True, blank=True
+        "SelectionProcess",
+        related_name="stages",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     participants = models.ManyToManyField(Postulant, blank=True)
 
@@ -162,12 +166,13 @@ class Role(models.Model):
     job_opening = models.ForeignKey(
         "Vacancy",
         on_delete=models.CASCADE,
-        related_name="opening",
+        related_name="openings",
         null=True,
         blank=True,
     )
     team_members = models.ManyToManyField(
         CustomUser,
+        related_name="positions",
         blank=True,
         through="Team",
     )
@@ -204,7 +209,11 @@ class Salary(models.Model):
     salary = models.IntegerField()
     discount = models.IntegerField()
     employee = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, null=True, blank=True
+        CustomUser,
+        related_name="monthly_salaries",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     class Meta:
