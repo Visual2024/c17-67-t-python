@@ -24,12 +24,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-class PostulantSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Postulant
-        fields = "__all__"
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -50,6 +44,12 @@ class UserSerializer(serializers.ModelSerializer):
             )
 
         return data
+
+
+class PostulantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Postulant
+        fields = "__all__"
 
 
 class VacancySerializer(serializers.ModelSerializer):
