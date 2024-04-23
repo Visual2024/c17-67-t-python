@@ -139,8 +139,8 @@ function FormProvider({ children }) {
         e.preventDefault();
         console.log(candidate);
         Swal.fire({
-            title: "¿Estás seguro de enviar tu postulación?",
-            icon: "warning",
+            title: "Enviar postulación",
+            icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#0B0060",
             cancelButtonColor: "#d33",
