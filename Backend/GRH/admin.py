@@ -5,7 +5,15 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from .models import CustomUser, Stage, Vacancy, Postulant, Role, Team
+from .models import (
+    CustomUser,
+    Salary,
+    SelectionProcess,
+    Stage,
+    Vacancy,
+    Postulant,
+    Role,
+)
 
 
 # Register your models here.
@@ -28,6 +36,12 @@ class UserCreationForm(forms.ModelForm):
             "phone_number",
             "secondary_phone_number",
             "address",
+            "city",
+            "state",
+            "country",
+            "is_staff",
+            "is_superuser",
+            "is_active",
         ]
 
     def clean_password2(self):
@@ -79,12 +93,30 @@ class UserAdmin(BaseUserAdmin):
         "country",
         "is_active",
         "is_superuser",
+        "positions",
     ]
-    list_filter = ["is_superuser"]
+    list_filter = ["is_active", "is_staff", "is_superuser"]
     fieldsets = [
         (None, {"fields": ["email", "password"]}),
-        ("Personal info", {"fields": ["first_name", "last_name"]}),
-        ("Permissions", {"fields": ["is_superuser"]}),
+        (
+            "Información Personal",
+            {
+                "fields": [
+                    "first_name",
+                    "last_name",
+                    "dni",
+                    "phone_number",
+                    "address",
+                    "city",
+                    "state",
+                    "country",
+                ]
+            },
+        ),
+        (
+            "Configuración y gestión de accesos",
+            {"fields": ["is_active", "is_staff", "is_superuser"]},
+        ),
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -104,7 +136,10 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.site_header = "HRNexo - Sistema de Gestión de Recursos Humanos"
 admin.site.register(CustomUser, UserAdmin)
-admin.site.register(Vacancy)
-admin.site.register(Role)
-admin.site.register(Team)
+admin.site.register(Salary)
 admin.site.register(Postulant)
+admin.site.register(Role)
+admin.site.register(Vacancy)
+admin.site.register(SelectionProcess)
+admin.site.register(Stage)
+admin.site.unregister(Group)

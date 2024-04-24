@@ -96,6 +96,8 @@ class Vacancy(models.Model):
     description = models.CharField(max_length=400, null=True, blank=True)
     process_start_date = models.DateField(auto_now_add=True)
     process_ending_date = models.DateField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
     selection_process = models.ForeignKey(
         "SelectionProcess",
         related_name="job_openings",
@@ -116,6 +118,7 @@ class Vacancy(models.Model):
 class SelectionProcess(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "proceso de selección"
@@ -136,6 +139,7 @@ class Postulant(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "postulante"
@@ -149,6 +153,8 @@ class Postulant(models.Model):
 class Stage(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
     contest_for = models.ForeignKey(
         "SelectionProcess",
         related_name="stages",
@@ -172,6 +178,7 @@ class Stage(models.Model):
 class Role(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     job_opening = models.ForeignKey(
         "Vacancy",
@@ -219,6 +226,7 @@ class Salary(models.Model):
     gross_salary = models.IntegerField(blank=True, null=True)
     net_salary = models.IntegerField(blank=True, null=True)
     deductions = models.IntegerField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
     employee = models.ForeignKey(
         CustomUser,
         related_name="monthly_salaries",
