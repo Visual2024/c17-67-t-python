@@ -23,7 +23,7 @@ Para este lanzamiento, y demostrar en la demoday, se implementaron las siguiente
      - [Dario Romero](https://www.linkedin.com/in/dario-ricardo-romero/)
 
 - QA en Projects GitHub - Team Leader FrontEnd
-     - [Facundo Alorz]()
+     - [Facundo Elorz](https://github.com/githubfacu)
 
 - UX/UI
      - [Sofia Pericas]() 
