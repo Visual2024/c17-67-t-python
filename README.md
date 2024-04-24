@@ -30,7 +30,7 @@ Para este lanzamiento, y demostrar en la demoday, se implementaron las siguiente
 
 - Frontend:
      - [Alejandro Luna]()
-     - [Facundo Pettersson]()
+     - [Facundo Pettersson](https://www.linkedin.com/in/facundo-pettersson-ba219b22a/)
      - [Lucas Gotz](https://www.linkedin.com/in/lucas-gotz-baliner/)
      - [Martin Roldan]()
      - [Piero Ramirez]()
