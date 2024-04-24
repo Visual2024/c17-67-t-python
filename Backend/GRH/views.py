@@ -110,7 +110,7 @@ class VacancyList(
         return self.list(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = User.objects.all()
+        queryset = Vacancy.objects.all()
         param = self.request.query_params.get("is_active")
 
         if param == "true":
@@ -187,7 +187,7 @@ class RoleList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
         return self.list(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = User.objects.all()
+        queryset = Role.objects.all()
         param = self.request.query_params.get("is_active")
 
         if param == "true":
@@ -226,7 +226,7 @@ class SalaryList(
         return self.list(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = User.objects.all()
+        queryset = Salary.objects.all()
         param = self.request.query_params.get("is_active")
 
         if param == "true":
