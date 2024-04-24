@@ -31,7 +31,7 @@ export function ModalCandidatos({ formSwitch }) {
                 ></div>
                 <div
                     className={`text-white w-16 h-16 flex items-center justify-center ${
-                        paso === 3 ? "bg-primary" : "bg-gray-400"
+                        paso > 2 ? "bg-primary" : "bg-gray-400"
                     } rounded-xl`}
                 >
                     3

@@ -266,7 +266,7 @@ export const FormularioRegistro = () => {
                                     city: e.target.value,
                                 });
                             }}
-                            placeholder="La Plata"
+                            placeholder="Front-end"
                         />
                         {error.city && (
                             <p className="text-red-500">Algo ha salido mal</p>
