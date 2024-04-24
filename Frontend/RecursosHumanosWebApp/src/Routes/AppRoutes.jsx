@@ -26,7 +26,7 @@ export function AppRoutes() {
                 <Route path="/gestiondeusuarios" element={<GestionDeUsuarios />} />
                 <Route path="/gestiondeempleados" element={<GestionDeEmpleados />} />
                 <Route path="/gestionfinancieragerente" element={<GerenteGestionFinanzas />} />
-                <Route path="/gestionfinancieraempleados/:id" element={<EmpleadoGestionFinanzas />} />
+                <Route path="/gestionfinancieraempleados" element={<EmpleadoGestionFinanzas />} />
                 <Route path="/datospersonales/:id" element={<DatosPersonales />} />
                 <Route path="/comunicacion" element={<Comunicacion />} />
             </Route>

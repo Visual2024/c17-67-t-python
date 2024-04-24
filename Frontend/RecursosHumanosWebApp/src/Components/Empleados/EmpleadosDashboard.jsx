@@ -28,14 +28,13 @@ export const EmpleadosDashboard = ({ cambiosSwitch }) => {
                 if (!res.ok) {
                     throw new Error(res.status);
                 } else {
-                    console.log(res);
                     return res.json();
                 }
             })
             .then((data) => {
-                console.log(data);
                 setData(data.results);
-                setEmpleados(data.results);
+                const empleadosNoAdmin = data.results.filter((item) => !item.is_superuser)
+                setEmpleados(empleadosNoAdmin);
                 setTotalResults(data.count);
             })
             .catch((error) => console.error(error));
@@ -82,7 +81,6 @@ export const EmpleadosDashboard = ({ cambiosSwitch }) => {
                     .toLowerCase()
                     .includes(e.target.value.toLowerCase())
             );
-        console.log(filteredCandidates);
         setEmpleados(filteredCandidates);
     };
 
