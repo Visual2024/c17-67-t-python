@@ -45,7 +45,9 @@ class UserList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
         return self.create(request, *args, **kwargs)
 
 
-class UserDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class UserDetail(
+    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView
+):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -82,7 +84,9 @@ class PostulantList(
         return self.create(request, *args, **kwargs)
 
 
-class PostulantDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class PostulantDetail(
+    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView
+):
     queryset = Postulant.objects.all()
     serializer_class = PostulantSerializer
 
@@ -120,7 +124,9 @@ class VacancyList(
         return self.create(request, *args, **kwargs)
 
 
-class VacancyDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class VacancyDetail(
+    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView
+):
     queryset = Vacancy.objects.all()
     serializer_class = VacancySerializer
 
@@ -157,7 +163,9 @@ class StageList(
         return self.create(request, *args, **kwargs)
 
 
-class StageDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class StageDetail(
+    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView
+):
     queryset = Stage.objects.all()
     serializer_class = StageSerializer
 
@@ -192,7 +200,9 @@ class RoleList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
         return self.create(request, *args, **kwargs)
 
 
-class RoleDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class RoleDetail(
+    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView
+):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
 
@@ -229,7 +239,9 @@ class SalaryList(
         return self.create(request, *args, **kwargs)
 
 
-class SalaryDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+class SalaryDetail(
+    mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView
+):
     queryset = Salary.objects.all()
     serializer_class = SalarySerializer
 
