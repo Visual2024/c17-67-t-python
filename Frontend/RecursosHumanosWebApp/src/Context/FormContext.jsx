@@ -165,7 +165,6 @@ function FormProvider({ children }) {
                             confirmButtonText: "Aceptar",
                         }).then(() => {
                             setCandidate({});
-                            navigate("/");
                         });
                     })
                     .catch((error) => {
