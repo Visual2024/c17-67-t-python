@@ -74,7 +74,6 @@ export const GestionDeEmpleados = () => {
         throw new Error (res.status, res.text)
       }
       else{
-        console.log(res)
         return res.json()
       }
     })
@@ -82,8 +81,7 @@ export const GestionDeEmpleados = () => {
       console.log(data)
     })
     .catch(error => {
-      alert('Error al intentar eliminar candidato')
-      console.error(error)
+      console.log(error,'Error al intentar eliminar candidato')
     })
   }
 
@@ -117,12 +115,10 @@ export const GestionDeEmpleados = () => {
             throw new Error (res.status)
           }
           else{
-            console.log(res)
             return res.json()
           }
         })
         .then((data) => {
-          console.log(data)
           setSpinnerSwitch(false)
 
           eliminarCandidatoContratado(index)
@@ -140,7 +136,6 @@ export const GestionDeEmpleados = () => {
             icon: "error",
             confirmButtonColor: '#0B0060',
           })
-          console.error(error)
         })
       }
 
