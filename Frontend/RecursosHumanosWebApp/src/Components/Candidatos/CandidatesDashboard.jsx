@@ -38,7 +38,6 @@ export function CandidatesDashboard({ contratarEmpleado, cambiosSwitch }) {
             name: "Fecha de Nacimiento",
             selector: (row) => {
                 const fechaDeNacimiento = new Date(row.secondary_phone_number);
-                console.log(fechaDeNacimiento.toLocaleDateString("es-ar"));
                 return fechaDeNacimiento.toLocaleDateString("es-ar");
             },
         },
