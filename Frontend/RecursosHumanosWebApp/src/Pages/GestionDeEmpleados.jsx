@@ -3,6 +3,7 @@ import { CandidatesDashboard } from "../Components/Candidatos/CandidatesDashboar
 import { EmpleadosDashboard } from "../Components/Empleados/EmpleadosDashboard"
 import { Spinner } from "../utils/Spinner"
 import Swal from "sweetalert2"
+import { getLastName } from "../utils/apellidoUtils"
 
 export const GestionDeEmpleados = () => {
 
@@ -41,11 +42,12 @@ export const GestionDeEmpleados = () => {
     const userNames = item.first_name.split(" ");
 
     const primeraPalabraMinuscula = userNames[0].toLowerCase();
+    const apellido = getLastName(item).toLowerCase()
 
     payload.password = userNames[0]+'1234!'
     payload.first_name = item.first_name
     payload.last_name = item.last_name
-    payload.email = primeraPalabraMinuscula+'@hrnexo.com'
+    payload.email = primeraPalabraMinuscula+apellido+'@hrnexo.com'
     payload.dni = parseInt(item.state)
     payload.phone_number = item.phone_number
     payload.secondary_phone_number = item.country
