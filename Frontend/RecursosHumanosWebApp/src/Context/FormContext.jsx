@@ -142,7 +142,7 @@ function FormProvider({ children }) {
             title: "Enviar postulación",
             icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#0B0060",
+            confirmButtonColor: "rgb(22,163,74)",
             cancelButtonColor: "#d33",
             confirmButtonText: "Enviar",
             cancelButtonText: "Cancelar",
@@ -163,8 +163,10 @@ function FormProvider({ children }) {
                             text: "Tu postulación ha sido registrada con éxito",
                             icon: "success",
                             confirmButtonText: "Aceptar",
+                            confirmButtonColor: "#0B0060",
                         }).then(() => {
                             setCandidate({});
+                            setPaso(1)
                         });
                     })
                     .catch((error) => {
