@@ -21,7 +21,7 @@ export const FormularioRegistro = () => {
             {/* Primer paso */}
             {paso === 1 && (
                 <div className="p-5 flex flex-col justify-center gap-2 w-full">
-                    <div className="flex gap-2">
+                    <div className="flex flex-col items-center md:items-start md:flex-row gap-2">
                         <div className="flex flex-col flex-1 max-w-fit">
                             <label htmlFor="nombre">Nombre:</label>
                             <input
@@ -82,7 +82,7 @@ export const FormularioRegistro = () => {
                             )}
                         </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col items-center md:flex-row gap-2">
                         <div className="flex flex-col w-full">
                             <label htmlFor="fecha-nacimiento">
                                 Fecha de nacimiento:
@@ -152,7 +152,7 @@ export const FormularioRegistro = () => {
             {/* Segundo paso */}
             {paso === 2 && (
                 <div className="p-5 flex flex-col justify-center gap-2 w-full">
-                    <div className="flex gap-2">
+                    <div className="flex flex-col md:flex-row gap-2">
                         <div className="flex flex-col">
                             <label htmlFor="email">Email:</label>
                             <input
@@ -306,26 +306,6 @@ export const FormularioRegistro = () => {
                             <option value="Temporal">Temporal</option>
                             <option value="Permanente">Permanente</option>
                         </select>
-                        {/* <input
-                            type="text"
-                            className={twMerge(
-                                "px-2 py-2 border-2 border-gray-300 rounded-md",
-                                error.country && "border-red-500"
-                            )}
-                            value={candidate.country || ""}
-                            onChange={(e) => {
-                                setError((prevErrors) => ({
-                                    ...prevErrors,
-                                    country: false,
-                                    allFields: false,
-                                }));
-                                return setCandidate({
-                                    ...candidate,
-                                    country: e.target.value,
-                                });
-                            }}
-                            placeholder="Argentina"
-                        /> */}
                         {error.country && (
                             <p className="text-red-500">Algo ha salido mal</p>
                         )}
@@ -339,7 +319,6 @@ export const FormularioRegistro = () => {
             )}
             {paso === 4 && (
                 <div className="flex flex-col items-center gap-1 w-full">
-
                     <p>Puesto de trabajo: {getPuestoDeTrabajo(candidate)}</p>
                     <p>Nombre: {candidate.first_name}</p>
                     <p>Apellido: {getLastName(candidate)}</p>
@@ -349,6 +328,7 @@ export const FormularioRegistro = () => {
                             candidate.secondary_phone_number
                         ).toLocaleDateString("es-AR")}
                     </p>
+                    <p>DNI: {candidate.state}</p>
                     <p>Email: {candidate.email}</p>
                     <p>Teléfono: {candidate.phone_number}</p>
                     <p>Dirección: {candidate.address}</p>
@@ -359,7 +339,7 @@ export const FormularioRegistro = () => {
             <div
                 className={`flex w-full ${
                     paso === 1 ? "justify-end" : "justify-between"
-                } absolute bottom-0`}
+                } md:absolute bottom-0`}
             >
                 {paso !== 1 && (
                     <button
