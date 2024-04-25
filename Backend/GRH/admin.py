@@ -135,6 +135,9 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.site_header = "HRNexo - Sistema de Gestión de Recursos Humanos"
+admin.site.site_title = "HRNexo - Gestión de Recursos Humanos"
+admin.site.index_title = "Vista de Administrador"
+admin.site.enable_nav_sidebar = False
 admin.site.register(CustomUser, UserAdmin)
 admin.site.register(Salary)
 admin.site.register(Postulant)
