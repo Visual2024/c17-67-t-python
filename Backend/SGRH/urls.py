@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path, include
 from drf_spectacular.views import (
     SpectacularAPIView,
@@ -31,6 +32,7 @@ from rest_framework_simplejwt.views import (
 admin.autodiscover()
 
 urlpatterns = [
+    path("", lambda request: redirect("docs/v1/")),
     path("admin/", admin.site.urls),
     # API Documentation
     path("docs/v1/schema/", SpectacularAPIView.as_view(), name="schema"),
