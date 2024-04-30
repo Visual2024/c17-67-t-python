@@ -133,22 +133,21 @@ export const Login = () => {
                             </div>
                                 {
                                     puestoDeTrabajo === 'Frontend' &&
-                                    <div style={{textAlign: 'flex-start', maxWidth: 800, minWidth: 580, width: '60%', padding: 16}}>
-                                        <h3 className="mb-2 font-semibold">Requisitos para el Puesto</h3>
-                                        <ul className="px-2 list-disc">
-                                            <li>HTML, CSS, JavaScript</li>
+                                    <div className={loginstyles.requisitos}>
+                                        <h3 className="mt-2 py-2 font-semibold">Requisitos para el Puesto</h3>
+                                        <ul className="px-2 list-disc gap-1">
+                                            <li>Sólidos conocimientos en HTML, CSS, JavaScript</li>
                                             <li>Metodología de trabajo Scrum</li>
                                             <li>Diseño adaptativo</li>
                                         </ul>
                                     </div>
-
                                 }
                                 {
                                     puestoDeTrabajo === 'Backend' &&
-                                    <div style={{textAlign: 'flex-start', maxWidth: 800, minWidth: 580, width: '60%', padding: 16}}>
-                                        <h3 className="mb-2 font-semibold">Requisitos para el Puesto</h3>
-                                        <ul className="px-2 list-disc">
-                                            <li>Phyton, Django REST</li>
+                                    <div className={loginstyles.requisitos}>
+                                        <h3 className="mt-2 py-2 font-semibold">Requisitos para el Puesto</h3>
+                                        <ul className="px-2 list-disc gap-1">
+                                            <li>Lenguaje de programación Phyton, Django REST</li>
                                             <li>Metodología de trabajo Scrum</li>
                                             <li>Seguridad de datos</li>
                                         </ul>

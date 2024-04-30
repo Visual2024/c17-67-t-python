@@ -54,6 +54,14 @@
     height: 290px;
 }
 
+.requisitos{
+    text-align: 'flex-start';
+    min-width: 580px;
+    max-width: 800px;
+    width: 60%;
+    padding: 16px;
+}
+
 .formRegistro form {
     width: 60%;
     display: flex;
@@ -163,6 +171,12 @@
         width: 100%;
         grid-row: 2/3;
         position: relative;
+        min-width: 340px;
+        max-width: 600px;
+    }
+
+    .requisitos{
+        width: 100%;
         min-width: 340px;
         max-width: 600px;
     }
