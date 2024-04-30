@@ -22,6 +22,7 @@ function FormProvider({ children }) {
     const [puestoDeTrabajo, setPuestoDeTrabajo] = useState("");
     const [verFormRegistro, setVerFormRegistro] = useState(false);
     const [usuarioLogueado, setUsuarioLogueado] = useState(false);
+    const [comicSans, setComicSans] = useState(false);
     const navigate = useNavigate();
 
     const endpoint = import.meta.env.VITE_API_KEY;
@@ -183,6 +184,10 @@ function FormProvider({ children }) {
         setVerFormRegistro(!verFormRegistro);
     };
 
+    const comicSansToggle = () => {
+        setComicSans(!comicSans)
+    }
+
     return (
         <FormContext.Provider
             value={{
@@ -203,6 +208,8 @@ function FormProvider({ children }) {
                 setError,
                 usuarioLogueado,
                 setUsuarioLogueado,
+                comicSans,
+                comicSansToggle
             }}
         >
             {children}
