@@ -17,7 +17,7 @@ export const Login = () => {
     const [modalMsj, setModalMsj] = useState(false);
     const [modalInputValue, setModalInputValue] = useState("");
 
-    const { setPaso, comicSansToggle } = useContext(FormContext);
+    const { setPaso, comicSansToggle, puestoDeTrabajo } = useContext(FormContext);
 
     const onChangeModalInput = (e) => {
         setModalInputValue(e.target.value);
@@ -118,17 +118,45 @@ export const Login = () => {
                     {!loginSwitch ? (
                         <div className={loginstyles.formLoginDiv}>
                             <FormularioLogin modalSwitch={modalSwitch} />
-                            
+
                             <h3 onClick={comicSansToggle}
                                 className="cursor-pointer">Cambiar fuente</h3>
                         </div>
                     ) : (
-                        <div className={loginstyles.formRegistro}>
-                            <LoginFormRegis formPostulants={formPostulants} />
-                            <div className={loginstyles.formImg}>
-                                <img src="/images/img-login-1.png" alt="" />
+                        <div className="flex flex-col w-full items-center">
+                            <div className={loginstyles.formRegistro}>
+                                <LoginFormRegis formPostulants={formPostulants} />
+                                <div className={loginstyles.formImg}>
+                                    <img src="/images/img-login-1.png" alt="" />
+                                </div>
+
                             </div>
+                                {
+                                    puestoDeTrabajo === 'Frontend' &&
+                                    <div style={{textAlign: 'flex-start', maxWidth: 800, minWidth: 580, width: '60%', padding: 16}}>
+                                        <h3 className="mb-2 font-semibold">Requisitos para el Puesto</h3>
+                                        <ul className="px-2 list-disc">
+                                            <li>HTML, CSS, JavaScript</li>
+                                            <li>Metodología de trabajo Scrum</li>
+                                            <li>Diseño adaptativo</li>
+                                        </ul>
+                                    </div>
+
+                                }
+                                {
+                                    puestoDeTrabajo === 'Backend' &&
+                                    <div style={{textAlign: 'flex-start', maxWidth: 800, minWidth: 580, width: '60%', padding: 16}}>
+                                        <h3 className="mb-2 font-semibold">Requisitos para el Puesto</h3>
+                                        <ul className="px-2 list-disc">
+                                            <li>Phyton, Django REST</li>
+                                            <li>Metodología de trabajo Scrum</li>
+                                            <li>Seguridad de datos</li>
+                                        </ul>
+                                    </div>
+
+                                }   
                         </div>
+
                     )}
                 </div>
 
