@@ -17,7 +17,7 @@ export const Login = () => {
     const [modalMsj, setModalMsj] = useState(false);
     const [modalInputValue, setModalInputValue] = useState("");
 
-    const { setPaso } = useContext(FormContext);
+    const { setPaso, comicSansToggle } = useContext(FormContext);
 
     const onChangeModalInput = (e) => {
         setModalInputValue(e.target.value);
@@ -118,6 +118,9 @@ export const Login = () => {
                     {!loginSwitch ? (
                         <div className={loginstyles.formLoginDiv}>
                             <FormularioLogin modalSwitch={modalSwitch} />
+                            
+                            <h3 onClick={comicSansToggle}
+                                className="cursor-pointer">Cambiar fuente</h3>
                         </div>
                     ) : (
                         <div className={loginstyles.formRegistro}>
@@ -208,6 +211,8 @@ export const Login = () => {
                         )}
                     </Box>
                 </Modal>
+
+
             </div>
         </>
     );
