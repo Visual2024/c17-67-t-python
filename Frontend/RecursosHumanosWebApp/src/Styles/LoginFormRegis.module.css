@@ -42,4 +42,8 @@
         transform: translate(50%,-50%);
         width: 90%;
     }
+
+    .select select{
+        background-color: transparent;
+    }
 }
