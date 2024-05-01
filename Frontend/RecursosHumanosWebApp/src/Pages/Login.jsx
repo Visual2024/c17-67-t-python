@@ -127,7 +127,7 @@ export const Login = () => {
                             <div className={loginstyles.formRegistro}>
                                 <LoginFormRegis formPostulants={formPostulants} />
                                 <div className={loginstyles.formImg}>
-                                    <img src="/images/img-login-1.png" alt="" />
+                                    <img src="/images/img-login-1.png" alt="Claudia" />
                                 </div>
 
                             </div>
