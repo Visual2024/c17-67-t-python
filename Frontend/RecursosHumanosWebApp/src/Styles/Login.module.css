@@ -173,6 +173,8 @@
         position: relative;
         min-width: 340px;
         max-width: 600px;
+        min-height: 290px;
+        max-height: 350px;
     }
 
     .requisitos{
@@ -193,10 +195,11 @@
         position: absolute;
         right: 0;
         top: 0;
-        width: 50%;
+        width: 55%;
         max-width: 300px;
         height: 100%;
         opacity: 0.2;
+        z-index: -1;
     }
 }
 
