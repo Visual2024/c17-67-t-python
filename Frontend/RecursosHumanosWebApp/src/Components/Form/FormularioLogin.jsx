@@ -177,7 +177,7 @@ export function FormularioLogin({modalSwitch}) {
 
             }
             <label className="text-gray-700 text-lg mb-2 mt-2">Correo electrónico</label>
-            <input {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 pl-3 w-full'/>
+            <input placeholder="@emergencia" {...nombreUsuario} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 pl-3 w-full'/>
             {
               (error.usuario && nombreUsuario.value.length === 0) &&
               <h5>*Campo obligatorio</h5>
@@ -191,7 +191,7 @@ export function FormularioLogin({modalSwitch}) {
               <h5 style={{color: "green"}}>Email Ok!</h5>
             }
             <label className="text-gray-700 text-lg mb-2 mt-2">Contraseña</label>
-            <input {...password} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 pl-3 w-full'/>
+            <input placeholder="123456" {...password} className='border border-gray-400 text-lg rounded-full mt-2 mb-2 p-2 pl-3 w-full'/>
             {
               (error.password && password.value.length === 0) ?
               <h5>*Campo obligatorio</h5> :
